@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Livewire\Usuarios\TipoUsuarios;
+use App\Http\Livewire\Usuarios\UsuariosIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,16 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
+
+    //Usuarios
+    Route::get('/usuario/tipo-usuarios', TipoUsuarios::class)->name('usuario.tipo_usuarios');
+    Route::get('/usuario/operadores', UsuariosIndex::class)->name('usuario.operadores_lista');
+
+    Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
 });

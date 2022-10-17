@@ -12,6 +12,7 @@
         "laravel/jetstream": "^2.9",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "laraveles/spanish": "^1.5",
         "livewire/livewire": "^2.5"
     },
     "require-dev": {

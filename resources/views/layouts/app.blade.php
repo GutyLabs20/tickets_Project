@@ -16,7 +16,35 @@
         @livewireStyles
 
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            .children {
+                background: #fff;
+            }
 
+            .children a,
+            .children .separator {
+                display: block;
+                margin: 5px 0px;
+                padding: 5px 10px;
+            }
+
+            .children .separator {
+                border-top-width: 2px;
+            }
+
+            .children a:hover {
+                color: #818cf8;
+            }
+
+            @media (min-width: 768px) {
+                .children {
+                    position: absolute;
+                    width: 155px;
+                    top: 70px;
+                }
+            }
+        </style>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -25,13 +53,13 @@
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
-            @if (isset($header))
+            {{-- @if (isset($header))
                 <header class="bg-white shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
-            @endif
+            @endif --}}
 
             <!-- Page Content -->
             <main>

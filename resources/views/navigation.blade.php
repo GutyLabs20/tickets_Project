@@ -15,26 +15,9 @@
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
-
-                    <x-nav-link-parent :href="'#'" :active="request()->routeIs('')">
-                        <x-slot name="name">{{ __('Utility') }}</x-slot>
-                        <x-slot name="children">
-                            <a href="#">Item A</a>
-                            <span class="separator"></span>
-                            <a href="#">Item B</a>
-                            <a href="#">Item C</a>
-                            <span class="separator"></span>
-                            <a href="#">Item D</a>
-                        </x-slot>
-                    </x-nav-link-parent>
-                    {{-- :active="request()->routeIs('usuario*')" --}}
-                    <x-nav-link-parent :href="'#'" :active="request()->routeIs('usuario*')">
-                        <x-slot name="name">{{ __('Users') }}</x-slot>
-                        <x-slot name="children">
-                            <a href="{{ route('usuario.tipo_usuarios') }}">Tipo de Usuarios</a>
-                            <a href="{{ route('usuario.operadores_lista') }}">Usuarios</a>
-                        </x-slot>
-                    </x-nav-link-parent>
+                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        {{ __('MEnu 01') }}
+                    </x-jet-nav-link>
                 </div>
 
             </div>
@@ -136,7 +119,7 @@
 
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
                                          @click.prevent="$root.submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('Log Out') }}
                                 </x-jet-dropdown-link>
                             </form>
                         </x-slot>
@@ -162,17 +145,6 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
-            <x-responsive-nav-link-parent :href="'#'" :active="request()->routeIs('')">
-                <x-slot name="name">Option A</x-slot>
-                <x-slot name="children">
-                    <a href="#">Item A</a>
-                    <span class="separator"></span>
-                    <a href="#">Item B</a>
-                    <a href="#">Item C</a>
-                    <span class="separator"></span>
-                    <a href="#">Item D</a>
-                </x-slot>
-            </x-responsive-nav-link-parent>
         </div>
 
         <!-- Responsive Settings Options -->
