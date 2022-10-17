@@ -12,7 +12,7 @@ class TipoUsuarios extends Component
 
     public $title;
     public $modal = false;
-    public $edit_modal = false;
+    public $modal_edit = false;
     public $tipo;
 
 
@@ -30,12 +30,15 @@ class TipoUsuarios extends Component
     public function crear()
     {
         // $this->limpiarCampos();
+        $this->reset(['tipo']);
         $this->abrirModal();
     }
 
-    public function editar()
+    public function editar(TipoUsuario $tipo)
     {
-        $this->edit_modal = true;
+        // $this->modal_edit = true;
+        $this->tipo = $tipo;
+        $this->abrirModal();
     }
 
     public function abrirModal() {
@@ -43,5 +46,15 @@ class TipoUsuarios extends Component
     }
     public function cerrarModal() {
         $this->modal = false;
+    }
+
+    public function updatingActive()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingQ()
+    {
+        $this->resetPage();
     }
 }

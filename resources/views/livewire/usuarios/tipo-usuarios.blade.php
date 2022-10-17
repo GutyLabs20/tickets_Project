@@ -5,13 +5,13 @@
         <div class="flex space-x-2 justify-between mb-2">
             <h1 class="text-xl mb-2">{{ $title }}</h1>
             <div>
-                <button wire:click="crear()" type="button"
+                <button wire:click="crear" type="button"
                     class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out">
                     {{ __('Add') }} {{ __('New') }}
                 </button>
-                @if ($modal)
+                {{-- @if ($modal)
                     @include('livewire.usuarios.tipo-crear')
-                @endif
+                @endif --}}
             </div>
         </div>
 
@@ -27,38 +27,47 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
-                    <tr class="bg-white">
-                        <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                            <a href="#" class="font-bold text-blue-500 hover:underline">10001</a>
-                        </td>
-                        <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                            Kring New Fit office chair, mesh + PU, black
-                        </td>
-                        <td class="p-3 text-sm text-gray-700 whitespace-nowrap">16/10/2021</td>
-                        <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                            <span
-                                class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">Delivered</span>
-                        </td>
-                        <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                            <div class="flex items-center justify-center">
-                                <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                    <button type="button"
-                                        class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button type="button" wire:click="editar()"
-                                        class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button type="button"
-                                        class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                    @foreach ($tipos as $tipo)
+                        <tr class="bg-white">
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                <a href="#" class="font-bold text-blue-500 hover:underline">
+                                    {{ $tipo->id }}
+                                </a>
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                {{ $tipo->nombre }}
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                {{ $tipo->descripcion }}
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                <span
+                                    class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                                    {{ $tipo->activo == 1 ? 'Habilitado' : 'Deshabilitado' }}
+                                </span>
+                            </td>
+                            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                <div class="flex items-center justify-center">
+                                    <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
+                                        <button type="button"
+                                            class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button type="button" wire:click="editar( {{ $tipo->id }} )"
+                                            class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button type="button"
+                                            class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="bg-gray-50">
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    {{-- <tr class="bg-gray-50">
                         <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                             <a href="#" class="font-bold text-blue-500 hover:underline">10002</a>
                         </td>
@@ -117,7 +126,7 @@
                                 </div>
                             </div>
                         </td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
             </table>
         </div>
@@ -225,10 +234,10 @@
         </div>
     </div>
 
-    <x-jet-dialog-modal wire:model="edit_modal">
+    <x-jet-dialog-modal wire:model="modal">
         <x-slot name="title">
-            {{ 'Editar tipo de usuario' }}
-            {{-- {{ isset($this->tipo->id) ? 'Editar tipo de usuario' : 'Crear tipo de usuario' }} --}}
+            {{-- {{ 'Editar tipo de usuario' }} --}}
+            {{ isset($this->tipo->id) ? 'Editar tipo de usuario' : 'Crear tipo de usuario' }}
         </x-slot>
 
         <x-slot name="content">
@@ -248,7 +257,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$set('edit_modal', false)">
+            <x-jet-secondary-button wire:click="$toggle('modal', false)" wire:loading.attr="disabled">
                 {{ __('Cancel') }}
             </x-jet-secondary-button>
 
