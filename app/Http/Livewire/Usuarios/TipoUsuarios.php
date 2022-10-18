@@ -20,6 +20,7 @@ class TipoUsuarios extends Component
     protected $rules = [
         'tipo.nombre' => 'required|string|min:2',
         'tipo.descripcion' => 'required|string|min:2',
+        'tipo.slug' => 'string'
     ];
 
     public function mount()
@@ -36,7 +37,8 @@ class TipoUsuarios extends Component
 
     public function crear()
     {
-        $this->reset(['tipo']);
+        // $this->reset(['tipo']);
+        $this->resetCreateForm();
         $this->modal = true;
     }
 
@@ -51,7 +53,14 @@ class TipoUsuarios extends Component
         $this->validate();
         $this->tipo->save();
         $this->modal_edit = false;
-        $this->emit('alert', 'Registro actualizado.');
+        // $this->emit('alert', 'Registro actualizado.');
+    }
+
+    public function saveDelete(TipoUsuario $tipo)
+    {
+        $tipo->activo = 0;
+        $tipo->save();
+        session()->flash('message', 'Registro eliminado correctamente');
     }
 
     private function resetCreateForm(){
