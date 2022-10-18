@@ -53,7 +53,7 @@
                                             class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
                                             <i class="fas fa-eye"></i>
                                         </button>
-                                        <button type="button" wire:click="editar( {{ $tipo }} )"
+                                        <button type="button" wire:click="editar( {{ $item }} )"
                                             class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
                                             <i class="fas fa-edit"></i>
                                         </button>
@@ -132,22 +132,22 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
-            @foreach ($tipos as $tipo)
+            @foreach ($tipos as $item)
                 <div class="bg-white space-y-3 p-4 rounded-lg shadow">
                     <div class="flex justify-between space-x-2 text-sm">
                         <div>
-                            <a href="#" class="text-blue-500 font-bold hover:underline">{{ $tipo->id }}</a>
+                            <a href="#" class="text-blue-500 font-bold hover:underline">{{ $item->id }}</a>
                         </div>
-                        <div class="text-gray-500">{{ $tipo->nombre }}</div>
+                        <div class="text-gray-500">{{ $item->nombre }}</div>
                         <div>
                             <span
                                 class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                {{ $tipo->activo == 1 ? 'Habilitado' : 'Deshabilitado' }}
+                                {{ $item->activo == 1 ? 'Habilitado' : 'Deshabilitado' }}
                             </span>
                         </div>
                     </div>
                     <div class="text-sm text-gray-700">
-                        {{ $tipo->descripcion }}
+                        {{ $item->descripcion }}
                     </div>
                     <div class="text-sm font-medium text-black">
                         <div class="flex items-center justify-center">
@@ -156,7 +156,7 @@
                                     class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button type="button" wire:click="editar( {{ $tipo }} )"
+                                <button type="button" wire:click="editar( {{ $item }} )"
                                     class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
                                     <i class="fas fa-edit"></i>
                                 </button>
