@@ -15,6 +15,11 @@ class TipoUsuarios extends Component
     public $modal_edit = false;
     public $tipo;
 
+    protected $rules = [
+        'tipo.nombre' => 'required|string|min:2',
+        'tipo.descripcion' => 'required|string|min:2',
+        'tipo.slug' => 'string'
+    ];
 
     public function mount()
     {
@@ -30,7 +35,6 @@ class TipoUsuarios extends Component
     public function crear()
     {
         // $this->limpiarCampos();
-        $this->reset(['tipo']);
         $this->abrirModal();
     }
 
@@ -38,23 +42,14 @@ class TipoUsuarios extends Component
     {
         // $this->modal_edit = true;
         $this->tipo = $tipo;
-        $this->abrirModal();
+        $this->modal_edit = true;
     }
 
     public function abrirModal() {
         $this->modal = true;
     }
+
     public function cerrarModal() {
         $this->modal = false;
-    }
-
-    public function updatingActive()
-    {
-        $this->resetPage();
-    }
-
-    public function updatingQ()
-    {
-        $this->resetPage();
     }
 }

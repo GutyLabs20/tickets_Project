@@ -173,6 +173,15 @@
                     <a href="#">Item D</a>
                 </x-slot>
             </x-responsive-nav-link-parent>
+
+            <x-responsive-nav-link-parent :active="request()->routeIs('usuario*')">
+                <x-slot name="name">{{ __('Users') }}</x-slot>
+                <x-slot name="children">
+                    <a href="{{ route('usuario.tipo_usuarios') }}">Tipo de Usuarios</a>
+                    <a href="{{ route('usuario.operadores_lista') }}">Usuarios</a>
+                </x-slot>
+            </x-responsive-nav-link-parent>
+
         </div>
 
         <!-- Responsive Settings Options -->
