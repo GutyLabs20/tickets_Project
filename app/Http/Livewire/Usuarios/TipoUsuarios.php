@@ -40,7 +40,6 @@ class TipoUsuarios extends Component
 
     public function editar(TipoUsuario $tipo)
     {
-        // $this->modal_edit = true;
         $this->tipo = $tipo;
         $this->modal_edit = true;
     }

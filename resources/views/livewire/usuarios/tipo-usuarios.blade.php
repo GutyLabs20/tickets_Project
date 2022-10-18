@@ -132,22 +132,22 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
-            @foreach ($tipos as $item)
+            @foreach ($tipos as $tipo)
                 <div class="bg-white space-y-3 p-4 rounded-lg shadow">
                     <div class="flex justify-between space-x-2 text-sm">
                         <div>
-                            <a href="#" class="text-blue-500 font-bold hover:underline">{{ $item->id }}</a>
+                            <a href="#" class="text-blue-500 font-bold hover:underline">{{ $tipo->id }}</a>
                         </div>
-                        <div class="text-gray-500">{{ $item->nombre }}</div>
+                        <div class="text-gray-500">{{ $tipo->nombre }}</div>
                         <div>
                             <span
                                 class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                {{ $item->activo == 1 ? 'Habilitado' : 'Deshabilitado' }}
+                                {{ $tipo->activo == 1 ? 'Habilitado' : 'Deshabilitado' }}
                             </span>
                         </div>
                     </div>
                     <div class="text-sm text-gray-700">
-                        {{ $item->descripcion }}
+                        {{ $tipo->descripcion }}
                     </div>
                     <div class="text-sm font-medium text-black">
                         <div class="flex items-center justify-center">
