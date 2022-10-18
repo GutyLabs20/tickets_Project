@@ -13,17 +13,19 @@ class TipoUsuarios extends Component
     public $title;
     public $modal = false;
     public $modal_edit = false;
-    public $tipo;
+    public $tipo, $nombre, $descripcion;
+
+    protected $listeners = ['render'];
 
     protected $rules = [
         'tipo.nombre' => 'required|string|min:2',
         'tipo.descripcion' => 'required|string|min:2',
-        'tipo.slug' => 'string'
     ];
 
     public function mount()
     {
         $this->title = "Tipo de Usuarios";
+        // // $this->tipo = new TipoUsuario();
     }
 
     public function render()
@@ -34,8 +36,8 @@ class TipoUsuarios extends Component
 
     public function crear()
     {
-        // $this->limpiarCampos();
-        $this->abrirModal();
+        $this->reset(['tipo']);
+        $this->modal = true;
     }
 
     public function editar(TipoUsuario $tipo)
@@ -44,11 +46,16 @@ class TipoUsuarios extends Component
         $this->modal_edit = true;
     }
 
-    public function abrirModal() {
-        $this->modal = true;
+    public function actualizar()
+    {
+        $this->validate();
+        $this->tipo->save();
+        $this->modal_edit = false;
+        $this->emit('alert', 'Registro actualizado.');
     }
 
-    public function cerrarModal() {
-        $this->modal = false;
+    private function resetCreateForm(){
+        $this->nombre = '';
+        $this->descripcion = '';
     }
 }
