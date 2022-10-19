@@ -1,5 +1,5 @@
 {
-    "E-Mail Address": "Correo electrónico",
+    "E-Mail": "Correo electrónico",
     "Password": "Contraseña",
     "Remember Me": "Recuérdame",
     "Login": "Acceder",
@@ -7,6 +7,8 @@
     "Forgot Your Password?": "¿Olvidaste tu contraseña?",
     "Register": "Registro",
     "Name": "Nombre",
+    "FirstName": "Nombres",
+    "LastName": "Apellidos",
     "Confirm Password": "Confirmar contraseña",
     "Reset Password": "Restablecer contraseña",
     "Reset Password Notification": "Aviso para restablecer contraseña",
@@ -32,6 +34,7 @@
     "click here to request another": "pulsa aquí para que te enviemos otro",
     "All rights reserved.":  "Todos los derechos reservados.",
     "Users": "Usuarios",
+    "User": "Usuario",
     "Utility": "Utilitarios",
     "Description": "Descripción",
     "Status": "Estado",

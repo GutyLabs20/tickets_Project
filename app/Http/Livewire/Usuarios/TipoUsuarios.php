@@ -11,7 +11,7 @@ class TipoUsuarios extends Component
     use WithPagination;
 
     public $title;
-    public $modal = false;
+    // public $modal = false;
     public $modal_edit = false;
     public $tipo, $nombre, $descripcion;
 
@@ -35,12 +35,12 @@ class TipoUsuarios extends Component
         return view('livewire.usuarios.tipo-usuarios', ['tipos' => $tipos]);
     }
 
-    public function crear()
-    {
-        // $this->reset(['tipo']);
-        $this->resetCreateForm();
-        $this->modal = true;
-    }
+    // public function crear()
+    // {
+    //     // $this->reset(['tipo']);
+    //     $this->resetCreateForm();
+    //     $this->modal = true;
+    // }
 
     public function editar(TipoUsuario $tipo)
     {

@@ -271,8 +271,8 @@
 
     <x-jet-dialog-modal wire:model="modal_edit">
         <x-slot name="title">
-            {{-- {{ 'Editar tipo de usuario' }} --}}
-            {{ isset($this->tipo->id) ? 'Editar tipo de usuario' : 'Crear tipo de usuario' }}
+            {{ 'Editar tipo de usuario' }}
+            {{-- {{ isset($this->tipo->id) ? 'Editar tipo de usuario' : 'Crear tipo de usuario' }} --}}
         </x-slot>
 
         <x-slot name="content">
