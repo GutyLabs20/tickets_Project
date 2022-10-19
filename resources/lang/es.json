@@ -40,10 +40,16 @@
     "Status": "Estado",
     "Action": "Acción",
     "Type_User": "Tipo de Usuario",
+    "Type_Users": "Tipo de Usuarios",
     "Add": "Agregar",
     "New": "Nuevo",
     "Code": "Código",
     "Cancel": "Cancelar",
     "Save": "Guardar",
-    "There is no data to display": "No hay datos que mostrar"
+    "No Results Found": "No se han encontrado resultados",
+    "Impact": "Impacto",
+    "Priority": "Prioridad",
+    "Categories": "Categorías",
+    "Classification": "Clasificación",
+    "Document Type": "Tipo de Documento"
 }

@@ -194,7 +194,7 @@
                 <div class="bg-white space-y-3 p-4 rounded-lg shadow">
 
                     <div class="flex justify-between text-sm text-gray-700">
-                        {{ __('There is no data to display') }}
+                        {{ __('No Results Found') }}
                     </div>
 
                 </div>

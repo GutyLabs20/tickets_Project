@@ -14,9 +14,9 @@ class TipoUsuario extends Model
         'nombre', 'descripcion', 'slug', 'activo'
     ];
 
-    public function usuarios()
+    public function rol()
     {
-        return $this->hasMany(User::class, 'tipousuario_id');
+        return $this->hasMany(User::class, 'id');
     }
 }
 

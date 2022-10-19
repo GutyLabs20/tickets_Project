@@ -27,7 +27,7 @@ Route::middleware([
 
     //Usuarios
     Route::get('/usuario/tipo-usuarios', TipoUsuarios::class)->name('usuario.tipo_usuarios');
-    Route::get('/usuario/operadores', UsuariosIndex::class)->name('usuario.operadores_lista');
+    Route::get('/usuario/gestores', UsuariosIndex::class)->name('usuario.gestores_lista');
 
     Route::get('/', function () {
         return view('dashboard');

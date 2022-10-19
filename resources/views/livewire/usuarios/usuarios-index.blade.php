@@ -1,20 +1,11 @@
 <div class="p-5 h-screen bg-gray-100">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        {{-- <h1 class="text-xl mb-2">{{ $title }}</h1> --}}
-        {{-- wire:click="crear()" --}}
         <div class="flex space-x-2 justify-between mb-2">
             <h1 class="text-xl mb-2">{{ $title }}</h1>
             <div>
 
-                @livewire('usuarios.tipo-crear')
-                {{--
-                    <button wire:click="crear()" type="button"
-                    class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out">
-                    {{ __('Add') }} {{ __('New') }}
-                </button>
-                @if ($modal)
-                    @include('livewire.usuarios.tipo-crear')
-                @endif --}}
+                @livewire('usuarios.usuarios-crear')
+
             </div>
         </div>
 
@@ -46,7 +37,11 @@
                                     {{ $usuario->email }}
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $usuario->tipousuario_id }}
+                                    @if ($usuario->tipousuario_id == 0)
+                                            {{'Sin área'}}
+                                        @else
+                                            {{ $usuario->rol_usuario->nombre }}
+                                        @endif
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <span
@@ -97,7 +92,7 @@
                             <div>
                                 <a href="#" class="text-blue-500 font-bold hover:underline">{{ $usuario->id }}</a>
                             </div>
-                            <div class="text-gray-500">{{ $usuario->nombre }}</div>
+                            <div class="text-gray-500">{{ $usuario->nombres }} {{ $usuario->apellidos }}</div>
                             <div>
                                 <span
                                     class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
@@ -106,7 +101,10 @@
                             </div>
                         </div>
                         <div class="text-sm text-gray-700">
-                            {{ $usuario->descripcion }}
+                            {{ $usuario->email }}
+                        </div>
+                        <div class="text-sm text-gray-700">
+                            {{ $usuario->rol_usuario->nombre }}
                         </div>
                         <div class="text-sm font-medium text-black">
                             <div class="flex items-center justify-center">
@@ -136,7 +134,7 @@
                 <div class="bg-white space-y-3 p-4 rounded-lg shadow">
 
                     <div class="flex justify-between text-sm text-gray-700">
-                        {{ __('There is no data to display') }}
+                        {{ __('No Results Found') }}
                     </div>
 
                 </div>
@@ -157,7 +155,7 @@
                     />
                 <x-jet-input-error for="usuario.nombres" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="apellidos" value="{{ __('LastName') }}" />
                 <x-jet-input wire:model.defer="usuario.apellidos" type="text" class="mt-1 block w-full"
                     />
@@ -171,8 +169,13 @@
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="tipousuario_id" value="{{ __('Type_User') }}" />
-                <x-jet-input wire:model.defer="usuario.tipousuario_id" type="text" class="mt-1 block w-full"
-                    />
+                <select wire:model.defer="usuario.tipousuario_id" name="tipousuario_id" id="tipousuario_id"
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                    <option value="">Seleccione</option>
+                    @foreach ($tipousuarios as $nombre => $key)
+                        <option value="{{ $key }}">{{ $nombre }}</option>
+                    @endforeach
+                </select>
                 <x-jet-input-error for="usuario.tipousuario_id" class="mt-2" />
             </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Usuarios;
 
+use App\Models\TipoUsuario;
 use App\Models\User;
 use App\Models\Usuario;
 use Livewire\Component;
@@ -24,13 +25,17 @@ class UsuariosIndex extends Component
 
     public function mount()
     {
-        $this->title = "Usuarios";
+        $this->title = "Gestores";
     }
 
     public function render()
     {
+        $tipousuarios = TipoUsuario::pluck('id', 'nombre');
         $usuarios = User::where('activo', 1)->paginate(10);
-        return view('livewire.usuarios.usuarios-index', ['usuarios' => $usuarios]);
+        return view('livewire.usuarios.usuarios-index', [
+            'usuarios' => $usuarios,
+            'tipousuarios' => $tipousuarios
+        ]);
     }
 
     public function editar(Usuario $usuario)

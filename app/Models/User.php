@@ -62,8 +62,8 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function tipoUsuario()
+    public function rol_usuario()
     {
-        return $this->belongsTo(Tipousuario::class, 'id');
+        return $this->belongsTo(Tipousuario::class, 'tipousuario_id');
     }
 }

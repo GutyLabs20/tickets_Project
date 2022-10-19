@@ -19,20 +19,22 @@
                     <x-nav-link-parent :href="'#'" :active="request()->routeIs('')">
                         <x-slot name="name">{{ __('Utility') }}</x-slot>
                         <x-slot name="children">
-                            <a href="#">Item A</a>
+                            <a href="#">{{ __('Categories') }}</a>
+                            <a href="#">{{ __('Classification') }}</a>
                             <span class="separator"></span>
-                            <a href="#">Item B</a>
-                            <a href="#">Item C</a>
+                            <a href="#">{{ __('Priority') }}</a>
+                            <a href="#">{{ __('Impact') }}</a>
                             <span class="separator"></span>
-                            <a href="#">Item D</a>
+                            <a href="#">{{ __('Status') }}</a>
+                            <a href="#">{{ __('Document Type') }}</a>
                         </x-slot>
                     </x-nav-link-parent>
                     {{-- :active="request()->routeIs('usuario*')" --}}
                     <x-nav-link-parent :href="'#'" :active="request()->routeIs('usuario*')">
                         <x-slot name="name">{{ __('Users') }}</x-slot>
                         <x-slot name="children">
-                            <a href="{{ route('usuario.tipo_usuarios') }}">Tipo de Usuarios</a>
-                            <a href="{{ route('usuario.operadores_lista') }}">Usuarios</a>
+                            <a href="{{ route('usuario.tipo_usuarios') }}">{{ __('Type_Users') }}</a>
+                            <a href="{{ route('usuario.gestores_lista') }}">{{ __('Users') }}</a>
                         </x-slot>
                     </x-nav-link-parent>
                 </div>
@@ -163,14 +165,16 @@
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
             <x-responsive-nav-link-parent :href="'#'" :active="request()->routeIs('')">
-                <x-slot name="name">Option A</x-slot>
+                <x-slot name="name">{{ __('Utility') }}</x-slot>
                 <x-slot name="children">
-                    <a href="#">Item A</a>
+                    <a href="#">{{ __('Categories') }}</a>
+                    <a href="#">{{ __('Classification') }}</a>
                     <span class="separator"></span>
-                    <a href="#">Item B</a>
-                    <a href="#">Item C</a>
+                    <a href="#">{{ __('Priority') }}</a>
+                    <a href="#">{{ __('Impact') }}</a>
                     <span class="separator"></span>
-                    <a href="#">Item D</a>
+                    <a href="#">{{ __('Status') }}</a>
+                    <a href="#">{{ __('Document Type') }}</a>
                 </x-slot>
             </x-responsive-nav-link-parent>
 
@@ -178,7 +182,7 @@
                 <x-slot name="name">{{ __('Users') }}</x-slot>
                 <x-slot name="children">
                     <a href="{{ route('usuario.tipo_usuarios') }}">Tipo de Usuarios</a>
-                    <a href="{{ route('usuario.operadores_lista') }}">Usuarios</a>
+                    <a href="{{ route('usuario.gestores_lista') }}">Usuarios</a>
                 </x-slot>
             </x-responsive-nav-link-parent>
 
