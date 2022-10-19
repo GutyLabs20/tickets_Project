@@ -2,18 +2,13 @@
 
 use App\Http\Livewire\Usuarios\TipoUsuarios;
 use App\Http\Livewire\Usuarios\UsuariosIndex;
+use App\Http\Livewire\Utilitarios\CategoriasIndex;
+use App\Http\Livewire\Utilitarios\ClasificacionesIndex;
+use App\Http\Livewire\Utilitarios\EstadoIndex;
+use App\Http\Livewire\Utilitarios\ImpactoIndex;
+use App\Http\Livewire\Utilitarios\PrioridadesIndex;
+use App\Http\Livewire\Utilitarios\TipodocumentoIndex;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -28,6 +23,15 @@ Route::middleware([
     //Usuarios
     Route::get('/usuario/tipo-usuarios', TipoUsuarios::class)->name('usuario.tipo_usuarios');
     Route::get('/usuario/gestores', UsuariosIndex::class)->name('usuario.gestores_lista');
+
+    //Utilitarios
+    Route::get('/utilitario/categorias', CategoriasIndex::class)->name('utilitario.categorias');
+    Route::get('/utilitario/clasificaciones', ClasificacionesIndex::class)->name('utilitario.clasificaciones');
+    Route::get('/utilitario/prioridades', PrioridadesIndex::class)->name('utilitario.prioridades');
+    Route::get('/utilitario/impactos', ImpactoIndex::class)->name('utilitario.impactos');
+    Route::get('/utilitario/estados', EstadoIndex::class)->name('utilitario.estados');
+    Route::get('/utilitario/tipo-documento', TipodocumentoIndex::class)->name('utilitario.tipo-documento');
+
 
     Route::get('/', function () {
         return view('dashboard');

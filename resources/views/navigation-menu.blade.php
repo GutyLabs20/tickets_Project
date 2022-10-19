@@ -16,17 +16,17 @@
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
 
-                    <x-nav-link-parent :href="'#'" :active="request()->routeIs('')">
+                    <x-nav-link-parent :href="'#'" :active="request()->routeIs('utilitario*')">
                         <x-slot name="name">{{ __('Utility') }}</x-slot>
                         <x-slot name="children">
-                            <a href="#">{{ __('Categories') }}</a>
-                            <a href="#">{{ __('Classification') }}</a>
+                            <a href="{{ route('utilitario.categorias') }}">{{ __('Categories') }}</a>
+                            <a href="{{ route('utilitario.clasificaciones') }}">{{ __('Classification') }}</a>
                             <span class="separator"></span>
-                            <a href="#">{{ __('Priority') }}</a>
-                            <a href="#">{{ __('Impact') }}</a>
+                            <a href="{{ route('utilitario.prioridades') }}">{{ __('Priority') }}</a>
+                            <a href="{{ route('utilitario.impactos') }}">{{ __('Impact') }}</a>
                             <span class="separator"></span>
-                            <a href="#">{{ __('Status') }}</a>
-                            <a href="#">{{ __('Document Type') }}</a>
+                            <a href="{{ route('utilitario.estados') }}">{{ __('Status') }}</a>
+                            <a href="{{ route('utilitario.tipo-documento') }}">{{ __('Document Type') }}</a>
                         </x-slot>
                     </x-nav-link-parent>
                     {{-- :active="request()->routeIs('usuario*')" --}}
@@ -164,17 +164,17 @@
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
-            <x-responsive-nav-link-parent :href="'#'" :active="request()->routeIs('')">
+            <x-responsive-nav-link-parent :href="'#'" :active="request()->routeIs('utilitario*')">
                 <x-slot name="name">{{ __('Utility') }}</x-slot>
                 <x-slot name="children">
-                    <a href="#">{{ __('Categories') }}</a>
-                    <a href="#">{{ __('Classification') }}</a>
+                    <a href="{{ route('utilitario.categorias') }}">{{ __('Categories') }}</a>
+                    <a href="{{ route('utilitario.clasificaciones') }}">{{ __('Classification') }}</a>
                     <span class="separator"></span>
-                    <a href="#">{{ __('Priority') }}</a>
-                    <a href="#">{{ __('Impact') }}</a>
+                    <a href="{{ route('utilitario.prioridades') }}">{{ __('Priority') }}</a>
+                    <a href="{{ route('utilitario.impactos') }}">{{ __('Impact') }}</a>
                     <span class="separator"></span>
-                    <a href="#">{{ __('Status') }}</a>
-                    <a href="#">{{ __('Document Type') }}</a>
+                    <a href="{{ route('utilitario.estados') }}">{{ __('Status') }}</a>
+                    <a href="{{ route('utilitario.tipo-documento') }}">{{ __('Document Type') }}</a>
                 </x-slot>
             </x-responsive-nav-link-parent>
 
