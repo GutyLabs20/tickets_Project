@@ -141,7 +141,7 @@
                 </div>
             @else
                 <div class="text-sm text-gray-700 px-3 py-3">
-                    {{ __('There is no data to display') }}
+                    {{ __('No Results Found') }}
                 </div>
             @endif
 

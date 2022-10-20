@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Utilitarios;
 
+use App\Models\Categoria;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,14 +12,13 @@ class CategoriasIndex extends Component
 
     public $title;
     public $modal_edit = false;
-    public $tipo, $nombre, $descripcion;
+    public $categoria, $nombre, $descripcion;
 
     protected $listeners = ['render'];
 
     protected $rules = [
-        'tipo.nombre' => 'required|string|min:2',
-        'tipo.descripcion' => 'required|string|min:2',
-        'tipo.slug' => 'string'
+        'categoria.nombre' => 'required|string|min:2',
+        'categoria.descripcion' => 'required|string|min:2',
     ];
 
     public function mount()
@@ -28,6 +28,28 @@ class CategoriasIndex extends Component
 
     public function render()
     {
-        return view('livewire.utilitarios.categorias-index');
+        $categorias = Categoria::where('activo', 1)->paginate(10);
+        return view('livewire.utilitarios.categorias-index', ['categorias' => $categorias]);
+    }
+
+    public function editar(Categoria $categoria)
+    {
+        $this->categoria = $categoria;
+        $this->modal_edit = true;
+    }
+
+    public function actualizar()
+    {
+        $this->validate();
+        $this->categoria->save();
+        $this->modal_edit = false;
+        // $this->emit('alert', 'Registro actualizado.');
+    }
+
+    public function saveDelete(Categoria $categoria)
+    {
+        $categoria->activo = 0;
+        $categoria->save();
+        session()->flash('message', 'Registro eliminado correctamente');
     }
 }

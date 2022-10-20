@@ -41,8 +41,6 @@
     "Action": "Acción",
     "Type_User": "Tipo de Usuario",
     "Type_Users": "Tipo de Usuarios",
-    "Add": "Agregar",
-    "New": "Nuevo",
     "Code": "Código",
     "Cancel": "Cancelar",
     "Save": "Guardar",
@@ -50,6 +48,11 @@
     "Impact": "Impacto",
     "Priority": "Prioridad",
     "Categories": "Categorías",
+    "Category": "Categoría",
     "Classification": "Clasificación",
-    "Document Type": "Tipo de Documento"
+    "Document Type": "Tipo de Documento",
+    "New": "Nuevo",
+    "Add": "Agregar",
+    "Edit": "Editar",
+    "Create": "Crear"
 }

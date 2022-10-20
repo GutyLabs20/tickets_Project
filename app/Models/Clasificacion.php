@@ -9,4 +9,5 @@ class Clasificacion extends Model
 {
     use HasFactory;
     protected $table = 'clasificaciones';
+    protected $fillable = ['nombre', 'descripcion', 'activo'];
 }
