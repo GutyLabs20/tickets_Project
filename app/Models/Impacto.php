@@ -9,4 +9,5 @@ class Impacto extends Model
 {
     use HasFactory;
     protected $table = 'impacto';
+    protected $fillable = ['nombre', 'descripcion', 'activo'];
 }
