@@ -1,5 +1,5 @@
 <div>
-    <button wire:click="$set('open', true)" type="button"
+    <button wire:click="create()" type="button"
         class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out">
         {{ __('Add') }} {{ __('New') }}
     </button>
@@ -45,7 +45,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$set('open', false)" wire:loading.attr="disabled">
+            <x-jet-secondary-button wire:click="closeModal()" wire:loading.attr="disabled">
                 {{ __('Cancel') }}
             </x-jet-secondary-button>
 

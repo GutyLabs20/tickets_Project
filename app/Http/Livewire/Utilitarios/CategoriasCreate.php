@@ -15,6 +15,25 @@ class CategoriasCreate extends Component
         'descripcion' => 'required|min:2'
     ];
 
+    public function create()
+    {
+        $this->resetCreateForm();
+        $this->openModal();
+    }
+    public function openModal()
+    {
+        $this->open = true;
+    }
+    public function closeModal()
+    {
+        $this->open = false;
+        $this->resetCreateForm();
+    }
+    private function resetCreateForm(){
+        $this->nombre = '';
+        $this->descripcion = '';
+    }
+
     public function save()
     {
         $this->validate();

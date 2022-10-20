@@ -26,6 +26,28 @@ class UsuariosCrear extends Component
         $this->tipousuarios = DB::table('tipousuarios')->where('activo', 1)->pluck('nombre', 'id');
     }
 
+    public function create()
+    {
+        $this->resetCreateForm();
+        $this->openModal();
+    }
+    public function openModal()
+    {
+        $this->open = true;
+    }
+    public function closeModal()
+    {
+        $this->open = false;
+        $this->resetCreateForm();
+    }
+    private function resetCreateForm(){
+        $this->nombres = '';
+        $this->apellidos = '';
+        $this->email = '';
+        $this->tipousuario_id = '';
+        $this->password = '';
+    }
+
     public function save()
     {
         $this->validate();
