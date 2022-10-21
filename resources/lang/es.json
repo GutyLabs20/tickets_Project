@@ -55,5 +55,15 @@
     "Add": "Agregar",
     "Edit": "Editar",
     "Create": "Crear",
-    "Value": "Valor"
+    "Value": "Valor",
+    "Customers": "Clientes",
+    "Customer": "Cliente",
+    "Company": "Empresa",
+    "Company Departments": "Áreas de la Empresa",
+    "Position by area": "Cargo por Área",
+    "Area": "Área",
+    "Employees of the company": "Colaboradores de la empresa",
+    "Employees": "Colaboradores",
+    "Employee": "Colaborador",
+    "Phone": "Telefono"
 }

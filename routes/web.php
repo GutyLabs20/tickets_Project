@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Livewire\Entidad\EntidadAreaIndex;
+use App\Http\Livewire\Entidad\EntidadCargoIndex;
+use App\Http\Livewire\Entidad\EntidadColaboradorIndex;
+use App\Http\Livewire\Entidad\EntidadIndex;
 use App\Http\Livewire\Usuarios\TipoUsuarios;
 use App\Http\Livewire\Usuarios\UsuariosIndex;
 use App\Http\Livewire\Utilitarios\CategoriasIndex;
@@ -31,6 +35,12 @@ Route::middleware([
     Route::get('/utilitario/impactos', ImpactoIndex::class)->name('utilitario.impactos');
     Route::get('/utilitario/estados', EstadoIndex::class)->name('utilitario.estados');
     Route::get('/utilitario/tipo-documento', TipodocumentoIndex::class)->name('utilitario.tipo-documento');
+
+    //Entidades
+    Route::get('/cliente/empresas', EntidadIndex::class)->name('cliente.empresas');
+    Route::get('/cliente/areas', EntidadAreaIndex::class)->name('cliente.areas');
+    Route::get('/cliente/cargos', EntidadCargoIndex::class)->name('cliente.cargos');
+    Route::get('/cliente/colaboradores', EntidadColaboradorIndex::class)->name('cliente.colaboradores');
 
 
     Route::get('/', function () {
