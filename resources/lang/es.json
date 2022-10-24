@@ -51,10 +51,12 @@
     "Category": "Categoría",
     "Classification": "Clasificación",
     "Document Type": "Tipo de Documento",
+    "Show": "Ver",
     "New": "Nuevo",
     "Add": "Agregar",
     "Edit": "Editar",
     "Create": "Crear",
+    "Delete": "Eliminar",
     "Value": "Valor",
     "Customers": "Clientes",
     "Customer": "Cliente",
@@ -65,5 +67,9 @@
     "Employees of the company": "Colaboradores de la empresa",
     "Employees": "Colaboradores",
     "Employee": "Colaborador",
-    "Phone": "Telefono"
+    "Phone": "Telefono",
+    "Search": "Bucar",
+    "N° Doc": "N° Doc",
+    "Logotype": "Logotipo",
+    "Structure": "Estructura"
 }

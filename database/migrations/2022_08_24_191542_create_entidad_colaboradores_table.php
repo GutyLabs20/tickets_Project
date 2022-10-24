@@ -20,8 +20,10 @@ class CreateEntidadColaboradoresTable extends Migration
             $table->string('email', 250);
             $table->string('telefono', 10);
             $table->string('slug')->unique()->nullable();
-            $table->unsignedBigInteger('cargo_id')->nullable();
-            $table->foreign('cargo_id')->references('id')->on('entidad_cargos')->cascadeOnDelete();
+            $table->unsignedBigInteger('area_id')->nullable();
+            $table->foreign('area_id')->references('id')->on('entidad_areas')->cascadeOnDelete();
+            // $table->unsignedBigInteger('cargo_id')->nullable();
+            // $table->foreign('cargo_id')->references('id')->on('entidad_cargos')->cascadeOnDelete();
             $table->string('activo', 1)->default(1);
             $table->timestamps();
         });

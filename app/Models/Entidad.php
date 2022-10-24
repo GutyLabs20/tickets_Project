@@ -11,6 +11,11 @@ class Entidad extends Model
     protected $table = 'entidad';
     protected $fillable = [
         'tipo_doc', 'nro_doc', 'nombre', 'slug', 'descripcion',
-        'logotipo_path', 'lototipo_nombre', 'telefono', 'email', 'activo'
+        'logotipo_path', 'logotipo_nombre', 'telefono', 'email', 'activo'
     ];
+
+    public function areas_entidad()
+    {
+        $this->hasMany(EntidadArea::class, 'id');
+    }
 }

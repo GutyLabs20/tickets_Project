@@ -15,6 +15,7 @@ class CreateEntidadTable extends Migration
     {
         Schema::create('entidad', function (Blueprint $table) {
             $table->id();
+            $table->string('uniq_id', 8);
             $table->string('tipo_doc', 20);
             $table->string('nro_doc', 15);
             $table->string('nombre', 250);

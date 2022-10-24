@@ -3,6 +3,9 @@
 
         <div class="flex space-x-2 justify-between mb-2">
             <h1 class="text-xl mb-2">{{ $title }}</h1>
+
+            <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-1/2 m-0 text-sm" placeholder="{{ __('Search') }} {{ __('Company') }}" />
+
             <div>
 
                 @livewire('entidad.entidad-create')
@@ -15,13 +18,14 @@
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b-2 border-gray-200">
                         <tr>
-                            <th class="w-20 p-3 text-sm font-semibold tracking-wide text-left">{{ __('Code') }}</th>
-                            <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Tipo Doc.') }}</th>
+                            <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('#') }}</th>
+                            {{-- <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Tipo Doc.') }}</th> --}}
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Nro. Doc') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Company') }}</th>
-                            <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Description') }}</th>
+                            {{-- <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Description') }}</th> --}}
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Phone') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('E-Mail') }}</th>
+                            <th class="p-3 text-sm font-semibold tracking-wide text-center">{{ __('Structure') }}</th>
                             <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">{{ __('Status') }}</th>
                             <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">{{ __('Action') }}</th>
                         </tr>
@@ -34,11 +38,41 @@
                                         {{ $entidad->id }}
                                     </a>
                                 </td>
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap font-bold">
+                                    {{ $entidad->tipo_doc }}: {{ $entidad->nro_doc }}
+                                    {{-- <a href="#" class="font-bold text-blue-500 hover:underline">
+                                        {{ $entidad->nro_doc }}
+                                    </a> --}}
+                                </td>
+                                {{-- <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                    {{ $entidad->nro_doc }}
+                                </td> --}}
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $entidad->nombre }}
                                 </td>
-                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                {{-- <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $entidad->descripcion }}
+                                </td> --}}
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                    {{ $entidad->telefono }}
+                                </td>
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                    {{ $entidad->email }}
+                                </td>
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                    <div class="flex items-center justify-center">
+                                        <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
+                                            <a  href="{{ route('cliente.areas_entidad', ['id' => $entidad->id]) }}"
+                                                class="rounded-l inline-block px-4 py-1.5 bg-pink-500 text-white font-medium text-xs leading-tight uppercase hover:bg-pink-600 focus:bg-pink-600 focus:outline-none focus:ring-0 active:bg-pink-700 transition duration-150 ease-in-out">
+                                                <i class="fas fa-sitemap"></i>
+                                            </a>
+                                            {{-- wire:click="saveDelete( {{ $entidad }} )" --}}
+                                            <a  href="{{ route('cliente.colaboradores_entidad', ['id' => $entidad->id]) }}"
+                                                class="rounded-r inline-block px-4 py-1.5 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-none focus:ring-0 active:bg-cyan-800 transition duration-150 ease-in-out">
+                                                <i class="fas fa-users"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <span
@@ -48,7 +82,8 @@
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
-                                        <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
+                                        <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg"
+                                            role="group">
                                             <button type="button"
                                                 class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
                                                 <i class="fas fa-eye"></i>
@@ -71,7 +106,7 @@
                 </table>
 
                 <div class="px-3 py-3">
-                    {{$entidades->links()}}
+                    {{ $entidades->links() }}
                 </div>
             @else
                 <div class="text-sm text-gray-700 px-3 py-3">
@@ -87,9 +122,10 @@
                     <div class="bg-white space-y-3 p-4 rounded-lg shadow">
                         <div class="flex justify-between space-x-2 text-sm">
                             <div>
-                                <a href="#" class="text-blue-500 font-bold hover:underline">{{ $entidad->id }}</a>
+                                <a href="#"
+                                    class="text-blue-500 font-bold hover:underline">{{ $entidad->id }}</a>
                             </div>
-                            <div class="text-gray-500">{{ $entidad->nombre }}</div>
+                            <div class="text-gray-500 font-bold">{{ $entidad->tipo_doc }}: {{ $entidad->nro_doc }}</div>
                             <div>
                                 <span
                                     class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
@@ -98,7 +134,28 @@
                             </div>
                         </div>
                         <div class="text-sm text-gray-700">
-                            {{ $entidad->descripcion }}
+                            {{ $entidad->nombre }}
+                        </div>
+                        <div class="text-sm text-gray-700">
+                            {{ __('Phone') }}: {{ $entidad->telefono }}
+                        </div>
+                        <div class="text-sm text-gray-700">
+                            {{ __('E-Mail') }}: {{ $entidad->email }}
+                        </div>
+                        <div class="text-sm text-gray-700">
+                            <div class="flex items-center justify-center">
+                                <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
+                                    <a  href="{{ route('cliente.areas') }}"
+                                        class="rounded-l inline-block px-4 py-1.5 bg-pink-500 text-white font-medium text-xs leading-tight uppercase hover:bg-pink-600 focus:bg-pink-600 focus:outline-none focus:ring-0 active:bg-pink-700 transition duration-150 ease-in-out">
+                                        <i class="fas fa-sitemap"></i>
+                                    </a>
+                                    {{-- wire:click="saveDelete( {{ $entidad }} )" --}}
+                                    <a  href="{{ route('cliente.colaboradores') }}"
+                                        class="rounded-r inline-block px-4 py-1.5 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-none focus:ring-0 active:bg-cyan-800 transition duration-150 ease-in-out">
+                                        <i class="fas fa-users"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="text-sm font-medium text-black">
                             <div class="flex items-center justify-center">
@@ -121,9 +178,11 @@
                     </div>
                 @endforeach
 
-                <div class="px-3 py-3">
-                    {{$entidades->links()}}
-                </div>
+                @if ($entidades->hasPages())
+                    <div class="px-3 py-3">
+                        {{ $entidades->links() }}
+                    </div>
+                @endif
             @else
                 <div class="bg-white space-y-3 p-4 rounded-lg shadow">
 
@@ -143,17 +202,43 @@
         </x-slot>
 
         <x-slot name="content">
-            <div class="col-span-6 sm:col-span-4">
+
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="tipo_doc" value="{{ __('Document Type') }}" />
+                {{-- wire:model="tipo_doc" --}}
+                <select wire:model.defer="entidad.tipo_doc" name="tipo_doc" id="tipo_doc"
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                    @foreach ($tipodocumento as $key => $nombre)
+                        <option value="{{ $nombre }}" selected>{{ $nombre }}</option>
+                    @endforeach
+                </select>
+                <x-jet-input-error for="tipo_doc" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="nro_doc" value="{{ __('N° Doc') }}" />
+                <x-jet-input id="nro_doc" wire:model.defer="entidad.nro_doc" type="text" class="mt-1 block w-full" />
+                <x-jet-input-error for="entidad.nro_doc" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="nombre" value="{{ __('Company') }}" />
-                <x-jet-input wire:model.defer="entidad.nombre" type="text" class="mt-1 block w-full"
-                    />
+                <x-jet-input wire:model.defer="entidad.nombre" type="text" class="mt-1 block w-full"/>
                 <x-jet-input-error for="entidad.nombre" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="descripcion" value="{{ __('Description') }}" />
-                <x-jet-input wire:model.defer="entidad.descripcion" type="text" class="mt-1 block w-full"
-                    />
+                <x-jet-input wire:model.defer="entidad.descripcion" type="text" class="mt-1 block w-full" />
                 <x-jet-input-error for="entidad.descripcion" class="mt-2" />
+            </div>
+
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="telefono" value="{{ __('Phone') }}" />
+                <x-jet-input id="telefono" wire:model.defer="entidad.telefono" type="text" class="mt-1 block w-full" />
+                <x-jet-input-error for="telefono" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="email" value="{{ __('E-Mail') }}" />
+                <x-jet-input id="email" wire:model.defer="entidad.email" type="email" class="mt-1 block w-full" />
+                <x-jet-input-error for="email" class="mt-2" />
             </div>
 
         </x-slot>
@@ -169,5 +254,3 @@
         </x-slot>
     </x-jet-dialog-modal>
 </div>
-
-

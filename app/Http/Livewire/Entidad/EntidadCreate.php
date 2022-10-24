@@ -3,17 +3,27 @@
 namespace App\Http\Livewire\Entidad;
 
 use App\Models\Entidad;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class EntidadCreate extends Component
 {
     public $open = false;
-    public $nombre, $descripcion;
+    public $tipo_doc, $nro_doc, $nombre, $slug, $descripcion, $logotipo_path, $logotipo_nombre, $telefono, $email;
 
     protected $rules = [
+        'tipo_doc' => 'required',
+        'nro_doc' => 'required',
         'nombre' => 'required|min:2',
-        'descripcion' => 'required|min:2'
+        'descripcion' => 'required|min:2',
+        'telefono' => 'required',
+        'email' => 'required|email|unique:entidad'
     ];
+
+    public function mount()
+    {
+        $this->tipodocumento = DB::table('tipodocumento')->where('activo', 1)->pluck('nombre', 'id');
+    }
 
     public function create()
     {
@@ -30,8 +40,12 @@ class EntidadCreate extends Component
         $this->resetCreateForm();
     }
     private function resetCreateForm(){
+        $this->tipo_doc = '';
+        $this->nro_doc = '';
         $this->nombre = '';
         $this->descripcion = '';
+        $this->telefono = '';
+        $this->email = '';
     }
 
     public function save()
@@ -39,12 +53,18 @@ class EntidadCreate extends Component
         $this->validate();
 
         Entidad::create([
-            'nombre' => ucfirst($this->nombre),
-            'descripcion' => ucfirst($this->descripcion)
+            'tipo_doc' => strtoupper($this->tipo_doc),
+            'nro_doc' => $this->nro_doc,
+            'nombre' => strtoupper($this->nombre),
+            'descripcion' => ucfirst($this->descripcion),
+            'telefono' => $this->telefono,
+            'email' => $this->email,
+            'logotipo_path' => 'mi ruta del logotipo',
+            'logotipo_nombre' => 'milogo.jpg'
         ]);
 
         $this->reset([
-            'open', 'nombre', 'descripcion'
+            'open', 'tipo_doc', 'nro_doc', 'nombre', 'descripcion', 'telefono', 'email', 'logotipo_path'
         ]);
         $this->emitTo('entidad.entidad-index', 'render');
         $this->emit('alert', 'Registrado satisfactoriamente');
@@ -53,5 +73,25 @@ class EntidadCreate extends Component
     public function render()
     {
         return view('livewire.entidad.entidad-create');
+    }
+
+    public function consulta_ruc($nro_doc)
+    {
+        $api_tocken = '835d4ba558ca6193356167e065c7c7809d0cef0bf72ef171ec47de96bbecfe3f';
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://apiperu.dev/api/ruc/'.$nro_doc.'?api_token='.$api_tocken,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_SSL_VERIFYPEER => false
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
     }
 }

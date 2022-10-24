@@ -10,7 +10,25 @@
         </x-slot>
 
         <x-slot name="content">
-            <div class="col-span-6 sm:col-span-4">
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="tipo_doc" value="{{ __('Document Type') }}" />
+                {{-- wire:model="tipo_doc" --}}
+                <select wire:model="tipo_doc" name="tipo_doc" id="tipo_doc"
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                    <option value="" selected>Seleccione</option>
+                    @foreach ($tipodocumento as $key => $nombre)
+                        <option value="{{ $nombre }}">{{ $nombre }}</option>
+                    @endforeach
+                </select>
+                <x-jet-input-error for="tipo_doc" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="nro_doc" value="{{ __('N° Doc') }}" />
+                <x-jet-input id="nro_doc" wire:model="nro_doc" type="text" class="mt-1 block w-full" />
+                <x-jet-input-error for="nro_doc" class="mt-2" />
+            </div>
+
+            <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="nombre" value="{{ __('Company') }}" />
                 <x-jet-input id="nombre" wire:model="nombre" type="text" class="mt-1 block w-full" />
                 <x-jet-input-error for="nombre" class="mt-2" />
@@ -20,6 +38,24 @@
                 <x-jet-input id="descripcion" wire:model="descripcion" type="text" class="mt-1 block w-full" />
                 <x-jet-input-error for="descripcion" class="mt-2" />
             </div>
+
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="telefono" value="{{ __('Phone') }}" />
+                <x-jet-input id="telefono" wire:model="telefono" type="text" class="mt-1 block w-full" />
+                <x-jet-input-error for="telefono" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="email" value="{{ __('E-Mail') }}" />
+                <x-jet-input id="email" wire:model="email" type="email" class="mt-1 block w-full" />
+                <x-jet-input-error for="email" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="logotipo_path" value="{{ __('Logotype') }}" />
+                <x-jet-input id="logotipo_path" wire:model="logotipo_path" type="file" class="mt-1 block w-full" />
+                <x-jet-input-error for="logotipo_path" class="mt-2" />
+            </div>
+
+
 
         </x-slot>
 
