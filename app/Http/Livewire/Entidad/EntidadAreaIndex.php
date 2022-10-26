@@ -2,18 +2,35 @@
 
 namespace App\Http\Livewire\Entidad;
 
+use App\Models\Entidad;
 use App\Models\EntidadArea;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class EntidadAreaIndex extends Component
 {
-    public $title, $empresa;
-    public $entidad_id, $codigo;
+    use WithPagination;
+
+    public $title;
+    public $modal_edit = false;
+    public $area, $nombre, $descripcion, $entidad_id;
     public $q;
+
+    protected $listeners = ['render'];
 
     protected $queryString = [
         'q' => ['except' => '']
     ];
+
+    protected $rules = [
+        'area.nombre' => 'required|string|min:2',
+        'area.descripcion' => 'required|string|min:2',
+    ];
+
+    public function updatingQ()
+    {
+        $this->resetPage();
+    }
 
     public function mount($id)
     {
@@ -27,8 +44,8 @@ class EntidadAreaIndex extends Component
             ->when( $this->q, function($query){
                 return $query->where( function($query){
                     $query
-                        ->where('nro_doc', 'like', '%'.$this->q . '%')
-                        ->orWhere('nombre', 'like', '%' .$this->q . '%');
+                        ->where('nombre', 'like', '%'.$this->q . '%')
+                        ->orWhere('descripcion', 'like', '%' .$this->q . '%');
                 });
             });
         $areas = $areas->paginate(10);
@@ -36,4 +53,24 @@ class EntidadAreaIndex extends Component
         return view('livewire.entidad.entidad-area-index', ['areas' => $areas]);
     }
 
+    public function editar(EntidadArea $area)
+    {
+        $this->area = $area;
+        $this->modal_edit = true;
+    }
+
+    public function actualizar()
+    {
+        $this->validate();
+        $this->area->save();
+        $this->modal_edit = false;
+        // $this->emit('alert', 'Registro actualizado.');
+    }
+
+    public function saveDelete(Entidad $entidad)
+    {
+        $entidad->activo = 0;
+        $entidad->save();
+        session()->flash('message', 'Registro eliminado correctamente');
+    }
 }

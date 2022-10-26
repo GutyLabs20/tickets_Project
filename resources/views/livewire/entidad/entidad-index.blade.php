@@ -2,7 +2,12 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
         <div class="flex space-x-2 justify-between mb-2">
-            <h1 class="text-xl mb-2">{{ $title }}</h1>
+            {{-- <h1 class="text-xl mb-2">{{ $title }}</h1> --}}
+            <h1 class="text-xl">
+                <ol class="list-reset flex">
+                    <li class="text-gray-500">&nbsp;{{ $title }}</li>
+                </ol>
+            </h1>
 
             <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-1/2 m-0 text-sm" placeholder="{{ __('Search') }} {{ __('Company') }}" />
 
@@ -40,19 +45,10 @@
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap font-bold">
                                     {{ $entidad->tipo_doc }}: {{ $entidad->nro_doc }}
-                                    {{-- <a href="#" class="font-bold text-blue-500 hover:underline">
-                                        {{ $entidad->nro_doc }}
-                                    </a> --}}
                                 </td>
-                                {{-- <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $entidad->nro_doc }}
-                                </td> --}}
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $entidad->nombre }}
                                 </td>
-                                {{-- <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $entidad->descripcion }}
-                                </td> --}}
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $entidad->telefono }}
                                 </td>

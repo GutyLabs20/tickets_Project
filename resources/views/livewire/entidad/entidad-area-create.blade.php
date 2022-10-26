@@ -16,12 +16,14 @@
                 <x-jet-input id="nombre" wire:model="nombre" type="text" class="mt-1 block w-full" />
                 <x-jet-input-error for="nombre" class="mt-2" />
             </div>
+
             <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="descripcion" value="{{ __('Description') }}" />
                 <x-jet-input id="descripcion" wire:model="descripcion" type="text" class="mt-1 block w-full" />
                 <x-jet-input-error for="descripcion" class="mt-2" />
             </div>
 
+            <input type="hidden" name="entidad_id" id="entidad_id" wire:model="{{$entidad_id}}" />
         </x-slot>
 
         <x-slot name="footer">

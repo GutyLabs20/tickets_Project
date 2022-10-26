@@ -57,7 +57,6 @@ class EntidadIndex extends Component
 
     public function render()
     {
-        // $entidades = Entidad::where('activo', 1)->paginate(20);
         $entidades = Entidad::where('activo', 1)
             ->when( $this->q, function($query){
                 return $query->where( function($query){
