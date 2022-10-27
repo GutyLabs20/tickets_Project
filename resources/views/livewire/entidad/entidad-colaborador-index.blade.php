@@ -29,6 +29,7 @@
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('E-Mail') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Phone') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Area') }}</th>
+                            <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Position') }}</th>
                             <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">{{ __('Status') }}</th>
                             <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">{{ __('Action') }}</th>
                         </tr>
@@ -51,7 +52,14 @@
                                     {{ $colaborador->telefono }}
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $colaborador->area_id }}
+                                    {{ $colaborador->colaborador_area->nombre }}
+                                </td>
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                    @if ($colaborador->puesto == NULL)
+                                        {{ '-' }}
+                                    @else
+                                        {{ $colaborador->puesto }}
+                                    @endif
                                 </td>
 
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
@@ -103,7 +111,10 @@
                         <div class="flex justify-between space-x-2 text-sm">
                             <div>
                                 <a href="#"
-                                    class="text-blue-500 font-bold hover:underline">{{ $colaborador->id }}</a>
+                                    class="text-blue-500 font-bold hover:underline">
+                                    {{-- {{ $colaborador->id }} --}}
+                                    <i class="fas fa-user"></i>
+                                </a>
                             </div>
                             <div class="text-gray-500 font-bold">{{ $colaborador->nombres }} {{ $colaborador->apellidos }}</div>
                             <div>
@@ -114,13 +125,13 @@
                             </div>
                         </div>
                         <div class="text-sm text-gray-700">
-                            {{ __('E-Mail') }}: {{ $colaborador->email }}
+                            <i class="fas fa-at"></i>&nbsp; {{ $colaborador->email }}
                         </div>
                         <div class="text-sm text-gray-700">
-                            {{ __('Phone') }}: {{ $colaborador->telefono }}
+                            <i class="fas fa-phone-square-alt"></i>&nbsp; {{ $colaborador->telefono }}
                         </div>
                         <div class="text-sm text-gray-700">
-                            {{ __('Area') }}: {{ $colaborador->area_id }}
+                            <i class="fas fa-sitemap"></i>&nbsp; {{ $colaborador->colaborador_area->nombre }}
                         </div>
 
                         <div class="text-sm font-medium text-black">
@@ -170,16 +181,47 @@
         <x-slot name="content">
 
             <div class="col-span-6 sm:col-span-4 mt-4">
-                <x-jet-label for="nombre" value="{{ __('Employee') }}" />
-                <x-jet-input wire:model.defer="colaborador.nombre" type="text" class="mt-1 block w-full" />
-                <x-jet-input-error for="colaborador.nombre" class="mt-2" />
+                <x-jet-label for="nombres" value="{{ __('FirstName') }}" />
+                <x-jet-input wire:model.defer="colaborador.nombres" type="text" class="mt-1 block w-full" />
+                <x-jet-input-error for="colaborador.nombres" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">
-                <x-jet-label for="descripcion" value="{{ __('Description') }}" />
-                <x-jet-input wire:model.defer="colaborador.descripcion" type="text" class="mt-1 block w-full" />
-                <x-jet-input-error for="colaborador.descripcion" class="mt-2" />
+                <x-jet-label for="apellidos" value="{{ __('LastName') }}" />
+                <x-jet-input wire:model.defer="colaborador.apellidos" type="text" class="mt-1 block w-full" />
+                <x-jet-input-error for="colaborador.apellidos" class="mt-2" />
             </div>
-
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="email" value="{{ __('E-Mail') }}" />
+                <x-jet-input wire:model.defer="colaborador.email" type="text" class="mt-1 block w-full" />
+                <x-jet-input-error for="colaborador.email" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="telefono" value="{{ __('Phone') }}" />
+                <x-jet-input wire:model.defer="colaborador.telefono" type="text" class="mt-1 block w-full" />
+                <x-jet-input-error for="colaborador.telefono" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="area_id" value="{{ __('Area') }}" />
+                <select wire:model="colaborador.area_id" name="area_id" id="area_id"
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                    <option value="" selected>Seleccione</option>
+                    @foreach ($areas as $key => $nombre)
+                        <option value="{{ $key }}">{{ $nombre }}</option>
+                    @endforeach
+                </select>
+                <x-jet-input-error for="tipousuario_id" class="mt-2" />
+            </div>
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="puesto" value="{{ __('Position') }} ({{ __('optional') }})" />
+                <select wire:model="colaborador.puesto" name="puesto" id="puesto"
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                    <option value="" selected>Seleccione</option>
+                    @foreach ($cargos as $key => $nombre)
+                        <option value="{{ $nombre }}">{{ $nombre }}</option>
+                    @endforeach
+                </select>
+                <x-jet-input-error for="colaborador.puesto" class="mt-2" />
+            </div>
         </x-slot>
 
         <x-slot name="footer">

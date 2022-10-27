@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 class EntidadColaboradorCreate extends Component
 {
     public $open = false;
-    public $nombres, $apellidos, $email, $telefono, $area_id, $entidad_id;
+    public $nombres, $apellidos, $email, $telefono, $area_id, $entidad_id, $puesto;
 
     protected $rules = [
         'nombres' => 'required|min:2',
@@ -31,6 +31,7 @@ class EntidadColaboradorCreate extends Component
                     ->where('entidad_id', $this->entidad_id);
             })
             ->pluck('nombre', 'id');
+        $this->cargos = DB::table('entidad_cargos')->where('activo', 1)->pluck('nombre', 'id');
     }
 
     public function create()
@@ -65,9 +66,10 @@ class EntidadColaboradorCreate extends Component
             'apellidos' => ucwords($this->apellidos),
             'email' => $this->email,
             'telefono' => $this->telefono,
-            'slug' => Str::slug($this->nombre),
+            'slug' => Str::slug($this->nombres),
             'area_id' => $this->area_id,
-            'entidad_id' => $this->entidad_id
+            'entidad_id' => $this->entidad_id,
+            'puesto' => $this->puesto
         ]);
 
         $this->reset([

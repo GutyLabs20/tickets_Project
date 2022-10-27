@@ -42,9 +42,10 @@
                         <x-slot name="name">{{ __('Customers') }}</x-slot>
                         <x-slot name="children">
                             <a href="{{ route('cliente.empresas') }}">{{ __('Company') }}</a>
-                            <a href="{{ route('cliente.areas') }}">{{ __('Area') }}</a>
-                            <a href="{{ route('cliente.cargos') }}">{{ __('Position by area') }}</a>
-                            <a href="{{ route('cliente.colaboradores') }}">{{ __('Employees') }}</a>
+                            <a href="{{ route('cliente.puestos') }}">{{ __('Position') }}</a>
+                            {{-- <a href="{{ route('cliente.areas') }}">{{ __('Area') }}</a> --}}
+                            {{-- <a href="{{ route('cliente.cargos') }}">{{ __('Position by area') }}</a> --}}
+                            {{-- <a href="{{ route('cliente.colaboradores') }}">{{ __('Employees') }}</a> --}}
                         </x-slot>
                     </x-nav-link-parent>
                 </div>
@@ -200,9 +201,10 @@
                 <x-slot name="name">{{ __('Customers') }}</x-slot>
                 <x-slot name="children">
                     <a href="{{ route('cliente.empresas') }}">{{ __('Company') }}</a>
-                    <a href="{{ route('cliente.areas') }}">{{ __('Area') }}</a>
-                    <a href="{{ route('cliente.cargos') }}">{{ __('Position by area') }}</a>
-                    <a href="{{ route('cliente.colaboradores') }}">{{ __('Employees') }}</a>
+                    <a href="{{ route('cliente.puestos') }}">{{ __('Position') }}</a>
+                    {{-- <a href="{{ route('cliente.areas') }}">{{ __('Area') }}</a> --}}
+                    {{-- <a href="{{ route('cliente.cargos') }}">{{ __('Position by area') }}</a> --}}
+                    {{-- <a href="{{ route('cliente.colaboradores') }}">{{ __('Employees') }}</a> --}}
                 </x-slot>
             </x-responsive-nav-link-parent>
 

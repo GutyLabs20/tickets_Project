@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Entidad;
 
 use App\Models\Entidad;
 use App\Models\EntidadArea;
+use App\Models\EntidadColaborador;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -67,10 +68,10 @@ class EntidadAreaIndex extends Component
         // $this->emit('alert', 'Registro actualizado.');
     }
 
-    public function saveDelete(Entidad $entidad)
+    public function saveDelete(EntidadArea $area)
     {
-        $entidad->activo = 0;
-        $entidad->save();
+        $area->activo = 0;
+        $area->save();
         session()->flash('message', 'Registro eliminado correctamente');
     }
 }

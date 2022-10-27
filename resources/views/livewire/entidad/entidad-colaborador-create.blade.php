@@ -12,25 +12,26 @@
         <x-slot name="content">
 
             <div class="col-span-6 sm:col-span-4 mt-4">
-                <x-jet-label for="nombre" value="{{ __('FirstName') }}" />
-                <x-jet-input id="nombre" wire:model="nombre" type="text" class="mt-1 block w-full" />
-                <x-jet-input-error for="nombre" class="mt-2" />
+                <x-jet-label for="nombres" value="{{ __('FirstName') }}" />
+                <x-jet-input id="nombres" wire:model="nombres" type="text" class="mt-1 block w-full" />
+                <x-jet-input-error for="nombres" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">
-                <x-jet-label for="nombre" value="{{ __('LastName') }}" />
-                <x-jet-input id="nombre" wire:model="nombre" type="text" class="mt-1 block w-full" />
-                <x-jet-input-error for="nombre" class="mt-2" />
+                <x-jet-label for="apellidos" value="{{ __('LastName') }}" />
+                <x-jet-input id="apellidos" wire:model="apellidos" type="text" class="mt-1 block w-full" />
+                <x-jet-input-error for="apellidos" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">
-                <x-jet-label for="nombre" value="{{ __('E-Mail') }}" />
-                <x-jet-input id="nombre" wire:model="nombre" type="text" class="mt-1 block w-full" />
-                <x-jet-input-error for="nombre" class="mt-2" />
+                <x-jet-label for="email" value="{{ __('E-Mail') }}" />
+                <x-jet-input id="email" wire:model="email" type="email" class="mt-1 block w-full" />
+                <x-jet-input-error for="email" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">
-                <x-jet-label for="nombre" value="{{ __('Phone') }}" />
-                <x-jet-input id="nombre" wire:model="nombre" type="text" class="mt-1 block w-full" />
-                <x-jet-input-error for="nombre" class="mt-2" />
+                <x-jet-label for="telefono" value="{{ __('Phone') }}" />
+                <x-jet-input id="telefono" wire:model="telefono" type="text" class="mt-1 block w-full" />
+                <x-jet-input-error for="telefono" class="mt-2" />
             </div>
+            <input type="hidden" name="entidad_id" id="entidad_id" wire:model="{{$entidad_id}}" />
             <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="area_id" value="{{ __('Area') }}" />
                 <select wire:model="area_id" name="area_id" id="area_id"
@@ -40,9 +41,19 @@
                         <option value="{{ $key }}">{{ $nombre }}</option>
                     @endforeach
                 </select>
-                <x-jet-input-error for="tipousuario_id" class="mt-2" />
+                <x-jet-input-error for="area_id" class="mt-2" />
             </div>
-            {{-- <input type="hidden" name="entidad_id" id="entidad_id" wire:model="{{$entidad_id}}" /> --}}
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="puesto" value="{{ __('Position') }} ({{ __('optional') }})" />
+                <select wire:model="puesto" name="puesto" id="puesto"
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                    <option value="" selected>Seleccione</option>
+                    @foreach ($cargos as $key => $nombre)
+                        <option value="{{ $nombre }}">{{ $nombre }}</option>
+                    @endforeach
+                </select>
+                <x-jet-input-error for="puesto" class="mt-2" />
+            </div>
         </x-slot>
 
         <x-slot name="footer">

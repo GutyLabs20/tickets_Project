@@ -39,10 +39,10 @@ Route::middleware([
     //Entidades
     Route::get('/cliente/empresas', EntidadIndex::class)->name('cliente.empresas');
     Route::get('/cliente/empresa/areas/{id}', EntidadAreaIndex::class)->name('cliente.areas_entidad');
-    Route::get('/cliente/areas', EntidadAreaIndex::class)->name('cliente.areas');
-    Route::get('/cliente/cargos', EntidadCargoIndex::class)->name('cliente.cargos');
     Route::get('/cliente/empresa/colaboradores/{id}', EntidadColaboradorIndex::class)->name('cliente.colaboradores_entidad');
-    Route::get('/cliente/colaboradores', EntidadColaboradorIndex::class)->name('cliente.colaboradores');
+    Route::get('/cliente/puestos', EntidadCargoIndex::class)->name('cliente.puestos');
+    // Route::get('/cliente/areas', EntidadAreaIndex::class)->name('cliente.areas');
+    // Route::get('/cliente/colaboradores', EntidadColaboradorIndex::class)->name('cliente.colaboradores');
 
 
     Route::get('/', function () {

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class EntidadCargo extends Model
 {
     use HasFactory;
+    protected $table = 'entidad_cargos';
+    protected $fillable = ['nombre', 'descripcion', 'activo'];
 }

@@ -9,7 +9,7 @@ class EntidadColaborador extends Model
 {
     use HasFactory;
     protected $table = 'entidad_colaboradores';
-    protected $fillable = ['nombres', 'apellidos', 'email', 'telefono', 'slug', 'area_id', 'entidad_id', 'activo'];
+    protected $fillable = ['nombres', 'apellidos', 'email', 'telefono', 'slug', 'area_id', 'entidad_id', 'puesto', 'activo'];
 
     public function colaborador_area()
     {
