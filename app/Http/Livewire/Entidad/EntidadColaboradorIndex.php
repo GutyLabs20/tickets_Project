@@ -49,14 +49,17 @@ class EntidadColaboradorIndex extends Component
             })
             ->pluck('nombre', 'id');
         $this->cargos = DB::table('entidad_cargos')->where('activo', 1)->pluck('nombre', 'id');
+        // $this->e = DB::table('entidad')->where('nro_doc', $this->entidad_id)->first();
     }
 
     public function render()
     {
-        $colaboradores = EntidadColaborador::where(function($query){
+        $e = DB::table('entidad')->where('nro_doc', $this->entidad_id)->first();
+        $e = $e->id;
+        $colaboradores = EntidadColaborador::where(function($query) use ($e){
             $query
                 ->where('activo', 1)
-                ->where('entidad_id', $this->entidad_id);
+                ->where('entidad_id', $e);
         })
             ->when( $this->q, function($query){
                 return $query->where( function($query){

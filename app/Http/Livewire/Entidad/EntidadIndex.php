@@ -39,20 +39,7 @@ class EntidadIndex extends Component
     public function mount()
     {
         $this->title = "Empresas";
-        // $this->codigo = $this->generate_string(6);
-    }
-
-    public function generate_string($strleng)
-    {
-        $input = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $input_length = strlen($input);
-        $random_string = '';
-        for ($i=0; $i < $strleng; $i++) {
-            $random_character = $input[mt_rand(0, $input_length - 1)];
-            $random_string .= $random_character;
-        }
-
-        return $random_string;
+        $this->tipodocumento = DB::table('tipodocumento')->where('activo', 1)->pluck('nombre', 'id');
     }
 
     public function render()
@@ -66,8 +53,8 @@ class EntidadIndex extends Component
                 });
             });
         $entidades = $entidades->paginate(10);
-        $tipodocumento = DB::table('tipodocumento')->where('activo', 1)->pluck('nombre', 'id');
-        return view('livewire.entidad.entidad-index', ['entidades' => $entidades, 'tipodocumento' => $tipodocumento]);
+
+        return view('livewire.entidad.entidad-index', ['entidades' => $entidades]);
     }
 
     public function editar(Entidad $entidad)

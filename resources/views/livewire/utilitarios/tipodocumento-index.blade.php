@@ -2,7 +2,11 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
         <div class="flex space-x-2 justify-between mb-2">
-            <h1 class="text-xl mb-2">{{ $title }}</h1>
+            <h1 class="text-xl">
+                <ol class="list-reset flex">
+                    <li class="text-gray-500">&nbsp;{{ $title }}</li>
+                </ol>
+            </h1>
             <div>
 
                 @livewire('utilitarios.tipodocumento-create')
@@ -39,7 +43,7 @@
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <span
                                         class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                        {{ $documento->activo == 1 ? 'Habilitado' : 'Deshabilitado' }}
+                                        {{ $documento->activo == 1 ? 'Activo' : 'Inactivo' }}
                                     </span>
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
@@ -89,7 +93,7 @@
                             <div>
                                 <span
                                     class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                    {{ $documento->activo == 1 ? 'Habilitado' : 'Deshabilitado' }}
+                                    {{ $documento->activo == 1 ? 'Activo' : 'Inactivo' }}
                                 </span>
                             </div>
                         </div>

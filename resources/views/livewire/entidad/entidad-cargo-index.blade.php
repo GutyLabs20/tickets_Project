@@ -46,7 +46,7 @@
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <span
                                         class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                        {{ $cargo->activo == 1 ? 'Habilitado' : 'Deshabilitado' }}
+                                        {{ $cargo->activo == 1 ? 'Activo' : 'Inactivo' }}
                                     </span>
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
@@ -96,7 +96,7 @@
                             <div>
                                 <span
                                     class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                    {{ $cargo->activo == 1 ? 'Habilitado' : 'Deshabilitado' }}
+                                    {{ $cargo->activo == 1 ? 'Activo' : 'Inactivo' }}
                                 </span>
                             </div>
                         </div>

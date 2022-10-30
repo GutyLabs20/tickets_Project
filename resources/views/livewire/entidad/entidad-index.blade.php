@@ -23,11 +23,10 @@
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b-2 border-gray-200">
                         <tr>
-                            <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('#') }}</th>
-                            {{-- <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Tipo Doc.') }}</th> --}}
+                            <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Code') }}</th>
+                            <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Tipo Doc.') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Nro. Doc') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Company') }}</th>
-                            {{-- <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Description') }}</th> --}}
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Phone') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('E-Mail') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-center">{{ __('Structure') }}</th>
@@ -44,7 +43,10 @@
                                     </a>
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap font-bold">
-                                    {{ $entidad->tipo_doc }}: {{ $entidad->nro_doc }}
+                                    {{ $entidad->tipo_doc }}
+                                </td>
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap font-bold">
+                                    {{ $entidad->nro_doc }}
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $entidad->nombre }}
@@ -58,12 +60,12 @@
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
                                         <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                            <a  href="{{ route('cliente.areas_entidad', ['id' => $entidad->id]) }}"
+                                            <a  href="{{ route('cliente.areas_entidad', ['id' => $entidad->nro_doc]) }}"
                                                 class="rounded-l inline-block px-4 py-1.5 bg-pink-500 text-white font-medium text-xs leading-tight uppercase hover:bg-pink-600 focus:bg-pink-600 focus:outline-none focus:ring-0 active:bg-pink-700 transition duration-150 ease-in-out">
                                                 <i class="fas fa-sitemap"></i>
                                             </a>
                                             {{-- wire:click="saveDelete( {{ $entidad }} )" --}}
-                                            <a  href="{{ route('cliente.colaboradores_entidad', ['id' => $entidad->id]) }}"
+                                            <a  href="{{ route('cliente.colaboradores_entidad', ['id' => $entidad->nro_doc]) }}"
                                                 class="rounded-r inline-block px-4 py-1.5 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-none focus:ring-0 active:bg-cyan-800 transition duration-150 ease-in-out">
                                                 <i class="fas fa-users"></i>
                                             </a>
@@ -73,8 +75,12 @@
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <span
                                         class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                        {{ $entidad->activo == 1 ? 'Habilitado' : 'Deshabilitado' }}
+                                        {{ $entidad->activo == 1 ? 'Activo' : 'Inactivo' }}
                                     </span>
+                                    <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                        <input type="checkbox" name="toggle" id="toggle" class="focus:outline-none toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+                                        <label for="toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                    </div>
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
@@ -85,13 +91,13 @@
                                                 <i class="fas fa-eye"></i>
                                             </button>
                                             <button type="button" wire:click="editar( {{ $entidad }} )"
-                                                class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
+                                                class="rounded-r inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button type="button" wire:click="saveDelete( {{ $entidad }} )"
+                                            {{-- <button type="button" wire:click="saveDelete( {{ $entidad }} )"
                                                 class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
                                                 <i class="fas fa-trash-alt"></i>
-                                            </button>
+                                            </button> --}}
                                         </div>
                                     </div>
                                 </td>
@@ -125,7 +131,7 @@
                             <div>
                                 <span
                                     class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                    {{ $entidad->activo == 1 ? 'Habilitado' : 'Deshabilitado' }}
+                                    {{ $entidad->activo == 1 ? 'Activo' : 'Inactivo' }}
                                 </span>
                             </div>
                         </div>
@@ -250,3 +256,16 @@
         </x-slot>
     </x-jet-dialog-modal>
 </div>
+
+<style>
+    .toggle-checkbox:checked{
+        @apply: right-0 border-green-400;
+        right: 0;
+        border-color: #68D391;
+    }
+
+    .toggle-checkbox:checked + .toggle-label{
+        @apply: bg-green-400;
+        background: #68D391;
+    }
+</style>

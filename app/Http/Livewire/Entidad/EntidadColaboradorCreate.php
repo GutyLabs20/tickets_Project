@@ -23,7 +23,8 @@ class EntidadColaboradorCreate extends Component
     public function mount()
     {
         $entidad_id = \Route::current()->parameter('id');
-        $this->entidad_id = $entidad_id;
+        $e = DB::table('entidad')->where('nro_doc', $entidad_id)->first();
+        $this->entidad_id = $e->id;
         $this->areas = DB::table('entidad_areas')
             ->where(function($query){
                 $query

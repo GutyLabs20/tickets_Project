@@ -51,7 +51,7 @@ class EntidadCreate extends Component
     public function save()
     {
         $this->validate();
-
+        // $this->codigo = $this->generate_string(6);
         Entidad::create([
             'tipo_doc' => strtoupper($this->tipo_doc),
             'nro_doc' => $this->nro_doc,
@@ -93,5 +93,18 @@ class EntidadCreate extends Component
         } else {
             echo $response;
         }
+    }
+
+    public function generate_string($strleng)
+    {
+        $input = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $input_length = strlen($input);
+        $random_string = '';
+        for ($i=0; $i < $strleng; $i++) {
+            $random_character = $input[mt_rand(0, $input_length - 1)];
+            $random_string .= $random_character;
+        }
+
+        return $random_string;
     }
 }

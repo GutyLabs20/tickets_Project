@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Entidad;
 
 use App\Models\EntidadArea;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Illuminate\Support\Str;
 
@@ -19,7 +20,8 @@ class EntidadAreaCreate extends Component
     public function mount()
     {
         $entidad_id = \Route::current()->parameter('id');
-        $this->entidad_id = $entidad_id;
+        $e = DB::table('entidad')->where('nro_doc', $entidad_id)->first();
+        $this->entidad_id = $e->id;
     }
 
     public function create()
@@ -49,7 +51,6 @@ class EntidadAreaCreate extends Component
         EntidadArea::create([
             'nombre' => ucfirst($this->nombre),
             'descripcion' => ucfirst($this->descripcion),
-            'slug' => Str::slug($this->nombre),
             'entidad_id' => $this->entidad_id
         ]);
 

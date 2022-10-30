@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Entidad;
 use App\Models\Entidad;
 use App\Models\EntidadArea;
 use App\Models\EntidadColaborador;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -41,7 +42,8 @@ class EntidadAreaIndex extends Component
 
     public function render()
     {
-        $areas = EntidadArea::where('entidad_id', $this->entidad_id)
+        $e = DB::table('entidad')->where('nro_doc', $this->entidad_id)->first();
+        $areas = EntidadArea::where('entidad_id', $e->id)
             ->when( $this->q, function($query){
                 return $query->where( function($query){
                     $query
