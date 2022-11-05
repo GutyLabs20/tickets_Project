@@ -58,7 +58,7 @@ class EntidadColaboradorIndex extends Component
         $e = $e->id;
         $colaboradores = EntidadColaborador::where(function($query) use ($e){
             $query
-                ->where('activo', 1)
+                // ->where('activo', 1)
                 ->where('entidad_id', $e);
         })
             ->when( $this->q, function($query){

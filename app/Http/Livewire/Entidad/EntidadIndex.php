@@ -13,8 +13,10 @@ class EntidadIndex extends Component
 
     public $title;
     public $modal_edit = false;
+    public $modal_delete = false;
+    public $modal_enable = false;
     public $entidad, $tipo_doc, $nro_doc, $nombre, $slug, $descripcion, $logotipo_path, $logotipo_nombre, $telefono, $email;
-    public $q;
+    public $q, $activo;
 
     protected $listeners = ['render'];
 
@@ -28,7 +30,8 @@ class EntidadIndex extends Component
         'entidad.nombre' => 'required|string|min:2',
         'entidad.descripcion' => 'required|string|min:2',
         'entidad.telefono' => 'required',
-        'entidad.email' => 'required'
+        'entidad.email' => 'required',
+        'entidad.activo' => 'int'
     ];
 
     public function updatingQ()
@@ -44,8 +47,9 @@ class EntidadIndex extends Component
 
     public function render()
     {
-        $entidades = Entidad::where('activo', 1)
-            ->when( $this->q, function($query){
+        // where('activo', 1)
+        $entidades = Entidad::
+            when( $this->q, function($query){
                 return $query->where( function($query){
                     $query
                         ->where('nro_doc', 'like', '%'.$this->q . '%')
@@ -72,10 +76,50 @@ class EntidadIndex extends Component
         // $this->emit('alert', 'Registro actualizado.');
     }
 
-    public function saveDelete(Entidad $entidad)
+    public function delete(Entidad $entidad)
     {
-        $entidad->activo = 0;
-        $entidad->save();
+        $this->entidad = $entidad;
+        $this->modal_delete = true;
+    }
+
+    public function saveDelete()
+    {
+        // // dd($this->entidad->activo);
+        // // if ($this->entidad->activo == 1) {
+        // //     $this->entidad->activo = intval(0);
+        // //     $this->entidad->save();
+        // // }
+        // if ($this->entidad->activo === 0) {
+        //     $this->entidad->activo = intval(1);
+        //     $this->entidad->save();
+        // }
+        // // dd($this->entidad->activo);
+        $this->entidad->activo = intval(0);
+        $this->entidad->save();
+
+        $this->modal_delete = false;
         session()->flash('message', 'Registro eliminado correctamente');
     }
+
+    public function enable(Entidad $entidad)
+    {
+        $this->entidad = $entidad;
+        $this->modal_enable = true;
+    }
+
+    public function saveEnable()
+    {
+        $this->entidad->activo = intval(1);
+        $this->entidad->save();
+
+        $this->modal_enable = false;
+        session()->flash('message', 'Registro eliminado correctamente');
+    }
+
+    // public function saveDelete(Entidad $entidad)
+    // {
+    //     $entidad->activo = 0;
+    //     $entidad->save();
+    //     session()->flash('message', 'Registro eliminado correctamente');
+    // }
 }

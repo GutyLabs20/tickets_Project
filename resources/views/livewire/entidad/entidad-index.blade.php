@@ -30,8 +30,8 @@
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Phone') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('E-Mail') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-center">{{ __('Structure') }}</th>
-                            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">{{ __('Status') }}</th>
-                            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">{{ __('Action') }}</th>
+                            <th class="p-3 text-sm font-semibold tracking-wide text-center">{{ __('Status') }}</th>
+                            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-center">{{ __('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -64,7 +64,6 @@
                                                 class="rounded-l inline-block px-4 py-1.5 bg-pink-500 text-white font-medium text-xs leading-tight uppercase hover:bg-pink-600 focus:bg-pink-600 focus:outline-none focus:ring-0 active:bg-pink-700 transition duration-150 ease-in-out">
                                                 <i class="fas fa-sitemap"></i>
                                             </a>
-                                            {{-- wire:click="saveDelete( {{ $entidad }} )" --}}
                                             <a  href="{{ route('cliente.colaboradores_entidad', ['id' => $entidad->nro_doc]) }}"
                                                 class="rounded-r inline-block px-4 py-1.5 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-none focus:ring-0 active:bg-cyan-800 transition duration-150 ease-in-out">
                                                 <i class="fas fa-users"></i>
@@ -73,31 +72,47 @@
                                     </div>
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    <span
-                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                        {{ $entidad->activo == 1 ? 'Activo' : 'Inactivo' }}
-                                    </span>
-                                    <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
-                                        <input type="checkbox" name="toggle" id="toggle" class="focus:outline-none toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
-                                        <label for="toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                    <div class="flex items-center justify-center">
+                                        <div class="inline-flex focus:shadow-lg">
+                                            @if ($entidad->activo == 1)
+                                                <span
+                                                    class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                                                    {{ 'Activo' }}
+                                                </span>
+                                            @else
+                                                <span
+                                                    class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">
+                                                    {{ 'Inactivo' }}
+                                                </span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
                                         <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg"
                                             role="group">
-                                            <button type="button"
-                                                class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" wire:click="editar( {{ $entidad }} )"
-                                                class="rounded-r inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            {{-- <button type="button" wire:click="saveDelete( {{ $entidad }} )"
-                                                class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button> --}}
+
+                                            @if ($entidad->activo == 1)
+                                                <button type="button" title="{{ __('Show') }}"
+                                                    class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button type="button" wire:click="editar( {{ $entidad }} )" title="{{ __('Edit') }}"
+                                                    class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button type="button" wire:click="delete( {{ $entidad }} )" title="{{ __('Delete') }}"
+                                                    class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            @endif
+                                            @if ($entidad->activo == 0)
+                                                <button type="button" wire:click="enable( {{ $entidad }} )" title="{{ __('Enable') }}"
+                                                    class="rounded-l rounded-r inline-block px-4 py-1.5 bg-orange-600 text-white font-medium text-xs leading-tight uppercase hover:bg-orange-700 focus:bg-orange-700 focus:outline-none focus:ring-0 active:bg-orange-800 transition duration-150 ease-in-out">
+                                                    <i class="fas fa-check" title="{{ __('Enable') }}"></i>
+                                                </button>
+                                            @endif
                                         </div>
                                     </div>
                                 </td>
@@ -129,30 +144,36 @@
                             </div>
                             <div class="text-gray-500 font-bold">{{ $entidad->tipo_doc }}: {{ $entidad->nro_doc }}</div>
                             <div>
-                                <span
-                                    class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                    {{ $entidad->activo == 1 ? 'Activo' : 'Inactivo' }}
-                                </span>
+                                @if ($entidad->activo == 1)
+                                    <span
+                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                                        {{ 'Activo' }}
+                                    </span>
+                                @else
+                                    <span
+                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">
+                                        {{ 'Inactivo' }}
+                                    </span>
+                                @endif
                             </div>
                         </div>
-                        <div class="text-sm text-gray-700">
-                            {{ $entidad->nombre }}
+                        <div class="text-xl text-gray-700 text-center font-bold">
+                            <h2>{{ $entidad->nombre }}</h2>
                         </div>
                         <div class="text-sm text-gray-700">
-                            {{ __('Phone') }}: {{ $entidad->telefono }}
+                            <i class="fas fa-phone-square-alt"></i>&nbsp; {{ $entidad->telefono }}
                         </div>
                         <div class="text-sm text-gray-700">
-                            {{ __('E-Mail') }}: {{ $entidad->email }}
+                            <i class="fas fa-at"></i>&nbsp; {{ $entidad->email }}
                         </div>
                         <div class="text-sm text-gray-700">
                             <div class="flex items-center justify-center">
                                 <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                    <a   href="{{ route('cliente.areas_entidad', ['id' => $entidad->id]) }}"
+                                    <a   href="{{ route('cliente.areas_entidad', ['id' => $entidad->id]) }}" title="{{ __('Show') }} {{ __('Areas') }}"
                                         class="rounded-l inline-block px-4 py-1.5 bg-pink-500 text-white font-medium text-xs leading-tight uppercase hover:bg-pink-600 focus:bg-pink-600 focus:outline-none focus:ring-0 active:bg-pink-700 transition duration-150 ease-in-out">
                                         <i class="fas fa-sitemap"></i>
                                     </a>
-                                    {{-- wire:click="saveDelete( {{ $entidad }} )" --}}
-                                    <a  href="{{ route('cliente.colaboradores_entidad', ['id' => $entidad->id]) }}"
+                                    <a  href="{{ route('cliente.colaboradores_entidad', ['id' => $entidad->id]) }}" title="{{ __('Show') }} {{ __('Employees') }}"
                                         class="rounded-r inline-block px-4 py-1.5 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-none focus:ring-0 active:bg-cyan-800 transition duration-150 ease-in-out">
                                         <i class="fas fa-users"></i>
                                     </a>
@@ -162,18 +183,27 @@
                         <div class="text-sm font-medium text-black">
                             <div class="flex items-center justify-center">
                                 <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                    <button type="button"
-                                        class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button type="button" wire:click="editar( {{ $entidad }} )"
-                                        class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button type="button" wire:click="saveDelete( {{ $entidad }} )"
-                                        class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                    @if ($entidad->activo == 1)
+                                        <button type="button" title="{{ __('Show') }}"
+                                            class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button type="button" wire:click="editar( {{ $entidad }} )" title="{{ __('Edit') }}"
+                                            class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button type="button" wire:click="saveDelete( {{ $entidad }} )" title="{{ __('Delete') }}"
+                                            class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    @endif
+
+                                    @if ($entidad->activo == 0)
+                                        <button type="button" wire:click="saveDelete( {{ $entidad }} )" title="{{ __('Enable') }}"
+                                            class="rounded-l rounded-r inline-block px-4 py-1.5 bg-orange-600 text-white font-medium text-xs leading-tight uppercase hover:bg-orange-700 focus:bg-orange-700 focus:outline-none focus:ring-0 active:bg-orange-800 transition duration-150 ease-in-out">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -218,7 +248,10 @@
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="nro_doc" value="{{ __('N° Doc') }}" />
-                <x-jet-input id="nro_doc" wire:model.defer="entidad.nro_doc" type="text" class="mt-1 block w-full" />
+                <x-jet-input id="nro_doc" wire:model.defer="entidad.nro_doc" type="text"
+                    class="mt-1 block w-full"
+                    maxlength="11"
+                />
                 <x-jet-input-error for="entidad.nro_doc" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">
@@ -234,7 +267,10 @@
 
             <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="telefono" value="{{ __('Phone') }}" />
-                <x-jet-input id="telefono" wire:model.defer="entidad.telefono" type="text" class="mt-1 block w-full" />
+                <x-jet-input id="telefono" wire:model.defer="entidad.telefono" type="text"
+                    class="mt-1 block w-full"
+                    maxlength="11"
+                />
                 <x-jet-input-error for="telefono" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">
@@ -255,17 +291,49 @@
             </x-jet-danger-button>
         </x-slot>
     </x-jet-dialog-modal>
+
+    <x-jet-dialog-modal wire:model="modal_delete">
+        <x-slot name="title">
+            {{ __('Are you sure you want to delete') }} {{ __('Company') }} {{ '?' }}
+        </x-slot>
+
+        <x-slot name="content">
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-input wire:model.defer="entidad.nombre" type="text" class="mt-1 block w-full" disabled/>
+            </div>
+            <x-jet-input wire:model.defer="entidad.activo" type="hidden" />
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$set('modal_delete', false)" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+            <x-jet-danger-button wire:click="saveDelete" wire:loading.attr="disabled" class="ml-2">
+                {{ __('Delete') }}
+            </x-jet-danger-button>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+    <x-jet-dialog-modal wire:model="modal_enable">
+        <x-slot name="title">
+            {{ __('You want to enable the') }} {{ __('Company') }} {{ '?' }}
+        </x-slot>
+
+        <x-slot name="content">
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-input wire:model.defer="entidad.nombre" type="text" class="mt-1 block w-full" disabled/>
+            </div>
+            <x-jet-input wire:model.defer="entidad.activo" type="hidden" />
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$set('modal_enable', false)" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+            <x-jet-danger-button wire:click="saveEnable" wire:loading.attr="disabled" class="ml-2">
+                {{ __('Enable') }}
+            </x-jet-danger-button>
+        </x-slot>
+    </x-jet-dialog-modal>
 </div>
 
-<style>
-    .toggle-checkbox:checked{
-        @apply: right-0 border-green-400;
-        right: 0;
-        border-color: #68D391;
-    }
-
-    .toggle-checkbox:checked + .toggle-label{
-        @apply: bg-green-400;
-        background: #68D391;
-    }
-</style>

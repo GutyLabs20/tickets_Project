@@ -30,8 +30,8 @@
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Phone') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Area') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Position') }}</th>
+                            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-center">{{ __('Action') }}</th>
                             <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">{{ __('Status') }}</th>
-                            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">{{ __('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -62,12 +62,12 @@
                                     @endif
                                 </td>
 
-                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                {{-- <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <span
                                         class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
                                         {{ $colaborador->activo == 1 ? 'Activo' : 'Inactivo' }}
                                     </span>
-                                </td>
+                                </td> --}}
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
                                         <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg"
@@ -77,14 +77,22 @@
                                                 <i class="fas fa-eye"></i>
                                             </button>
                                             <button type="button" wire:click="editar( {{ $colaborador }} )"
-                                                class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
+                                                class="rounded-r inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <button type="button" wire:click="saveDelete( {{ $colaborador }} )"
+                                            {{-- <button type="button" wire:click="saveDelete( {{ $colaborador }} )"
                                                 class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
                                                 <i class="fas fa-trash-alt"></i>
-                                            </button>
+                                            </button> --}}
                                         </div>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                    <div class="flex items-center justify-center">
+                                        @livewire('entidad.toggle-button', [
+                                            'model' => $colaborador,
+                                            'field' => 'activo'
+                                        ])
                                     </div>
                                 </td>
                             </tr>

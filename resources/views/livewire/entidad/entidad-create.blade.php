@@ -24,7 +24,12 @@
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="nro_doc" value="{{ __('N° Doc') }}" />
-                <x-jet-input id="nro_doc" wire:model="nro_doc" type="text" class="mt-1 block w-full" />
+                <x-jet-input
+                    id="nro_doc" wire:model="nro_doc" type="number"
+                    class="mt-1 block w-full"
+                    maxlength="11"
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                />
                 <x-jet-input-error for="nro_doc" class="mt-2" />
             </div>
 
@@ -41,7 +46,7 @@
 
             <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="telefono" value="{{ __('Phone') }}" />
-                <x-jet-input id="telefono" wire:model="telefono" type="text" class="mt-1 block w-full" />
+                <x-jet-input id="telefono" wire:model="telefono" type="text" class="mt-1 block w-full" maxlength="11"/>
                 <x-jet-input-error for="telefono" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4">

@@ -51,7 +51,7 @@
     "Category": "Categoría",
     "Classification": "Clasificación",
     "Document Type": "Tipo de Documento",
-    "Show": "Ver",
+    "Show": "Mostrar",
     "New": "Nuevo",
     "Add": "Agregar",
     "Edit": "Editar",
@@ -64,6 +64,7 @@
     "Company Departments": "Áreas de la Empresa",
     "Position by area": "Cargo por Área",
     "Area": "Área",
+    "Areas": "Áreas",
     "Employees of the company": "Colaboradores de la empresa",
     "Employees": "Colaboradores",
     "Employee": "Colaborador",
@@ -79,5 +80,7 @@
     "Position": "Puesto",
     "optional": "opcional",
     "Whoops! Something went wrong.": "¡Ups! Algo salió mal.",
-    "Are you sure you want to delete": "¿Está seguro de que quiere eliminar"
+    "Are you sure you want to delete": "¿Está seguro de que quiere eliminar",
+    "Enable": "Habilitar",
+    "You want to enable the": "¿Deseas habilitar la"
 }
