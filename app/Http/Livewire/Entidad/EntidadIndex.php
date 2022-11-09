@@ -19,7 +19,11 @@ class EntidadIndex extends Component
     public $entidad, $tipo_doc, $nro_doc, $nombre, $slug, $descripcion, $logotipo_path, $logotipo_nombre, $telefono, $email;
     public $q, $activo;
 
-    protected $listeners = ['render'];
+    protected $listeners = [
+        'render',
+        'delete' => 'eliminar',
+        'enable' => 'habilitar'
+    ];
 
     protected $queryString = [
         'q' => ['except' => '']
@@ -39,6 +43,10 @@ class EntidadIndex extends Component
     {
         $this->resetPage();
     }
+    public function updatingActivo()
+    {
+        $this->resetPage();
+    }
 
     public function mount()
     {
@@ -48,7 +56,6 @@ class EntidadIndex extends Component
 
     public function render()
     {
-        // where('activo', 1)
         $entidades = Entidad::
             when( $this->q, function($query){
                 return $query->where( function($query){
@@ -74,7 +81,7 @@ class EntidadIndex extends Component
         $this->entidad->nombre = strtoupper($this->entidad->nombre);
         $this->entidad->save();
         $this->modal_edit = false;
-        // $this->emit('alert', 'Registro actualizado.');
+        $this->emit('alert', 'Registro actualizado.');
     }
 
     public function delete(Entidad $entidad)
@@ -83,23 +90,21 @@ class EntidadIndex extends Component
         $this->modal_delete = true;
     }
 
-    public function saveDelete()
+    public function eliminar()
     {
-        // $areaDelete = DB::table('entidad_areas')->where('entidad_id', $this->entidad->id)->get();
-
-        // dd($areaDelete);
-        $this->entidad->activo = intval(0);
+        $this->validate();
+        $this->entidad->activo = 0;
         $this->entidad->save();
+        $this->modal_delete = false;
         DB::table('entidad_areas')->where('entidad_id', $this->entidad->id)
-            ->update([
-                'activo' => 0
-            ]);
+        ->update([
+            'activo' => 0
+        ]);
         DB::table('entidad_colaboradores')->where('entidad_id', $this->entidad->id)
             ->update([
                 'activo' => 0
             ]);
-        $this->modal_delete = false;
-        session()->flash('message', 'Registro eliminado correctamente');
+        $this->emitUp('alert', 'Registro eliminado correctamente');
     }
 
     public function enable(Entidad $entidad)
@@ -108,9 +113,12 @@ class EntidadIndex extends Component
         $this->modal_enable = true;
     }
 
-    public function saveEnable()
+    public function habilitar()
     {
-        $this->entidad->activo = intval(1);
+        $this->validate();
+        $this->entidad->activo = 1;
+        $this->entidad->save();
+        $this->modal_enable = false;
         DB::table('entidad_areas')->where('entidad_id', $this->entidad->id)
             ->update([
                 'activo' => 1
@@ -119,9 +127,7 @@ class EntidadIndex extends Component
             ->update([
                 'activo' => 1
             ]);
-        $this->entidad->save();
-        $this->modal_enable = false;
-        session()->flash('message', 'Registro habilitó                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz correctamente');
+        $this->emit('alert', 'Registro habilitado correctamente');
     }
 
     // public function saveDelete(Entidad $entidad)

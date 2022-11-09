@@ -192,14 +192,14 @@
                                             class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button type="button" wire:click="saveDelete( {{ $entidad }} )" title="{{ __('Delete') }}"
+                                        <button type="button" wire:click="delete( {{ $entidad }} )" title="{{ __('Delete') }}"
                                             class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     @endif
 
                                     @if ($entidad->activo == 0)
-                                        <button type="button" wire:click="saveDelete( {{ $entidad }} )" title="{{ __('Enable') }}"
+                                        <button type="button" wire:click="enable( {{ $entidad }} )" title="{{ __('Enable') }}"
                                             class="rounded-l rounded-r inline-block px-4 py-1.5 bg-orange-600 text-white font-medium text-xs leading-tight uppercase hover:bg-orange-700 focus:bg-orange-700 focus:outline-none focus:ring-0 active:bg-orange-800 transition duration-150 ease-in-out">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
@@ -308,7 +308,7 @@
             <x-jet-secondary-button wire:click="$set('modal_delete', false)" wire:loading.attr="disabled">
                 {{ __('Cancel') }}
             </x-jet-secondary-button>
-            <x-jet-danger-button wire:click="saveDelete" wire:loading.attr="disabled" class="ml-2">
+            <x-jet-danger-button wire:click="eliminar" wire:loading.attr="disabled" class="ml-2">
                 {{ __('Delete') }}
             </x-jet-danger-button>
         </x-slot>
@@ -330,7 +330,7 @@
             <x-jet-secondary-button wire:click="$set('modal_enable', false)" wire:loading.attr="disabled">
                 {{ __('Cancel') }}
             </x-jet-secondary-button>
-            <x-jet-danger-button wire:click="saveEnable" wire:loading.attr="disabled" class="ml-2">
+            <x-jet-danger-button wire:click="habilitar" wire:loading.attr="disabled" class="ml-2">
                 {{ __('Enable') }}
             </x-jet-danger-button>
         </x-slot>
