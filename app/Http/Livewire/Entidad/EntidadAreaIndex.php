@@ -15,6 +15,8 @@ class EntidadAreaIndex extends Component
 
     public $title;
     public $modal_edit = false;
+    public $modal_delete = false;
+    public $modal_enable = false;
     public $area, $nombre, $descripcion, $entidad_id;
     public $q;
 
@@ -70,10 +72,32 @@ class EntidadAreaIndex extends Component
         // $this->emit('alert', 'Registro actualizado.');
     }
 
-    public function saveDelete(EntidadArea $area)
+    public function delete(EntidadArea $area)
     {
-        $area->activo = 0;
-        $area->save();
+        $this->area = $area;
+        $this->modal_delete = true;
+    }
+
+    public function saveDelete()
+    {
+        $this->area->activo = intval(0);
+        $this->area->save();
+        $this->modal_delete = false;
         session()->flash('message', 'Registro eliminado correctamente');
     }
+
+    public function enable(EntidadArea $area)
+    {
+        $this->area = $area;
+        $this->modal_enable = true;
+    }
+
+    public function saveEnable()
+    {
+        $this->area->activo = intval(1);
+        $this->area->save();
+        $this->modal_enable = false;
+        session()->flash('message', 'Registro eliminado correctamente');
+    }
+
 }

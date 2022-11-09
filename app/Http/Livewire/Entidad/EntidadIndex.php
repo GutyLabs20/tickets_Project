@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Entidad;
 
 use App\Models\Entidad;
+use App\Models\EntidadArea;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -84,19 +85,19 @@ class EntidadIndex extends Component
 
     public function saveDelete()
     {
-        // // dd($this->entidad->activo);
-        // // if ($this->entidad->activo == 1) {
-        // //     $this->entidad->activo = intval(0);
-        // //     $this->entidad->save();
-        // // }
-        // if ($this->entidad->activo === 0) {
-        //     $this->entidad->activo = intval(1);
-        //     $this->entidad->save();
-        // }
-        // // dd($this->entidad->activo);
+        // $areaDelete = DB::table('entidad_areas')->where('entidad_id', $this->entidad->id)->get();
+
+        // dd($areaDelete);
         $this->entidad->activo = intval(0);
         $this->entidad->save();
-
+        DB::table('entidad_areas')->where('entidad_id', $this->entidad->id)
+            ->update([
+                'activo' => 0
+            ]);
+        DB::table('entidad_colaboradores')->where('entidad_id', $this->entidad->id)
+            ->update([
+                'activo' => 0
+            ]);
         $this->modal_delete = false;
         session()->flash('message', 'Registro eliminado correctamente');
     }
@@ -110,10 +111,17 @@ class EntidadIndex extends Component
     public function saveEnable()
     {
         $this->entidad->activo = intval(1);
+        DB::table('entidad_areas')->where('entidad_id', $this->entidad->id)
+            ->update([
+                'activo' => 1
+            ]);
+        DB::table('entidad_colaboradores')->where('entidad_id', $this->entidad->id)
+            ->update([
+                'activo' => 1
+            ]);
         $this->entidad->save();
-
         $this->modal_enable = false;
-        session()->flash('message', 'Registro eliminado correctamente');
+        session()->flash('message', 'Registro habilitó                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz correctamente');
     }
 
     // public function saveDelete(Entidad $entidad)
