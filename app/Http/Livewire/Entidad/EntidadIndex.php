@@ -21,8 +21,8 @@ class EntidadIndex extends Component
 
     protected $listeners = [
         'render',
-        'delete' => 'eliminar',
-        'enable' => 'habilitar'
+        'delete',
+        'enable'
     ];
 
     protected $queryString = [
@@ -47,9 +47,18 @@ class EntidadIndex extends Component
     {
         $this->resetPage();
     }
-
-    public function mount()
+    public function updatingModalDelete()
     {
+        $this->resetPage();
+    }
+    public function updatingModalEnable()
+    {
+        $this->resetPage();
+    }
+
+    public function mount(Entidad $entidad)
+    {
+        $this->activo = $entidad->activo;
         $this->title = "Empresas";
         $this->tipodocumento = DB::table('tipodocumento')->where('activo', 1)->pluck('nombre', 'id');
     }
@@ -93,9 +102,7 @@ class EntidadIndex extends Component
     public function eliminar()
     {
         $this->validate();
-        $this->entidad->activo = 0;
-        $this->entidad->save();
-        $this->modal_delete = false;
+
         DB::table('entidad_areas')->where('entidad_id', $this->entidad->id)
         ->update([
             'activo' => 0
@@ -104,7 +111,12 @@ class EntidadIndex extends Component
             ->update([
                 'activo' => 0
             ]);
-        $this->emitUp('alert', 'Registro eliminado correctamente');
+
+        $this->entidad->activo = 0;
+        $this->entidad->save();
+        $this->modal_delete = false;
+
+        $this->emit('alert', 'Registro eliminado correctamente');
     }
 
     public function enable(Entidad $entidad)
@@ -116,9 +128,7 @@ class EntidadIndex extends Component
     public function habilitar()
     {
         $this->validate();
-        $this->entidad->activo = 1;
-        $this->entidad->save();
-        $this->modal_enable = false;
+
         DB::table('entidad_areas')->where('entidad_id', $this->entidad->id)
             ->update([
                 'activo' => 1
@@ -127,6 +137,11 @@ class EntidadIndex extends Component
             ->update([
                 'activo' => 1
             ]);
+
+        $this->entidad->activo = 1;
+        $this->entidad->save();
+        $this->modal_enable = false;
+
         $this->emit('alert', 'Registro habilitado correctamente');
     }
 

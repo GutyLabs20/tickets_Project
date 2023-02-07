@@ -17,10 +17,7 @@ class CreateEntidadAreasTable extends Migration
             $table->id();
             $table->string('nombre', 250);
             $table->string('descripcion', 250)->nullable();
-            $table->string('slug')->unique()->nullable();
-            $table->unsignedBigInteger('entidad_id')->nullable();
-            $table->foreign('entidad_id')->references('id')->on('entidad')->cascadeOnDelete();
-            $table->string('activo', 1)->default(1);
+            $table->boolean('activo', true)->default(true);
             $table->timestamps();
         });
     }

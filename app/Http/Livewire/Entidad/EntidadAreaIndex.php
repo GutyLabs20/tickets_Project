@@ -18,9 +18,13 @@ class EntidadAreaIndex extends Component
     public $modal_delete = false;
     public $modal_enable = false;
     public $area, $nombre, $descripcion, $entidad_id;
-    public $q;
+    public $q, $activo;
 
-    protected $listeners = ['render'];
+    protected $listeners = [
+        'render',
+        'delete' => 'eliminar',
+        'enable' => 'habilitar'
+    ];
 
     protected $queryString = [
         'q' => ['except' => '']
@@ -32,6 +36,18 @@ class EntidadAreaIndex extends Component
     ];
 
     public function updatingQ()
+    {
+        $this->resetPage();
+    }
+    public function updatingActivo()
+    {
+        $this->resetPage();
+    }
+    public function updatingModalDelete()
+    {
+        $this->resetPage();
+    }
+    public function updatingModalEnable()
     {
         $this->resetPage();
     }
@@ -69,7 +85,7 @@ class EntidadAreaIndex extends Component
         $this->validate();
         $this->area->save();
         $this->modal_edit = false;
-        // $this->emit('alert', 'Registro actualizado.');
+        $this->emit('alert', 'Registro actualizado.');
     }
 
     public function delete(EntidadArea $area)
@@ -78,12 +94,14 @@ class EntidadAreaIndex extends Component
         $this->modal_delete = true;
     }
 
-    public function saveDelete()
+    public function eliminar()
     {
+        $this->validate();
         $this->area->activo = intval(0);
         $this->area->save();
         $this->modal_delete = false;
-        session()->flash('message', 'Registro eliminado correctamente');
+        $this->emit('alert', 'Registro eliminado correctamente');
+        // session()->flash('message', 'Registro eliminado correctamente');
     }
 
     public function enable(EntidadArea $area)
@@ -92,12 +110,13 @@ class EntidadAreaIndex extends Component
         $this->modal_enable = true;
     }
 
-    public function saveEnable()
+    public function habilitar()
     {
         $this->area->activo = intval(1);
         $this->area->save();
         $this->modal_enable = false;
-        session()->flash('message', 'Registro eliminado correctamente');
+        $this->emit('alert', 'Registro eliminado correctamente');
+        // session()->flash('message', 'Registro eliminado correctamente');
     }
 
 }

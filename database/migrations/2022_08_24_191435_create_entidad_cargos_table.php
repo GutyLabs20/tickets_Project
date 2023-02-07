@@ -17,9 +17,6 @@ class CreateEntidadCargosTable extends Migration
             $table->id();
             $table->string('nombre', 250);
             $table->string('descripcion', 250)->nullable();
-            $table->string('slug')->unique()->nullable();
-            // $table->unsignedBigInteger('area_id')->nullable();
-            // $table->foreign('area_id')->references('id')->on('entidad_areas')->cascadeOnDelete();
             $table->string('activo', 1)->default(1);
             $table->timestamps();
         });

@@ -16,8 +16,7 @@ class TipoUsuarioSeeder extends Seeder
     {
         TipoUsuario::create([
             'nombre' => 'SysAdmin',
-            'descripcion' => 'Tipo de usuario Administrador del sistema',
-            'slug' => 'sysadmin'
+            'descripcion' => 'Tipo de usuario Administrador del sistema'
         ]);
     }
 }

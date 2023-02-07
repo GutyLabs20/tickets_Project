@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTipousuariosTable extends Migration
+class AddIsColumnToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateTipousuariosTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipousuarios', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre', 50);
-            $table->string('descripcion', 100);
-            $table->string('activo', 1)->default(1);
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('is_admin')->default(false);
         });
     }
 
@@ -29,6 +25,8 @@ class CreateTipousuariosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipousuarios');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('is_admin');
+        });
     }
 }

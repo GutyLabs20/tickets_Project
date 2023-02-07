@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('tipousuario_id')->nullable();
             $table->foreign('tipousuario_id')->references('id')->on('tipousuarios')->cascadeOnDelete();
+            $table->string('compania')->nullable();
             $table->string('activo', 1)->default(1);
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();

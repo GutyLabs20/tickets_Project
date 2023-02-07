@@ -28,7 +28,7 @@
                     id="nro_doc" wire:model="nro_doc" type="number"
                     class="mt-1 block w-full"
                     maxlength="11"
-                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                    oninput="javascript: if (this.value.maxLength > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                 />
                 <x-jet-input-error for="nro_doc" class="mt-2" />
             </div>
