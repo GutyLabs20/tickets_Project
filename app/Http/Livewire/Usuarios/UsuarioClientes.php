@@ -2,13 +2,12 @@
 
 namespace App\Http\Livewire\Usuarios;
 
-use App\Models\TipoUsuario;
 use App\Models\User;
 use App\Models\Usuario;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class UsuariosIndex extends Component
+class UsuarioClientes extends Component
 {
     use WithPagination;
 
@@ -16,7 +15,10 @@ class UsuariosIndex extends Component
     public $usuario, $nombres, $apellidos, $email, $tipo_id;
     public $modal_edit = false;
 
-    protected $listeners = ['render'];
+    public function mount()
+    {
+        $this->title = "Usuarios - Clientes";
+    }
 
     protected $rules = [
         'usuario.nombres' => 'required|string|min:2',
@@ -26,25 +28,14 @@ class UsuariosIndex extends Component
         'usuario.tipousuario_id' => 'required',
     ];
 
-    public function mount()
-    {
-        $this->title = "Gestores";
-    }
-
     public function render()
     {
-        $tipousuarios = TipoUsuario::pluck('id', 'nombre');
-        $usuarios = User::where('activo', 1)->paginate(10);
-        return view('livewire.usuarios.usuarios-index', [
-            'usuarios' => $usuarios,
-            'tipousuarios' => $tipousuarios
+        $usuarios = User::where('activo', 1)
+                ->where('tipousuario_id', 6)
+                ->paginate(10);
+        return view('livewire.usuarios.usuario-clientes', [
+            'usuarios' => $usuarios
         ]);
-    }
-
-    public function editar(Usuario $usuario)
-    {
-        $this->usuario = $usuario;
-        $this->modal_edit = true;
     }
 
     public function actualizar()

@@ -19,13 +19,12 @@ class TipoUsuarios extends Component
 
     protected $rules = [
         'tipo.nombre' => 'required|string|min:2',
-        'tipo.descripcion' => 'required|string|min:2',
-        'tipo.slug' => 'string'
+        'tipo.descripcion' => 'required|string|min:2'
     ];
 
     public function mount()
     {
-        $this->title = "Tipo de Usuarios";
+        $this->title = "Roles";
         // // $this->tipo = new TipoUsuario();
     }
 

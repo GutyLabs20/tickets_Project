@@ -40,9 +40,8 @@ class TipoCrear extends Component
         $this->validate();
 
         TipoUsuario::create([
-            'nombre' => ucfirst($this->nombre),
-            'descripcion' => ucfirst($this->descripcion),
-            'slug' => Str::slug($this->nombre)
+            'nombre' => ucwords($this->nombre),
+            'descripcion' => ucfirst($this->descripcion)
         ]);
 
         $this->reset([

@@ -28,7 +28,7 @@
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Employee') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('E-Mail') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Phone') }}</th>
-                            <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Area') }}</th>
+                            {{-- <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Area') }}</th> --}}
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Position') }}</th>
                             <th class="w-24 p-3 text-sm font-semibold tracking-wide text-center">{{ __('Action') }}</th>
                             <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">{{ __('Status') }}</th>
@@ -51,14 +51,14 @@
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $colaborador->telefono }}
                                 </td>
-                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+                                {{-- <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $colaborador->colaborador_area->nombre }}
-                                </td>
+                                </td> --}}
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    @if ($colaborador->puesto == NULL)
+                                    @if ($colaborador->rol == NULL)
                                         {{ '-' }}
                                     @else
-                                        {{ $colaborador->puesto }}
+                                        {{ $colaborador->rol }}
                                     @endif
                                 </td>
 
@@ -152,9 +152,9 @@
                         <div class="text-sm text-gray-700">
                             <i class="fas fa-phone-square-alt"></i>&nbsp; {{ $colaborador->telefono }}
                         </div>
-                        <div class="text-sm text-gray-700">
+                        {{-- <div class="text-sm text-gray-700">
                             <i class="fas fa-sitemap"></i>&nbsp; {{ $colaborador->colaborador_area->nombre }}
-                        </div>
+                        </div> --}}
 
                         <div class="text-sm font-medium text-black">
                             <div class="flex items-center justify-center">
@@ -222,7 +222,7 @@
                 <x-jet-input wire:model.defer="colaborador.telefono" type="text" class="mt-1 block w-full" />
                 <x-jet-input-error for="colaborador.telefono" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-4 mt-4">
+            {{-- <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="area_id" value="{{ __('Area') }}" />
                 <select wire:model="colaborador.area_id" name="area_id" id="area_id"
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
@@ -232,7 +232,7 @@
                     @endforeach
                 </select>
                 <x-jet-input-error for="tipousuario_id" class="mt-2" />
-            </div>
+            </div> --}}
             <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="puesto" value="{{ __('Position') }} ({{ __('optional') }})" />
                 <select wire:model="colaborador.puesto" name="puesto" id="puesto"

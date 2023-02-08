@@ -9,10 +9,10 @@ class EntidadColaborador extends Model
 {
     use HasFactory;
     protected $table = 'entidad_colaboradores';
-    protected $fillable = ['nombres', 'apellidos', 'email', 'telefono', 'slug', 'area_id', 'entidad_id', 'puesto', 'activo'];
+    protected $fillable = ['nombres', 'apellidos', 'email', 'telefono', 'entidad_id', 'rol', 'activo'];
 
-    public function colaborador_area()
+    public function compania()
     {
-        return $this->belongsTo(EntidadArea::class, 'area_id');
+        return $this->belongsTo(Entidad::class, 'entidad_id');
     }
 }

@@ -12,6 +12,7 @@ class UsuariosCrear extends Component
 {
     public $open = false;
     public $nombres, $apellidos, $usuario, $email, $tipousuario_id, $password;
+    public $tipousuarios;
 
     protected $rules = [
         'nombres' => 'required|min:2',
@@ -51,13 +52,13 @@ class UsuariosCrear extends Component
     public function save()
     {
         $this->validate();
-        // $nom = explode(' ', $this->nombres);
-        // $ape = explode(' ', $this->apellidos);
-        // $this->usuario = $nom[0] . $ape[0];
+        $nom = explode(' ', $this->nombres);
+        $ape = explode(' ', $this->apellidos);
+        $this->usuario = ucwords($nom[0]) . ' ' . ucwords($ape[0]);
         User::create([
             'nombres' => ucwords($this->nombres),
             'apellidos' => ucwords($this->apellidos),
-            'usuario' => ucwords($this->nombres),
+            'usuario' => ucwords($this->usuario),
             'email' => $this->email,
             'tipousuario_id' => intval($this->tipousuario_id),
             'password' => Hash::make($this->password)

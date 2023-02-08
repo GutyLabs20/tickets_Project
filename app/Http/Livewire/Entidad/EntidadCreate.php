@@ -9,7 +9,7 @@ use Livewire\Component;
 class EntidadCreate extends Component
 {
     public $open = false;
-    public $tipo_doc, $nro_doc, $nombre, $slug, $descripcion, $logotipo_path, $logotipo_nombre, $telefono, $email;
+    public $tipo_doc, $nro_doc, $nombre, $slug, $descripcion, $logotipo_path, $logotipo_nombre, $telefono, $email, $tipodocumento;
 
     protected $rules = [
         'tipo_doc' => 'required',
@@ -60,7 +60,8 @@ class EntidadCreate extends Component
             'telefono' => $this->telefono,
             'email' => $this->email,
             'logotipo_path' => 'mi ruta del logotipo',
-            'logotipo_nombre' => 'milogo.jpg'
+            'logotipo_nombre' => 'milogo.jpg',
+            'created_by' => auth()->user()->id
         ]);
 
         $this->reset([

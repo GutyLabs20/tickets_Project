@@ -60,12 +60,12 @@
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
                                         <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                            <a  href="{{ route('cliente.areas_entidad', ['id' => $entidad->nro_doc]) }}"
+                                            {{-- <a  href="{{ route('cliente.areas_entidad', ['id' => $entidad->nro_doc]) }}"
                                                 class="rounded-l inline-block px-4 py-1.5 bg-pink-500 text-white font-medium text-xs leading-tight uppercase hover:bg-pink-600 focus:bg-pink-600 focus:outline-none focus:ring-0 active:bg-pink-700 transition duration-150 ease-in-out">
                                                 <i class="fas fa-sitemap"></i>
-                                            </a>
-                                            <a  href="{{ route('cliente.colaboradores_entidad', ['id' => $entidad->nro_doc]) }}"
-                                                class="rounded-r inline-block px-4 py-1.5 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-none focus:ring-0 active:bg-cyan-800 transition duration-150 ease-in-out">
+                                            </a> --}}
+                                            <a  href="{{ route('cliente.colaboradores_entidad', ['id' => $entidad->nro_doc]) }}" title="{{__('Employees')}}"
+                                                class="rounded inline-block px-4 py-1.5 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-none focus:ring-0 active:bg-cyan-800 transition duration-150 ease-in-out">
                                                 <i class="fas fa-users"></i>
                                             </a>
                                         </div>
@@ -169,12 +169,12 @@
                         <div class="text-sm text-gray-700">
                             <div class="flex items-center justify-center">
                                 <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                    <a   href="{{ route('cliente.areas_entidad', ['id' => $entidad->id]) }}" title="{{ __('Show') }} {{ __('Areas') }}"
+                                    {{-- <a   href="{{ route('cliente.areas_entidad', ['id' => $entidad->id]) }}" title="{{ __('Show') }} {{ __('Areas') }}"
                                         class="rounded-l inline-block px-4 py-1.5 bg-pink-500 text-white font-medium text-xs leading-tight uppercase hover:bg-pink-600 focus:bg-pink-600 focus:outline-none focus:ring-0 active:bg-pink-700 transition duration-150 ease-in-out">
                                         <i class="fas fa-sitemap"></i>
-                                    </a>
+                                    </a> --}}
                                     <a  href="{{ route('cliente.colaboradores_entidad', ['id' => $entidad->id]) }}" title="{{ __('Show') }} {{ __('Employees') }}"
-                                        class="rounded-r inline-block px-4 py-1.5 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-none focus:ring-0 active:bg-cyan-800 transition duration-150 ease-in-out">
+                                        class="rounded inline-block px-4 py-1.5 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-none focus:ring-0 active:bg-cyan-800 transition duration-150 ease-in-out">
                                         <i class="fas fa-users"></i>
                                     </a>
                                 </div>

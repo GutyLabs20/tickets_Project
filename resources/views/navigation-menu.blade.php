@@ -33,8 +33,10 @@
                     <x-nav-link-parent :href="'#'" :active="request()->routeIs('usuario*')">
                         <x-slot name="name">{{ __('Users') }}</x-slot>
                         <x-slot name="children">
-                            <a href="{{ route('usuario.tipo_usuarios') }}">{{ __('Type_Users') }}</a>
+                            <a href="{{ route('usuario.tipo_usuarios') }}">{{ __('Roles') }}</a>
                             <a href="{{ route('usuario.gestores_lista') }}">{{ __('Users') }}</a>
+                            <span class="separator"></span>
+                            <a href="{{ route('usuario.usuario_clientes') }}">{{ __('Users') }} - {{ __('Company') }}</a>
                         </x-slot>
                     </x-nav-link-parent>
 
@@ -43,9 +45,8 @@
                         <x-slot name="children">
                             <a href="{{ route('cliente.empresas') }}">{{ __('Company') }}</a>
                             <a href="{{ route('cliente.puestos') }}">{{ __('Position') }}</a>
-                            {{-- <a href="{{ route('cliente.areas') }}">{{ __('Area') }}</a> --}}
-                            {{-- <a href="{{ route('cliente.cargos') }}">{{ __('Position by area') }}</a> --}}
                             {{-- <a href="{{ route('cliente.colaboradores') }}">{{ __('Employees') }}</a> --}}
+                            {{-- <a href="{{ route('cliente.areas') }}">{{ __('Area') }}</a> --}}
                         </x-slot>
                     </x-nav-link-parent>
                 </div>
@@ -192,8 +193,8 @@
             <x-responsive-nav-link-parent :active="request()->routeIs('usuario*')">
                 <x-slot name="name">{{ __('Users') }}</x-slot>
                 <x-slot name="children">
-                    <a href="{{ route('usuario.tipo_usuarios') }}">Tipo de Usuarios</a>
-                    <a href="{{ route('usuario.gestores_lista') }}">Usuarios</a>
+                    <a href="{{ route('usuario.tipo_usuarios') }}">Roles</a>
+                    <a href="{{ route('usuario.gestores_lista') }}">{{ __('Users') }}</a>
                 </x-slot>
             </x-responsive-nav-link-parent>
 

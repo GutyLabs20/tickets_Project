@@ -16,7 +16,7 @@ class EntidadIndex extends Component
     public $modal_edit = false;
     public $modal_delete = false;
     public $modal_enable = false;
-    public $entidad, $tipo_doc, $nro_doc, $nombre, $slug, $descripcion, $logotipo_path, $logotipo_nombre, $telefono, $email;
+    public $entidad, $tipo_doc, $nro_doc, $nombre, $slug, $descripcion, $logotipo_path, $logotipo_nombre, $telefono, $email, $tipodocumento;
     public $q, $activo;
 
     protected $listeners = [

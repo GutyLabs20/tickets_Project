@@ -10,12 +10,13 @@ class Entidad extends Model
     use HasFactory;
     protected $table = 'entidad';
     protected $fillable = [
-        'tipo_doc', 'nro_doc', 'nombre', 'slug', 'descripcion',
-        'logotipo_path', 'logotipo_nombre', 'telefono', 'email', 'activo'
+        'tipo_doc', 'nro_doc', 'nombre', 'descripcion',
+        'logotipo_path', 'logotipo_nombre', 'telefono', 'email',
+        'created_by', 'activo'
     ];
 
-    public function areas_entidad()
+    public function colaboradores()
     {
-        $this->hasMany(EntidadArea::class, 'id');
+        $this->hasMany(EntidadColaborador::class, 'id');
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Livewire\Entidad\EntidadAreaIndex;
 use App\Http\Livewire\Entidad\EntidadCargoIndex;
 use App\Http\Livewire\Entidad\EntidadColaboradorIndex;
 use App\Http\Livewire\Entidad\EntidadIndex;
 use App\Http\Livewire\Usuarios\TipoUsuarios;
+use App\Http\Livewire\Usuarios\UsuarioClientes;
 use App\Http\Livewire\Usuarios\UsuariosIndex;
 use App\Http\Livewire\Utilitarios\CategoriasIndex;
 use App\Http\Livewire\Utilitarios\ClasificacionesIndex;
@@ -25,8 +25,9 @@ Route::middleware([
 ])->group(function () {
 
     //Usuarios
-    Route::get('/usuario/tipo-usuarios', TipoUsuarios::class)->name('usuario.tipo_usuarios');
+    Route::get('/usuario/roles-usuarios', TipoUsuarios::class)->name('usuario.tipo_usuarios');
     Route::get('/usuario/gestores', UsuariosIndex::class)->name('usuario.gestores_lista');
+    Route::get('/usuario/usuario-clientes', UsuarioClientes::class)->name('usuario.usuario_clientes');
 
     //Utilitarios
     Route::get('/utilitario/categorias', CategoriasIndex::class)->name('utilitario.categorias');
@@ -38,9 +39,12 @@ Route::middleware([
 
     //Entidades
     Route::get('/cliente/empresas', EntidadIndex::class)->name('cliente.empresas');
-    Route::get('/cliente/empresa/{id}/areas', EntidadAreaIndex::class)->name('cliente.areas_entidad');
     Route::get('/cliente/empresa/{id}/colaboradores', EntidadColaboradorIndex::class)->name('cliente.colaboradores_entidad');
     Route::get('/cliente/puestos', EntidadCargoIndex::class)->name('cliente.puestos');
+
+    // Route::get('/cliente/empresa/{id}/areas', EntidadAreaIndex::class)->name('cliente.areas_entidad');
+    // Route::get('/cargos', EntidadColaboradorIndex::class)->name('cliente.colaboradores');
+
     // Route::get('/cliente/areas', EntidadAreaIndex::class)->name('cliente.areas');
     // Route::get('/cliente/colaboradores', EntidadColaboradorIndex::class)->name('cliente.colaboradores');
 

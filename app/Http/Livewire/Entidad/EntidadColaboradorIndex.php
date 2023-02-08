@@ -14,7 +14,7 @@ class EntidadColaboradorIndex extends Component
     public $title;
     public $modal_edit = false;
     // public $colaborador, $nombre, $descripcion, $entidad_id;
-    public $colaborador, $nombres, $apellidos, $email, $telefono, $area_id, $entidad_id, $puesto;
+    public $colaborador, $nombres, $apellidos, $email, $telefono, $area_id, $entidad_id, $cargos;
     public $q;
 
     protected $listeners = ['render'];
@@ -28,8 +28,6 @@ class EntidadColaboradorIndex extends Component
         'colaborador.apellidos' => 'required|string|min:2',
         'colaborador.email' => 'required|string|min:2',
         'colaborador.telefono' => 'required|string|min:2',
-        'colaborador.area_id' => 'required',
-        'colaborador.puesto' => '',
     ];
 
     public function updatingQ()
@@ -41,15 +39,7 @@ class EntidadColaboradorIndex extends Component
     {
         $this->title = 'Colaboradores';
         $this->entidad_id = $id;
-        $this->areas = DB::table('entidad_areas')
-            ->where(function($query){
-                $query
-                    ->where('activo', 1)
-                    ->where('entidad_id', $this->entidad_id);
-            })
-            ->pluck('nombre', 'id');
         $this->cargos = DB::table('entidad_cargos')->where('activo', 1)->pluck('nombre', 'id');
-        // $this->e = DB::table('entidad')->where('nro_doc', $this->entidad_id)->first();
     }
 
     public function render()
