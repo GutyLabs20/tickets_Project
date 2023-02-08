@@ -20,13 +20,13 @@
             @csrf
 
             <div class="block">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
+                <x-jet-label for="email" value="{{ __('E-Mail') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <x-jet-button>
-                    {{ __('Email Password Reset Link') }}
+            <div class="mt-4">
+                <x-jet-button class="mt-1 w-full flex items-center justify-center text-center">
+                    {{ __('Password Reset') }}
                 </x-jet-button>
             </div>
         </form>
