@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Usuarios;
 use App\Models\TipoUsuario;
 use App\Models\User;
 use App\Models\Usuario;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,6 +16,11 @@ class UsuariosIndex extends Component
     public $title;
     public $usuario, $nombres, $apellidos, $email, $tipo_id;
     public $modal_edit = false;
+    public $q;
+
+    protected $queryString = [
+        'q' => ['except' => '']
+    ];
 
     protected $listeners = ['render'];
 
@@ -26,6 +32,11 @@ class UsuariosIndex extends Component
         'usuario.tipousuario_id' => 'required',
     ];
 
+    public function updatingQ()
+    {
+        $this->resetPage();
+    }
+
     public function mount()
     {
         $this->title = "Gestores";
@@ -34,7 +45,25 @@ class UsuariosIndex extends Component
     public function render()
     {
         $tipousuarios = TipoUsuario::pluck('id', 'nombre');
-        $usuarios = User::where('activo', 1)->paginate(10);
+        $usuarios = User::where('activo', 1)
+                ->paginate(10);
+        // ->whereNotIn('id', [1, 2, 3])
+        $e = DB::table('tipousuarios')->where('nombre', 'Cliente')->first();
+        $e = $e->id;
+        $usuarios = User::where(function($query) use ($e){
+            $query
+                ->where('activo', 1)
+                ->whereNotIn('tipousuario_id', [$e]);
+        })
+            ->when( $this->q, function($query){
+                return $query->where( function($query){
+                    $query
+                        ->where('nombres', 'like', '%'.$this->q . '%')
+                        ->orWhere('apellidos', 'like', '%' .$this->q . '%');
+                });
+            });
+
+        $usuarios = $usuarios->paginate(10);
         return view('livewire.usuarios.usuarios-index', [
             'usuarios' => $usuarios,
             'tipousuarios' => $tipousuarios

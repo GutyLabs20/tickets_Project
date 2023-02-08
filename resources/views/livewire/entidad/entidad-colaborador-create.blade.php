@@ -31,7 +31,7 @@
                 <x-jet-input id="telefono" wire:model="telefono" type="text" class="mt-1 block w-full" />
                 <x-jet-input-error for="telefono" class="mt-2" />
             </div>
-            <input type="hidden" name="entidad_id" id="entidad_id" wire:model="{{$entidad_id}}" />
+            {{-- <input type="hidden" name="entidad" id="entidad" wire:model="{{$entidad}}" /> --}}
             {{-- <div class="col-span-6 sm:col-span-4 mt-4">
                 <x-jet-label for="area_id" value="{{ __('Area') }}" />
                 <select wire:model="area_id" name="area_id" id="area_id"
@@ -55,7 +55,7 @@
                 <x-jet-input-error for="puesto" class="mt-2" />
             </div>
 
-            <input type="hidden" name="entidad_id" id="entidad_id" wire:model="{{$entidad_id}}" />
+            <input type="hidden" name="entidad_id" id="entidad_id" wire:model="{{$entidad}}" />
         </x-slot>
 
         <x-slot name="footer">

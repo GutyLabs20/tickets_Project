@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Usuarios;
 
 use App\Models\User;
 use App\Models\Usuario;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,6 +15,18 @@ class UsuarioClientes extends Component
     public $title;
     public $usuario, $nombres, $apellidos, $email, $tipo_id;
     public $modal_edit = false;
+    public $q;
+
+    protected $queryString = [
+        'q' => ['except' => '']
+    ];
+
+    protected $listeners = ['render'];
+
+    public function updatingQ()
+    {
+        $this->resetPage();
+    }
 
     public function mount()
     {
@@ -30,9 +43,24 @@ class UsuarioClientes extends Component
 
     public function render()
     {
-        $usuarios = User::where('activo', 1)
-                ->where('tipousuario_id', 6)
-                ->paginate(10);
+        $e = DB::table('tipousuarios')->where('nombre', 'Cliente')->first();
+        $e = $e->id;
+        $usuarios = User::where(function($query) use ($e){
+            $query
+                ->where('activo', 1)
+                ->where('tipousuario_id', $e);
+        })
+            ->when( $this->q, function($query){
+                return $query->where( function($query){
+                    $query
+                        ->where('nombres', 'like', '%'.$this->q . '%')
+                        ->orWhere('apellidos', 'like', '%' .$this->q . '%');
+                });
+            });
+        $usuarios = $usuarios->paginate(10);
+        // $usuarios = User::where('activo', 1)
+        //         ->where('tipousuario_id', 6)
+        //         ->paginate(10);
         return view('livewire.usuarios.usuario-clientes', [
             'usuarios' => $usuarios
         ]);

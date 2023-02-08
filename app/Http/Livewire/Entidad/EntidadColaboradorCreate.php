@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class EntidadColaboradorCreate extends Component
 {
     public $open = false;
-    public $nombres, $apellidos, $email, $telefono, $area_id, $entidad_id, $puesto, $cargos;
+    public $nombres, $apellidos, $email, $telefono, $area_id, $entidad, $puesto, $cargos;
     public $compania;
 
     protected $rules = [
@@ -26,7 +26,7 @@ class EntidadColaboradorCreate extends Component
     {
         $entidad_id = \Route::current()->parameter('id');
         $e = DB::table('entidad')->where('nro_doc', $entidad_id)->first();
-        $this->entidad_id = $e->id;
+        $this->entidad = $e->id;
         $this->compania = $e->nro_doc;
         $this->cargos = DB::table('entidad_cargos')->where('activo', 1)->pluck('nombre', 'id');
     }
@@ -72,7 +72,7 @@ class EntidadColaboradorCreate extends Component
             'apellidos' => ucwords($this->apellidos),
             'email' => $this->email,
             'telefono' => $this->telefono,
-            'entidad_id' => $this->entidad_id,
+            'entidad_id' => $this->entidad,
             'rol' => $this->puesto
         ]);
 
@@ -87,7 +87,7 @@ class EntidadColaboradorCreate extends Component
         ]);
 
         $this->reset([
-            'open', 'nombres', 'apellidos', 'email', 'telefono', 'puesto', 'entidad_id'
+            'open', 'nombres', 'apellidos', 'email', 'telefono', 'puesto', 'entidad'
         ]);
         $this->emitTo('entidad.entidad-colaborador-index', 'render');
         $this->emit('alert', 'Registrado satisfactoriamente');
