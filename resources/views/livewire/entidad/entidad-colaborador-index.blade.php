@@ -30,8 +30,8 @@
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Phone') }}</th>
                             {{-- <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Area') }}</th> --}}
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Position') }}</th>
-                            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-center">{{ __('Action') }}</th>
                             <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">{{ __('Status') }}</th>
+                            <th class="w-24 p-3 text-sm font-semibold tracking-wide text-center">{{ __('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">

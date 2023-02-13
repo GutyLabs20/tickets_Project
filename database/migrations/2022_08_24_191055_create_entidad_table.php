@@ -25,6 +25,10 @@ class CreateEntidadTable extends Migration
             $table->string('telefono', 250)->nullable();
             $table->string('email')->nullable();
             $table->foreignIdFor(User::class, 'created_by')->nullable();
+
+            $table->unsignedBigInteger('atencion_id')->nullable();
+            $table->foreign('atencion_id')->references('id')->on('tipo_atencion')->cascadeOnDelete();
+
             $table->string('activo', 1)->default(1);
             $table->timestamps();
         });

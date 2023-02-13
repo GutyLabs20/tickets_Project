@@ -49,6 +49,10 @@
                             {{-- <a href="{{ route('cliente.areas') }}">{{ __('Area') }}</a> --}}
                         </x-slot>
                     </x-nav-link-parent>
+
+                    <x-jet-nav-link href="">
+                        {{ __('Tickets') }}
+                    </x-jet-nav-link>
                 </div>
 
             </div>
@@ -195,6 +199,8 @@
                 <x-slot name="children">
                     <a href="{{ route('usuario.tipo_usuarios') }}">Roles</a>
                     <a href="{{ route('usuario.gestores_lista') }}">{{ __('Users') }}</a>
+                    <span class="separator"></span>
+                    <a href="{{ route('usuario.usuario_clientes') }}">{{ __('Users') }} - {{ __('Company') }}</a>
                 </x-slot>
             </x-responsive-nav-link-parent>
 
@@ -208,6 +214,10 @@
                     {{-- <a href="{{ route('cliente.colaboradores') }}">{{ __('Employees') }}</a> --}}
                 </x-slot>
             </x-responsive-nav-link-parent>
+
+            <x-jet-responsive-nav-link href="" >
+                {{ __('Tickets') }}
+            </x-jet-responsive-nav-link>
 
         </div>
 

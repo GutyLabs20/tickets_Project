@@ -43,7 +43,7 @@ class EntidadIndex extends Component
     {
         $this->resetPage();
     }
-    public function updatingActivo()
+    public function updatingEntidad()
     {
         $this->resetPage();
     }
@@ -103,11 +103,12 @@ class EntidadIndex extends Component
     {
         $this->validate();
 
-        DB::table('entidad_areas')->where('entidad_id', $this->entidad->id)
-        ->update([
-            'activo' => 0
-        ]);
         DB::table('entidad_colaboradores')->where('entidad_id', $this->entidad->id)
+            ->update([
+                'activo' => 0
+            ]);
+
+        DB::table('users')->where('compania', $this->entidad->nro_doc)
             ->update([
                 'activo' => 0
             ]);
@@ -129,10 +130,6 @@ class EntidadIndex extends Component
     {
         $this->validate();
 
-        DB::table('entidad_areas')->where('entidad_id', $this->entidad->id)
-            ->update([
-                'activo' => 1
-            ]);
         DB::table('entidad_colaboradores')->where('entidad_id', $this->entidad->id)
             ->update([
                 'activo' => 1

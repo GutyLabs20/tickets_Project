@@ -52,10 +52,21 @@
                                     {{ $usuario->compania }}
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    <span
+                                    @if ($usuario->activo == 1)
+                                        <span
+                                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                                            {{ 'Activo' }}
+                                        </span>
+                                    @else
+                                        <span
+                                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">
+                                            {{ 'Inactivo' }}
+                                        </span>
+                                    @endif
+                                    {{-- <span
                                         class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
                                         {{ $usuario->activo == 1 ? 'Activo' : 'Inactivo' }}
-                                    </span>
+                                    </span> --}}
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
@@ -64,10 +75,10 @@
                                                 class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <button type="button" wire:click="editar( {{ $usuario }} )"
+                                            {{-- <button type="button" wire:click="editar( {{ $usuario }} )"
                                                 class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
                                                 <i class="fas fa-edit"></i>
-                                            </button>
+                                            </button> --}}
                                             <button type="button" wire:click="saveDelete( {{ $usuario }} )"
                                                 class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
                                                 <i class="fas fa-trash-alt"></i>
@@ -102,10 +113,17 @@
                             </div>
                             <div class="text-gray-500">{{ $usuario->nombres }} {{ $usuario->apellidos }}</div>
                             <div>
-                                <span
-                                    class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                    {{ $usuario->activo == 1 ? 'Activo' : 'Inactivo' }}
-                                </span>
+                                @if ($usuario->activo == 1)
+                                    <span
+                                        class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                                        {{ 'Activo' }}
+                                    </span>
+                                @else
+                                    <span
+                                        class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">
+                                        {{ 'Inactivo' }}
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <div class="text-sm text-gray-700">

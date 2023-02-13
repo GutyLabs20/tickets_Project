@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+use function PHPUnit\Framework\isNull;
+
 class UsuarioClientes extends Component
 {
     use WithPagination;
@@ -44,23 +46,24 @@ class UsuarioClientes extends Component
     public function render()
     {
         $e = DB::table('tipousuarios')->where('nombre', 'Cliente')->first();
-        $e = $e->id;
-        $usuarios = User::where(function($query) use ($e){
-            $query
-                ->where('activo', 1)
-                ->where('tipousuario_id', $e);
-        })
-            ->when( $this->q, function($query){
-                return $query->where( function($query){
-                    $query
-                        ->where('nombres', 'like', '%'.$this->q . '%')
-                        ->orWhere('apellidos', 'like', '%' .$this->q . '%');
+        if (!isset($e)) {
+            $usuarios = User::where('activo', 1)->where('tipousuario_id', '<>', 1)->paginate(10);
+        } else {
+            $e = $e->id;
+            $usuarios = User::where(function($query) use ($e){
+                $query
+                    // ->where('activo', 1)
+                    ->where('tipousuario_id', $e);
+            })
+                ->when( $this->q, function($query){
+                    return $query->where( function($query){
+                        $query
+                            ->where('nombres', 'like', '%'.$this->q . '%')
+                            ->orWhere('apellidos', 'like', '%' .$this->q . '%');
+                    });
                 });
-            });
-        $usuarios = $usuarios->paginate(10);
-        // $usuarios = User::where('activo', 1)
-        //         ->where('tipousuario_id', 6)
-        //         ->paginate(10);
+            $usuarios = $usuarios->paginate(10);
+        }
         return view('livewire.usuarios.usuario-clientes', [
             'usuarios' => $usuarios
         ]);

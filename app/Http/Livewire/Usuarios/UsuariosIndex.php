@@ -45,25 +45,29 @@ class UsuariosIndex extends Component
     public function render()
     {
         $tipousuarios = TipoUsuario::pluck('id', 'nombre');
-        $usuarios = User::where('activo', 1)
-                ->paginate(10);
-        // ->whereNotIn('id', [1, 2, 3])
-        $e = DB::table('tipousuarios')->where('nombre', 'Cliente')->first();
-        $e = $e->id;
-        $usuarios = User::where(function($query) use ($e){
-            $query
-                ->where('activo', 1)
-                ->whereNotIn('tipousuario_id', [$e]);
-        })
-            ->when( $this->q, function($query){
-                return $query->where( function($query){
-                    $query
-                        ->where('nombres', 'like', '%'.$this->q . '%')
-                        ->orWhere('apellidos', 'like', '%' .$this->q . '%');
-                });
-            });
 
-        $usuarios = $usuarios->paginate(10);
+        $e = DB::table('tipousuarios')->where('nombre', 'Cliente')->first();
+
+        if (!isset($e)) {
+            $usuarios = User::where('activo', 1)->paginate(10);
+        } else {
+            $e = $e->id;
+            $usuarios = User::where(function($query) use ($e){
+                $query
+                    ->where('activo', 1)
+                    ->whereNotIn('tipousuario_id', [$e]);
+            })
+                ->when( $this->q, function($query){
+                    return $query->where( function($query){
+                        $query
+                            ->where('nombres', 'like', '%'.$this->q . '%')
+                            ->orWhere('apellidos', 'like', '%' .$this->q . '%');
+                    });
+                });
+
+            $usuarios = $usuarios->paginate(10);
+        }
+
         return view('livewire.usuarios.usuarios-index', [
             'usuarios' => $usuarios,
             'tipousuarios' => $tipousuarios
