@@ -9,7 +9,9 @@ use Livewire\Component;
 class EntidadCreate extends Component
 {
     public $open = false;
-    public $tipo_doc, $nro_doc, $nombre, $slug, $descripcion, $logotipo_path, $logotipo_nombre, $telefono, $email, $tipodocumento;
+    public $tipo_doc, $nro_doc, $nombre, $slug, $descripcion, $logotipo_path,
+            $logotipo_nombre, $telefono, $email, $tipodocumento, $atencion_id;
+    public $tipoatencion;
 
     protected $rules = [
         'tipo_doc' => 'required',
@@ -17,12 +19,14 @@ class EntidadCreate extends Component
         'nombre' => 'required|min:2',
         'descripcion' => 'required|min:2',
         'telefono' => 'required',
-        'email' => 'required|email|unique:entidad'
+        'email' => 'required|email|unique:entidad',
+        'atencion_id' => 'required'
     ];
 
     public function mount()
     {
         $this->tipodocumento = DB::table('tipodocumento')->where('activo', 1)->pluck('nombre', 'id');
+        $this->tipoatencion = DB::table('tipo_atencion')->where('activo', 1)->pluck('nombre', 'id');
     }
 
     public function create()
@@ -46,6 +50,7 @@ class EntidadCreate extends Component
         $this->descripcion = '';
         $this->telefono = '';
         $this->email = '';
+        $this->atencion_id = '';
     }
 
     public function save()
@@ -61,11 +66,12 @@ class EntidadCreate extends Component
             'email' => $this->email,
             'logotipo_path' => 'mi ruta del logotipo',
             'logotipo_nombre' => 'milogo.jpg',
-            'created_by' => auth()->user()->id
+            'created_by' => auth()->user()->id,
+            'atencion_id' => intval($this->atencion_id)
         ]);
 
         $this->reset([
-            'open', 'tipo_doc', 'nro_doc', 'nombre', 'descripcion', 'telefono', 'email', 'logotipo_path'
+            'open', 'tipo_doc', 'nro_doc', 'nombre', 'descripcion', 'telefono', 'email', 'logotipo_path', 'tipoatencion'
         ]);
         $this->emitTo('entidad.entidad-index', 'render');
         $this->emit('alert', 'Registrado satisfactoriamente');

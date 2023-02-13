@@ -86,5 +86,7 @@
     "You want to enable the": "¿Deseas habilitar la",
     "Sign in to your account": "Acceda a su cuenta",
     "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.": "¿Ha olvidado su contraseña? No se preocupe. Indíquenos su dirección de correo electrónico y le enviaremos un enlace para restablecer la contraseña que le permitirá elegir una nueva.",
-    "Password Reset": "Restablecer contraseña"
+    "Password Reset": "Restablecer contraseña",
+    "Type of care": "Tipo de atención",
+    "Categorization": "Categorización"
 }

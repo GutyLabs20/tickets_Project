@@ -6,6 +6,7 @@ use App\Http\Livewire\Entidad\EntidadIndex;
 use App\Http\Livewire\Usuarios\TipoUsuarios;
 use App\Http\Livewire\Usuarios\UsuarioClientes;
 use App\Http\Livewire\Usuarios\UsuariosIndex;
+use App\Http\Livewire\Utilitarios\Atencion\TipoatencionIndex;
 use App\Http\Livewire\Utilitarios\CategoriasIndex;
 use App\Http\Livewire\Utilitarios\ClasificacionesIndex;
 use App\Http\Livewire\Utilitarios\EstadoIndex;
@@ -36,6 +37,7 @@ Route::middleware([
     Route::get('/utilitario/impactos', ImpactoIndex::class)->name('utilitario.impactos');
     Route::get('/utilitario/estados', EstadoIndex::class)->name('utilitario.estados');
     Route::get('/utilitario/tipo-documento', TipodocumentoIndex::class)->name('utilitario.tipo-documento');
+    Route::get('/utilitario/tipo-atencion', TipoatencionIndex::class)->name('utilitario.categorizacion');
 
     //Entidades
     Route::get('/cliente/empresas', EntidadIndex::class)->name('cliente.empresas');

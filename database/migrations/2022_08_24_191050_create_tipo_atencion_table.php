@@ -18,6 +18,7 @@ class CreateTipoAtencionTable extends Migration
 
             $table->string('nombre');
             $table->string('descripcion');
+            $table->string('activo', 1)->default(1);
 
             $table->timestamps();
         });

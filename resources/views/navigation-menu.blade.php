@@ -27,6 +27,8 @@
                             <span class="separator"></span>
                             <a href="{{ route('utilitario.estados') }}">{{ __('Status') }}</a>
                             <a href="{{ route('utilitario.tipo-documento') }}">{{ __('Document Type') }}</a>
+                            <span class="separator"></span>
+                            <a href="{{ route('utilitario.categorizacion') }}">{{ __('Type of care') }}</a>
                         </x-slot>
                     </x-nav-link-parent>
                     {{-- :active="request()->routeIs('usuario*')" --}}
@@ -191,6 +193,8 @@
                     <span class="separator"></span>
                     <a href="{{ route('utilitario.estados') }}">{{ __('Status') }}</a>
                     <a href="{{ route('utilitario.tipo-documento') }}">{{ __('Document Type') }}</a>
+                    <span class="separator"></span>
+                    <a href="{{ route('utilitario.categorizacion') }}">{{ __('Type of care') }}</a>
                 </x-slot>
             </x-responsive-nav-link-parent>
 

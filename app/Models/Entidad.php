@@ -12,11 +12,16 @@ class Entidad extends Model
     protected $fillable = [
         'tipo_doc', 'nro_doc', 'nombre', 'descripcion',
         'logotipo_path', 'logotipo_nombre', 'telefono', 'email',
-        'created_by', 'activo'
+        'created_by', 'atencion_id', 'activo'
     ];
 
     public function colaboradores()
     {
         $this->hasMany(EntidadColaborador::class, 'id');
+    }
+
+    public function atencion()
+    {
+        return $this->belongsTo(TipoAtencion::class, 'atencion_id');
     }
 }
