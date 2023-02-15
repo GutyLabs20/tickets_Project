@@ -87,7 +87,7 @@ class EntidadColaboradorCreate extends Component
         ]);
 
         $this->reset([
-            'open', 'nombres', 'apellidos', 'email', 'telefono', 'puesto', 'entidad'
+            'open', 'nombres', 'apellidos', 'email', 'telefono', 'puesto'
         ]);
         $this->emitTo('entidad.entidad-colaborador-index', 'render');
         $this->emit('alert', 'Registrado satisfactoriamente');

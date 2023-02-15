@@ -18,9 +18,9 @@ class CreateEntidadColaboradoresTable extends Migration
             $table->string('nombres', 250);
             $table->string('apellidos', 250);
             $table->string('email', 250);
-            $table->string('telefono', 10);
-            $table->string('rol', 10)->nullable();
-            $table->string('area', 10)->nullable();
+            $table->string('telefono', 15);
+            $table->string('rol', 100)->nullable();
+            $table->string('area', 100)->nullable();
             $table->unsignedBigInteger('entidad_id')->nullable();
             $table->foreign('entidad_id')->references('id')->on('entidad')->cascadeOnDelete();
             $table->string('created_by', 1)->nullable();

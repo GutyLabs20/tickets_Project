@@ -3,6 +3,7 @@
 use App\Http\Livewire\Entidad\EntidadCargoIndex;
 use App\Http\Livewire\Entidad\EntidadColaboradorIndex;
 use App\Http\Livewire\Entidad\EntidadIndex;
+use App\Http\Livewire\Tickets\TicketIndex;
 use App\Http\Livewire\Usuarios\TipoUsuarios;
 use App\Http\Livewire\Usuarios\UsuarioClientes;
 use App\Http\Livewire\Usuarios\UsuariosIndex;
@@ -43,6 +44,9 @@ Route::middleware([
     Route::get('/cliente/empresas', EntidadIndex::class)->name('cliente.empresas');
     Route::get('/cliente/empresa/{id}/colaboradores', EntidadColaboradorIndex::class)->name('cliente.colaboradores_entidad');
     Route::get('/cliente/puestos', EntidadCargoIndex::class)->name('cliente.puestos');
+
+    Route::get('/tickets', [TicketIndex::class, 'index'])->name('tickets.lista');
+
 
     // Route::get('/cliente/empresa/{id}/areas', EntidadAreaIndex::class)->name('cliente.areas_entidad');
     // Route::get('/cargos', EntidadColaboradorIndex::class)->name('cliente.colaboradores');

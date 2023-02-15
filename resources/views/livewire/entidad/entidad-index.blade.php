@@ -279,6 +279,18 @@
                 <x-jet-input-error for="email" class="mt-2" />
             </div>
 
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-label for="atencion_id" value="{{ __('Categorization') }}" />
+                <select wire:model.defer="entidad.atencion_id" name="atencion_id" id="atencion_id"
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
+                    <option value="">Seleccione</option>
+                    @foreach ($categorizaciones as $nombre => $key)
+                        <option value="{{ $key }}">{{ $nombre }}</option>
+                    @endforeach
+                </select>
+                <x-jet-input-error for="entidad.atencion_id" class="mt-2" />
+            </div>
+
         </x-slot>
 
         <x-slot name="footer">

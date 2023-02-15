@@ -71,7 +71,7 @@ class EntidadCreate extends Component
         ]);
 
         $this->reset([
-            'open', 'tipo_doc', 'nro_doc', 'nombre', 'descripcion', 'telefono', 'email', 'logotipo_path', 'tipoatencion'
+            'open', 'tipo_doc', 'nro_doc', 'nombre', 'descripcion', 'telefono', 'email', 'logotipo_path', 'atencion_id'
         ]);
         $this->emitTo('entidad.entidad-index', 'render');
         $this->emit('alert', 'Registrado satisfactoriamente');

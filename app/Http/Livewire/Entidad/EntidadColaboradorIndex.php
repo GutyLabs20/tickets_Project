@@ -14,7 +14,7 @@ class EntidadColaboradorIndex extends Component
     public $title;
     public $modal_edit = false;
     // public $colaborador, $nombre, $descripcion, $entidad_id;
-    public $colaborador, $nombres, $apellidos, $email, $telefono, $area_id, $entidad_id, $cargos;
+    public $colaborador, $nombres, $apellidos, $email, $telefono, $area_id, $entidad_id, $cargos, $rol;
     public $q;
 
     protected $listeners = ['render'];
@@ -23,12 +23,24 @@ class EntidadColaboradorIndex extends Component
         'q' => ['except' => '']
     ];
 
-    protected $rules = [
-        'colaborador.nombres' => 'required|string|min:2',
-        'colaborador.apellidos' => 'required|string|min:2',
-        'colaborador.email' => 'required|string|min:2',
-        'colaborador.telefono' => 'required|string|min:2',
-    ];
+    protected function rules()
+    {
+        return [
+            'colaborador.nombres' => 'required|string|min:2',
+            'colaborador.apellidos' => 'required|string|min:2',
+            'colaborador.email' => 'required|string|min:2|email|unique:entidad_colaboradores,email,'. $this->id,
+            'colaborador.telefono' => 'required|string|min:2',
+            'colaborador.rol' => '',
+        ];
+    }
+
+    // protected $rules = [
+    //     'colaborador.nombres' => 'required|string|min:2',
+    //     'colaborador.apellidos' => 'required|string|min:2',
+    //     'colaborador.email' => 'required|string|min:2|email|unique:entidad_colaboradores,email,'. $this->id,
+    //     'colaborador.telefono' => 'required|string|min:2',
+    //     'colaborador.rol' => '',
+    // ];
 
     public function updatingQ()
     {

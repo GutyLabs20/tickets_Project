@@ -234,15 +234,15 @@
                 <x-jet-input-error for="tipousuario_id" class="mt-2" />
             </div> --}}
             <div class="col-span-6 sm:col-span-4 mt-4">
-                <x-jet-label for="puesto" value="{{ __('Position') }} ({{ __('optional') }})" />
-                <select wire:model="colaborador.puesto" name="puesto" id="puesto"
+                <x-jet-label for="rol" value="{{ __('Position') }} ({{ __('optional') }})" />
+                <select wire:model="colaborador.rol" name="rol" id="rol"
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full">
                     <option value="" selected>Seleccione</option>
                     @foreach ($cargos as $key => $nombre)
                         <option value="{{ $nombre }}">{{ $nombre }}</option>
                     @endforeach
                 </select>
-                <x-jet-input-error for="colaborador.puesto" class="mt-2" />
+                <x-jet-input-error for="colaborador.rol" class="mt-2" />
             </div>
         </x-slot>
 

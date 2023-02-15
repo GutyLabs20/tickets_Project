@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Entidad;
 
 use App\Models\Entidad;
-use App\Models\EntidadArea;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -11,6 +10,8 @@ use Livewire\WithPagination;
 class EntidadIndex extends Component
 {
     use WithPagination;
+
+    public $categorizaciones;
 
     public $title;
     public $modal_edit = false;
@@ -35,8 +36,9 @@ class EntidadIndex extends Component
         'entidad.nombre' => 'required|string|min:2',
         'entidad.descripcion' => 'required|string|min:2',
         'entidad.telefono' => 'required',
-        'entidad.email' => 'required',
-        'entidad.activo' => 'int'
+        'entidad.email' => '',
+        'entidad.activo' => 'int',
+        'entidad.atencion_id' => 'required'
     ];
 
     public function updatingQ()
@@ -58,13 +60,16 @@ class EntidadIndex extends Component
 
     public function mount(Entidad $entidad)
     {
-        $this->activo = $entidad->activo;
+        // $this->activo = $entidad->activo;
         $this->title = "Empresas";
         $this->tipodocumento = DB::table('tipodocumento')->where('activo', 1)->pluck('nombre', 'id');
+        $this->categorizaciones = DB::table('tipo_atencion')->where('activo', 1)->pluck('id', 'nombre');
     }
 
     public function render()
     {
+        // $categorizaciones = TipoAtencion::where('activo', 1)->pluck('id', 'nombre');
+
         $entidades = Entidad::
             when( $this->q, function($query){
                 return $query->where( function($query){
@@ -75,7 +80,10 @@ class EntidadIndex extends Component
             });
         $entidades = $entidades->paginate(10);
 
-        return view('livewire.entidad.entidad-index', ['entidades' => $entidades]);
+        return view('livewire.entidad.entidad-index', [
+                'entidades' => $entidades
+            ]
+        );
     }
 
     public function editar(Entidad $entidad)
@@ -87,8 +95,10 @@ class EntidadIndex extends Component
     public function actualizar()
     {
         $this->validate();
+        // $validatedData = $this->validate();
         $this->entidad->nombre = strtoupper($this->entidad->nombre);
         $this->entidad->save();
+        // $this->ent->update($validatedData);
         $this->modal_edit = false;
         $this->emit('alert', 'Registro actualizado.');
     }

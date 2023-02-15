@@ -44,7 +44,7 @@ class UsuariosIndex extends Component
 
     public function render()
     {
-        $tipousuarios = TipoUsuario::pluck('id', 'nombre');
+        $tipousuarios = TipoUsuario::where('activo',1)->pluck('id', 'nombre');
 
         $e = DB::table('tipousuarios')->where('nombre', 'Cliente')->first();
 
