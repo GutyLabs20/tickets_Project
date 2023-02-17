@@ -1,25 +1,25 @@
 <div class="p-5 h-screen bg-gray-100">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-        <div class="flex space-x-2 justify-between mb-2">
-            <h1 class="text-xl">
-                <ol class="list-reset flex">
-                    <li><a href="{{ route('cliente.empresas') }}" class="font-bold text-blue-500">{{ __('Company') }}</a>&nbsp;</li>
-                    <li><span class="text-gray-500 mx-2">/</span></li>
-                    <li class="text-gray-500">&nbsp;{{ $title }}</li>
-                </ol>
-            </h1>
-            <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-1/2 m-0 text-sm"
-                placeholder="{{ __('Search') }} {{ __('Employees') }}" />
-
-            <div>
-
-                @livewire('entidad.entidad-colaborador-create')
-
-            </div>
-        </div>
-
         <div class="overflow-auto rounded-lg shadow hidden md:block">
+            <div class="flex space-x-2 justify-between ml-2 mr-2 mt-2 mb-2">
+                <h1 class="text-xl">
+                    <ol class="list-reset flex">
+                        <li><a href="{{ route('cliente.empresas') }}" class="font-bold text-blue-500">{{ __('Company') }}</a>&nbsp;</li>
+                        <li><span class="text-gray-500 mx-2">/</span></li>
+                        <li class="text-gray-500">&nbsp;{{ $title }}</li>
+                    </ol>
+                </h1>
+                <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-1/2 m-0 text-sm"
+                    placeholder="{{ __('Search') }} {{ __('Employees') }}" />
+
+                <div>
+
+                    @livewire('entidad.entidad-colaborador-create')
+
+                </div>
+            </div>
+
+
             @if ($colaboradores->count())
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b-2 border-gray-200">
@@ -127,6 +127,24 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+            <div class="justify-between">
+                <h1 class="justify-between mb-2 text-xl">
+                    <ol class="list-reset flex">
+                        <li><a href="{{ route('cliente.empresas') }}" class="font-bold text-blue-500">{{ __('Company') }}</a>&nbsp;</li>
+                        <li><span class="text-gray-500 mx-2">/</span></li>
+                        <li class="text-gray-500">&nbsp;{{ $title }}</li>
+                    </ol>
+                </h1>
+                <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-full mb-2 text-sm"
+                    placeholder="{{ __('Search') }} {{ __('Employees') }}" />
+
+                <div>
+
+                    @livewire('entidad.entidad-colaborador-create')
+
+                </div>
+            </div>
+
             @if ($colaboradores->count())
                 @foreach ($colaboradores as $colaborador)
                     <div class="bg-white space-y-3 p-4 rounded-lg shadow">

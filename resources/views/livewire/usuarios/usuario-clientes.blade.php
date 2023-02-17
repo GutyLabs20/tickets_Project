@@ -6,11 +6,11 @@
                     <li class="text-gray-500">&nbsp;{{ $title }}</li>
                 </ol>
             </h1>
-            <div>
+            {{-- <div>
 
                 @livewire('usuarios.usuarios-crear')
 
-            </div>
+            </div> --}}
         </div>
 
         <div class="overflow-auto rounded-lg shadow hidden md:block">

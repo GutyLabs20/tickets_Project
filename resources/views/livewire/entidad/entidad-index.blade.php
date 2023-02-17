@@ -1,24 +1,25 @@
 <div class="p-5 h-screen bg-gray-100">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-        <div class="flex space-x-2 justify-between mb-2">
-            {{-- <h1 class="text-xl mb-2">{{ $title }}</h1> --}}
-            <h1 class="text-xl">
-                <ol class="list-reset flex">
-                    <li class="text-gray-500">&nbsp;{{ $title }}</li>
-                </ol>
-            </h1>
-
-            <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-1/2 m-0 text-sm" placeholder="{{ __('Search') }} {{ __('Company') }}" />
-
-            <div>
-
-                @livewire('entidad.entidad-create')
-
-            </div>
-        </div>
-
         <div class="overflow-auto rounded-lg shadow hidden md:block">
+            <div class="flex space-x-2 justify-between ml-2 mr-2 mt-2 mb-2">
+                {{-- <h1 class="text-xl mb-2">{{ $title }}</h1> --}}
+                <h1 class="text-xl">
+                    <ol class="list-reset flex">
+                        <li class="text-gray-500">&nbsp;{{ $title }}</li>
+                    </ol>
+                </h1>
+
+                <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-1/2 m-0 text-sm" placeholder="{{ __('Search') }} {{ __('Company') }}" />
+
+                <div>
+
+                    @livewire('entidad.entidad-create')
+
+                </div>
+            </div>
+
+        {{-- <div class="overflow-auto rounded-lg shadow hidden md:block"> --}}
             @if ($entidades->count())
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b-2 border-gray-200">
@@ -60,10 +61,6 @@
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
                                         <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                            {{-- <a  href="{{ route('cliente.areas_entidad', ['id' => $entidad->nro_doc]) }}"
-                                                class="rounded-l inline-block px-4 py-1.5 bg-pink-500 text-white font-medium text-xs leading-tight uppercase hover:bg-pink-600 focus:bg-pink-600 focus:outline-none focus:ring-0 active:bg-pink-700 transition duration-150 ease-in-out">
-                                                <i class="fas fa-sitemap"></i>
-                                            </a> --}}
                                             <a  href="{{ route('cliente.colaboradores_entidad', ['id' => $entidad->nro_doc]) }}" title="{{__('Employees')}}"
                                                 class="rounded inline-block px-4 py-1.5 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-none focus:ring-0 active:bg-cyan-800 transition duration-150 ease-in-out">
                                                 <i class="fas fa-users"></i>
@@ -134,6 +131,23 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+            <div class="justify-between">
+                {{-- <h1 class="text-xl mb-2">{{ $title }}</h1> --}}
+                <h1 class="justify-between mb-2 text-xl">
+                    <ol class="list-reset flex">
+                        <li class="text-gray-500">&nbsp;{{ $title }}</li>
+                    </ol>
+                </h1>
+
+                <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-full mb-2 text-sm" placeholder="{{ __('Search') }} {{ __('Company') }}" />
+
+                <div>
+
+                    @livewire('entidad.entidad-create')
+
+                </div>
+            </div>
+
             @if ($entidades->count())
                 @foreach ($entidades as $entidad)
                     <div class="bg-white space-y-3 p-4 rounded-lg shadow">
@@ -169,11 +183,7 @@
                         <div class="text-sm text-gray-700">
                             <div class="flex items-center justify-center">
                                 <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                    {{-- <a   href="{{ route('cliente.areas_entidad', ['id' => $entidad->id]) }}" title="{{ __('Show') }} {{ __('Areas') }}"
-                                        class="rounded-l inline-block px-4 py-1.5 bg-pink-500 text-white font-medium text-xs leading-tight uppercase hover:bg-pink-600 focus:bg-pink-600 focus:outline-none focus:ring-0 active:bg-pink-700 transition duration-150 ease-in-out">
-                                        <i class="fas fa-sitemap"></i>
-                                    </a> --}}
-                                    <a  href="{{ route('cliente.colaboradores_entidad', ['id' => $entidad->id]) }}" title="{{ __('Show') }} {{ __('Employees') }}"
+                                    <a  href="{{ route('cliente.colaboradores_entidad', ['id' => $entidad->nro_doc]) }}" title="{{__('Employees')}}"
                                         class="rounded inline-block px-4 py-1.5 bg-cyan-600 text-white font-medium text-xs leading-tight uppercase hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-none focus:ring-0 active:bg-cyan-800 transition duration-150 ease-in-out">
                                         <i class="fas fa-users"></i>
                                     </a>

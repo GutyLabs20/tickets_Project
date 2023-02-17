@@ -45,7 +45,7 @@ Route::middleware([
     Route::get('/cliente/empresa/{id}/colaboradores', EntidadColaboradorIndex::class)->name('cliente.colaboradores_entidad');
     Route::get('/cliente/puestos', EntidadCargoIndex::class)->name('cliente.puestos');
 
-    Route::get('/tickets', [TicketIndex::class, 'index'])->name('tickets.lista');
+    Route::get('/tickets', TicketIndex::class)->name('tickets.lista');
 
 
     // Route::get('/cliente/empresa/{id}/areas', EntidadAreaIndex::class)->name('cliente.areas_entidad');
