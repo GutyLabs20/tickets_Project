@@ -10,4 +10,9 @@ class Impacto extends Model
     use HasFactory;
     protected $table = 'impacto';
     protected $fillable = ['nombre', 'descripcion', 'activo'];
+
+    public function impacto_tickets()
+    {
+        return $this->hasMany(Ticket::class, 'id');
+    }
 }

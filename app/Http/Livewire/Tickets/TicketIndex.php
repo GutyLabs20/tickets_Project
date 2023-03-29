@@ -48,7 +48,7 @@ class TicketIndex extends Component
 
     public function render()
     {
-        $tickets = Ticket::get();
+        $tickets = Ticket::paginate(10);
         return view('livewire.tickets.ticket-index',[
             'tickets' => $tickets
         ]);

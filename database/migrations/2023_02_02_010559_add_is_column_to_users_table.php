@@ -14,6 +14,8 @@ class AddIsColumnToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->boolean('is_customer')->default(false);
+            $table->boolean('is_staff')->default(false);
             $table->boolean('is_admin')->default(false);
         });
     }
@@ -26,6 +28,8 @@ class AddIsColumnToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('is_customer');
+            $table->dropColumn('is_staff');
             $table->dropColumn('is_admin');
         });
     }

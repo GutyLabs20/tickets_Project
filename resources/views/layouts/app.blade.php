@@ -15,6 +15,8 @@
 
         @livewireStyles
 
+        @stack('css')
+
         <script src="{{ mix('js/app.js') }}" defer></script>
         {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
         <style>
@@ -70,5 +72,8 @@
         @stack('modals')
 
         @livewireScripts
+
+        @stack('js')
+
     </body>
 </html>

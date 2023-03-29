@@ -84,6 +84,7 @@ class EntidadColaboradorCreate extends Component
             'password' => Hash::make($bytes),
             'tipousuario_id' => intval($rol_usuario->id),
             'compania' => $this->compania,
+            'is_customer' => true
         ]);
 
         $this->reset([

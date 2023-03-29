@@ -24,4 +24,10 @@ class Entidad extends Model
     {
         return $this->belongsTo(TipoAtencion::class, 'atencion_id');
     }
+
+    public function compania_tickets()
+    {
+        return $this->hasMany(Ticket::class, 'id');
+    }
+
 }

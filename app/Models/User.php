@@ -31,7 +31,10 @@ class User extends Authenticatable
         'password',
         'tipousuario_id',
         'compania',
-        'activo'
+        'activo',
+        'is_customer',
+        'is_staff',
+        'id_admin',
     ];
 
     /**
@@ -64,8 +67,5 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function rol_usuario()
-    {
-        return $this->belongsTo(Tipousuario::class, 'tipousuario_id');
-    }
+    public function rol_usuario() { return $this->belongsTo(Tipousuario::class, 'tipousuario_id'); }
 }

@@ -10,4 +10,9 @@ class Estado extends Model
     use HasFactory;
     protected $table = 'estados';
     protected $fillable = ['nombre', 'descripcion', 'valor', 'activo'];
+
+    public function estado_tickets()
+    {
+        return $this->hasMany(Ticket::class, 'id');
+    }
 }

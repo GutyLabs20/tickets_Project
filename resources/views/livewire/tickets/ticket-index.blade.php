@@ -25,7 +25,6 @@
                         <tr>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Code') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Registrado el:') }}</th>
-                            <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('RUC') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Company') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Prioridad') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Clasificación') }}</th>
@@ -40,42 +39,85 @@
                             <tr class="bg-white">
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <a href="#" class="font-bold text-blue-500 hover:underline">
-                                        {{ $ticket->id }}
+                                        {{ $ticket->codigo_ticket }}
                                     </a>
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap font-bold">
-                                    {{ $ticket->tipo_doc }}
+                                    {{ date('d-m-Y', strtotime($ticket->fecha_registro)) }}
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap font-bold">
-                                    {{ $ticket->nro_doc }}
+                                    {{-- <div class="flex align-items-start">
+                                        <div class="ml-3"> --}}
+                                            @isset($ticket->compania->nombre)
+                                                <div class="text-xs">RUC: {{ $ticket->compania->nro_doc }}</div>
+                                                <div class="text-gray-500">{{ $ticket->compania->nombre }}</div>
+                                            @else
+                                                {{'-'}}
+                                            @endisset
+                                        {{-- </div>
+                                    </div> --}}
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $ticket->nombre }}
+                                    {{-- {{ $ticket->prioridad->nombre }} --}}
+                                    @isset($ticket->prioridad->nombre)
+                                        {{ $ticket->prioridad->nombre }}
+                                    @else
+                                        {{'-'}}
+                                    @endisset
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $ticket->telefono }}
+                                    {{-- {{ $ticket->clasificacion->nombre }} --}}
+                                    @isset($ticket->clasificacion->nombre)
+                                        {{ $ticket->clasificacion->nombre }}
+                                    @else
+                                        {{'-'}}
+                                    @endisset
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $ticket->email }}
+                                    @isset($incidente->fecha_inicio_ticket)
+                                        {{ date('d-m-Y', strtotime($ticket->fecha_inicio_ticket)) }}
+                                    @else
+                                        {{'-'}}
+                                    @endisset
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $ticket->email }}
-                                </td>
-                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $ticket->email }}
+                                    @isset($incidente->fecha_fin_ticket)
+                                        {{ date('d-m-Y', strtotime($ticket->fecha_fin_ticket)) }}
+                                    @else
+                                        {{'-'}}
+                                    @endisset
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
                                         <div class="inline-flex focus:shadow-lg">
-                                            @if ($ticket->activo == 1)
+                                            @if ($ticket->estado_id === 1)
+                                                <span
+                                                    class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-orange-200 text-orange-800 rounded-lg bg-opacity-50">
+                                                    {{ $ticket->estado->nombre }}
+                                                </span>
+                                            @endif
+                                            @if ($ticket->estado_id === 2)
+                                                <span
+                                                    class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-yellow-200 text-yellow-800 rounded-lg bg-opacity-50">
+                                                    {{ $ticket->estado->nombre }}
+                                                </span>
+                                            @endif
+                                            @if ($ticket->estado_id === 3)
+                                                <span
+                                                    class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider text-indigo-800 bg-indigo-200 rounded-lg bg-opacity-50">
+                                                    {{ $ticket->estado->nombre }}
+                                                </span>
+                                            @endif
+                                            @if ($ticket->estado_id === 4)
                                                 <span
                                                     class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                                    {{ 'Activo' }}
+                                                    {{ $ticket->estado->nombre }}
                                                 </span>
-                                            @else
+                                            @endif
+                                            @if ($ticket->estado_id === 5)
                                                 <span
                                                     class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">
-                                                    {{ 'Inactivo' }}
+                                                    {{ $ticket->estado->nombre }}
                                                 </span>
                                             @endif
                                         </div>
@@ -100,10 +142,10 @@
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
                                             @endif
-                                            @if ($ticket->activo == 0)
-                                                <button type="button" wire:click="enable( {{ $ticket }} )" title="{{ __('Enable') }}"
-                                                    class="rounded-l rounded-r inline-block px-4 py-1.5 bg-orange-600 text-white font-medium text-xs leading-tight uppercase hover:bg-orange-700 focus:bg-orange-700 focus:outline-none focus:ring-0 active:bg-orange-800 transition duration-150 ease-in-out">
-                                                    <i class="fas fa-check" title="{{ __('Enable') }}"></i>
+                                            @if ($ticket->estado_id == 1)
+                                                <button type="button" wire:click="editar( {{ $ticket }} )" title="{{ __('Edit') }}"
+                                                    class="rounded inline-block px-4 py-1.5 bg-indigo-500 text-white font-medium text-xs leading-tight uppercase hover:bg-indigo-600 focus:bg-indigo-600 focus:outline-none focus:ring-0 active:bg-indigo-700 transition duration-150 ease-in-out">
+                                                    <i class="fas fa-eye"></i>
                                                 </button>
                                             @endif
                                         </div>

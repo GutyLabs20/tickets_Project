@@ -15,11 +15,22 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo_ticket', 20);
+            $table->string('codigo_ticket', 20)->nullable();
             $table->string('fecha_registro', 20);
-            $table->string('usuario_registro', 20);
-            $table->string('ticket_registro');
-            $table->string('imagen_ticket_registro');
+
+            $table->unsignedBigInteger('usuario_registro')->nullable();
+            $table->foreign('usuario_registro')->references('id')->on('users')->cascadeOnDelete();
+
+            $table->unsignedBigInteger('cliente_usuario_registro')->nullable();
+            $table->foreign('cliente_usuario_registro')->references('id')->on('entidad_colaboradores')->cascadeOnDelete();
+
+            $table->unsignedBigInteger('compania_id')->nullable();
+            $table->foreign('compania_id')->references('id')->on('entidad')->cascadeOnDelete();
+
+            $table->string('nombre_usuario_clasificacion')->nullable();
+            $table->string('ticket_titulo_registro');
+            $table->text('ticket_descripcion_registro');
+            $table->string('imagen_ticket_registro')->nullable();
 
             $table->unsignedBigInteger('prioridad_id')->nullable();
             $table->foreign('prioridad_id')->references('id')->on('prioridades')->cascadeOnDelete();
@@ -37,13 +48,13 @@ class CreateTicketsTable extends Migration
             $table->foreign('tecnico_responsable')->references('id')->on('users')->cascadeOnDelete();
 
             $table->string('fecha_inicio_ticket')->nullable();
-            $table->string('diagnostico_ticket')->nullable();
+            $table->text('diagnostico_ticket')->nullable();
 
             $table->string('fecha_fin_ticket')->nullable();
-            $table->string('respuesta_ticket')->nullable();
+            $table->text('respuesta_ticket')->nullable();
 
             $table->string('fecha_respuesta_cliente')->nullable();
-            $table->string('respuesta_cliente')->nullable();
+            $table->text('respuesta_cliente')->nullable();
 
             $table->unsignedBigInteger('estado_id')->nullable();
             $table->foreign('estado_id')->references('id')->on('estados')->cascadeOnDelete();

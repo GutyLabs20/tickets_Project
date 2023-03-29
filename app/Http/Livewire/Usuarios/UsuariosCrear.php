@@ -23,7 +23,7 @@ class UsuariosCrear extends Component
 
     public function mount()
     {
-        $this->tipousuarios = DB::table('tipousuarios')->where('activo', 1)->pluck('nombre', 'id');
+        $this->tipousuarios = DB::table('tipousuarios')->where('activo', 1)->where('nombre', '<>', 'Cliente')->pluck('nombre', 'id');
     }
 
     public function create()
@@ -62,6 +62,17 @@ class UsuariosCrear extends Component
             'tipousuario_id' => intval($this->tipousuario_id),
             'password' => Hash::make($this->password)
         ]);
+
+        $user_customer = DB::table('tipousuarios')->where('nombre', 'Cliente')->first();
+        $user_sysadmin = DB::table('tipousuarios')->where('nombre', 'SysAdmin')->first();
+        $last_user = DB::table('users')->select('id')->latest()->first();
+        if ($last_user->id != $user_customer->id || $last_user->id != $user_sysadmin->id) {
+            User::where('id', $last_user->id)->update(['is_staff' => true]);
+        }
+        if ($last_user->id == $user_sysadmin->id) {
+            User::where('id', $last_user->id)->update(['is_admin' => true]);
+        }
+        // Ticket::where('id', $data->id)->update(['codigo_ticket' => $dataTicket]);
 
         $this->reset([
             'open', 'nombres', 'apellidos', 'usuario', 'email', 'password', 'tipousuario_id'
