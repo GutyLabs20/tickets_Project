@@ -15,6 +15,7 @@ class Ticket extends Model
         'fecha_registro',
         'usuario_registro',
         'compania_id',
+        'contacto',
         'nombre_usuario_clasificacion',
         'ticket_titulo_registro',
         'ticket_descripcion_registro',

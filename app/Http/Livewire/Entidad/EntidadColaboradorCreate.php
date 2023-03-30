@@ -70,7 +70,7 @@ class EntidadColaboradorCreate extends Component
         EntidadColaborador::create([
             'nombres' => ucwords($this->nombres),
             'apellidos' => ucwords($this->apellidos),
-            'email' => $this->email,
+            'email' => strtolower($this->email),
             'telefono' => $this->telefono,
             'entidad_id' => $this->entidad,
             'rol' => $this->puesto
@@ -80,7 +80,7 @@ class EntidadColaboradorCreate extends Component
             'nombres' => ucwords($this->nombres),
             'apellidos' => ucwords($this->apellidos),
             'usuario' => $cadUs,
-            'email' => $this->email,
+            'email' => strtolower($this->email),
             'password' => Hash::make($bytes),
             'tipousuario_id' => intval($rol_usuario->id),
             'compania' => $this->compania,

@@ -13,11 +13,12 @@ class EntidadColaboradorIndex extends Component
 
     public $title;
     public $modal_edit = false;
+    public $modal_delete = false;
     // public $colaborador, $nombre, $descripcion, $entidad_id;
     public $colaborador, $nombres, $apellidos, $email, $telefono, $area_id, $entidad_id, $cargos, $rol;
     public $q;
 
-    protected $listeners = ['render'];
+    protected $listeners = ['render', 'delete'];
 
     protected $queryString = [
         'q' => ['except' => '']
@@ -31,6 +32,7 @@ class EntidadColaboradorIndex extends Component
             'colaborador.email' => 'required|string|min:2|email|unique:entidad_colaboradores,email,'. $this->id,
             'colaborador.telefono' => 'required|string|min:2',
             'colaborador.rol' => '',
+            'colaborador.activo' => 'int',
         ];
     }
 
@@ -43,6 +45,14 @@ class EntidadColaboradorIndex extends Component
     // ];
 
     public function updatingQ()
+    {
+        $this->resetPage();
+    }
+    public function updatingColaborador()
+    {
+        $this->resetPage();
+    }
+    public function updatingModalDelete()
     {
         $this->resetPage();
     }
@@ -84,15 +94,48 @@ class EntidadColaboradorIndex extends Component
     public function actualizar()
     {
         $this->validate();
+        $this->colaborador->nombres = ucwords($this->colaborador->nombres);
+        $this->colaborador->apellidos = ucwords($this->colaborador->apjellidos);
+        $this->colaborador->email = strtolower($this->colaborador->email);
         $this->colaborador->save();
         $this->modal_edit = false;
-        // $this->emit('alert', 'Registro actualizado.');
+        $this->emit('alert', 'Registro actualizado.');
     }
 
     public function saveDelete(EntidadColaborador $colaborador)
     {
+        // DB::table('users')
+        // ->where(
+        //     ['compania',$this->entidad_id]
+        // )
+        // ->update([
+        //     'activo' => 0
+        // ]);
         $colaborador->activo = 0;
         $colaborador->save();
         session()->flash('message', 'Registro eliminado correctamente');
     }
+
+    // public function delete(EntidadColaborador $colaborador)
+    // {
+    //     $this->colaborador = $colaborador;
+    //     $this->modal_delete = true;
+    // }
+
+    // public function eliminar()
+    // {
+    //     $this->validate();
+
+    //     DB::table('users')
+    //         ->where('compania',
+    //             $this->entidad_id->id)
+    //         ->update([
+    //             'activo' => 0
+    //         ]);
+    //     $this->colaborador->activo = 0;
+    //     $this->colaborador->save();
+    //     $this->modal_delete = false;
+
+    //     $this->emit('alert', 'Registro eliminado correctamente');
+    // }
 }

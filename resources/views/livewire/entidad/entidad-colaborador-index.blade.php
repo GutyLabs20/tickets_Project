@@ -80,20 +80,25 @@
                                         <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg"
                                             role="group">
                                             @if ($colaborador->activo == 1)
-                                                <button type="button"
+                                                <button type="button" title="{{ __('Show') }}"
                                                     class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
                                                     <i class="fas fa-eye"></i>
                                                 </button>
-                                                <button type="button" wire:click="editar( {{ $colaborador }} )"
+                                                <button type="button" wire:click="editar( {{ $colaborador }} )" title="{{ __('Edit') }}"
                                                     class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
+                                                {{-- <button type="button" wire:click="delete( {{ $colaborador }} )" title="{{ __('Delete') }}"
+                                                    class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button> --}}
                                                 <button type="button" wire:click="saveDelete( {{ $colaborador }} )"
                                                     class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
-                                            @else
-                                                <button type="button" wire:click="enable( {{ $colaborador }} )" title="{{ __('Enable') }}"
+                                            @endif
+                                            @if ($colaborador->activo == 0)
+                                                <button type="button" title="{{ __('Enable') }}"
                                                     class="rounded-l rounded-r inline-block px-4 py-1.5 bg-orange-600 text-white font-medium text-xs leading-tight uppercase hover:bg-orange-700 focus:bg-orange-700 focus:outline-none focus:ring-0 active:bg-orange-800 transition duration-150 ease-in-out">
                                                     <i class="fas fa-check" title="{{ __('Enable') }}"></i>
                                                 </button>
@@ -274,4 +279,28 @@
             </x-jet-danger-button>
         </x-slot>
     </x-jet-dialog-modal>
+
+    <x-jet-dialog-modal wire:model="modal_delete">
+        <x-slot name="title">
+            {{ __('Are you sure you want to delete') }} {{ __('Employee') }} {{ '?' }}
+        </x-slot>
+
+        <x-slot name="content">
+            <div class="col-span-6 sm:col-span-4 mt-4">
+                <x-jet-input wire:model.defer="colaborador.nombres" type="text" class="mt-1 block w-full" disabled/>
+                <x-jet-input wire:model.defer="colaborador.apellidos" type="text" class="mt-1 block w-full" disabled/>
+            </div>
+            <x-jet-input wire:model.defer="colaborador.activo" type="hidden" />
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$set('modal_delete', false)" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+            <x-jet-danger-button wire:click="eliminar" wire:loading.attr="disabled" class="ml-2">
+                {{ __('Delete') }}
+            </x-jet-danger-button>
+        </x-slot>
+    </x-jet-dialog-modal>
+
 </div>

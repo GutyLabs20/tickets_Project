@@ -6,6 +6,9 @@
                     <li class="text-gray-500">&nbsp;{{ $title }}</li>
                 </ol>
             </h1>
+
+            <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-1/2 m-0 text-sm"
+                    placeholder="{{ __('Search') }} {{ __('Employees of the company') }}" />
             {{-- <div>
 
                 @livewire('usuarios.usuarios-crear')

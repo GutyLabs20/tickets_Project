@@ -11,24 +11,38 @@
 
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4 mt-4 mb-2">
-                <x-jet-label for="compania_id" value="{{ __('Company') }}" />
-                <select wire:model="compania_id" name="compania_id" id="compania_id"
+                <x-jet-label for="compania" value="{{ __('Company') }}" />
+                <select wire:model="compania" name="compania" id="compania"
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full mb-2">
                     <option value="" selected>Seleccione</option>
                     @foreach ($companias as $key => $nombre)
                         <option value="{{ $key }}">{{ $nombre }}</option>
                     @endforeach
                 </select>
-                <x-jet-input-error for="compania_id" class="mt-2" />
+                <x-jet-input-error for="compania" class="mt-2" />
             </div>
+
+            <div class="col-span-6 sm:col-span-4 mt-4 mb-2">
+                <x-jet-label for="contacto" value="{{ __('Contacto') }}" />
+                    <select wire:model="contacto" name="contacto" id="contacto"
+                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full mb-2">
+                        <option value="" selected>Seleccione</option>
+                        @foreach ($contactos as $key => $nombre)
+                            <option value="{{ $key }}">{{ $nombre }}</option>
+                        @endforeach
+
+                        </select>
+                    <x-jet-input-error for="contacto" class="mt-2" />
+                </div>
+
             <div class="col-span-6 sm:col-span-4">
                 <x-jet-label for="ticket_titulo_registro" value="{{ __('Titulo del Ticket') }}" />
                 <x-jet-input wire:model="ticket_titulo_registro" type="text" class="mt-1 block w-full" />
                 <x-jet-input-error for="ticket_titulo_registro" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-4 mt-4">
+            <div class="col-span-6 sm:col-span-4 mt-4" wire:ignore>
                 <x-jet-label for="ticket_descripcion_registro" value="{{ __('Descripción') }}" />
-                <textarea wire:model="ticket_descripcion_registro" name=""
+                <textarea wire:model="ticket_descripcion_registro" name="ticket_descripcion_registro"
                     id="editor" cols="30" rows="10"
                     class="mt-1 block w-full"></textarea>
                 {{-- <x-jet-input wire:model="ticket_descripcion_registro" type="text" class="mt-1 block w-full" /> --}}

@@ -52,9 +52,10 @@ class UsuariosIndex extends Component
             $usuarios = User::where('activo', 1)->paginate(10);
         } else {
             $e = $e->id;
+
             $usuarios = User::where(function($query) use ($e){
                 $query
-                    ->where('activo', 1)
+                    // ->where('activo', 1)
                     ->whereNotIn('tipousuario_id', [$e]);
             })
                 ->when( $this->q, function($query){

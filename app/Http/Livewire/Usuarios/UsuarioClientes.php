@@ -52,14 +52,15 @@ class UsuarioClientes extends Component
             $e = $e->id;
             $usuarios = User::where(function($query) use ($e){
                 $query
-                    // ->where('activo', 1)
+                    ->where('is_customer', 1)
                     ->where('tipousuario_id', $e);
             })
                 ->when( $this->q, function($query){
                     return $query->where( function($query){
                         $query
                             ->where('nombres', 'like', '%'.$this->q . '%')
-                            ->orWhere('apellidos', 'like', '%' .$this->q . '%');
+                            ->orWhere('apellidos', 'like', '%' .$this->q . '%')
+                            ->orWhere('email', 'like', '%' .$this->q . '%');
                     });
                 });
             $usuarios = $usuarios->paginate(10);

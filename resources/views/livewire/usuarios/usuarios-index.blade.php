@@ -48,10 +48,22 @@
                                         @endif
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    <span
+                                    @if ($usuario->activo == 1)
+                                        <span
+                                            class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                                            {{ 'Activo' }}
+                                        </span>
+                                    @endif
+                                    @if ($usuario->activo == 0)
+                                        <span
+                                            class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">
+                                            {{ 'Inactivo' }}
+                                        </span>
+                                    @endif
+                                    {{-- <span
                                         class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
                                         {{ $usuario->activo == 1 ? 'Activo' : 'Inactivo' }}
-                                    </span>
+                                    </span> --}}
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
