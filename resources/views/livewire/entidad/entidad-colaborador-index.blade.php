@@ -84,7 +84,7 @@
                                                     class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
                                                     <i class="fas fa-eye"></i>
                                                 </button>
-                                                <button type="button" wire:click="editar( {{ $colaborador }} )" title="{{ __('Edit') }}"
+                                                <button type="button" wire:click="editar( {{ $colaborador->id }} )" title="{{ __('Edit') }}"
                                                     class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
                                                     <i class="fas fa-edit"></i>
                                                 </button>

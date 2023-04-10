@@ -91,7 +91,7 @@ class EntidadColaboradorCreate extends Component
             'open', 'nombres', 'apellidos', 'email', 'telefono', 'puesto'
         ]);
         $this->emitTo('entidad.entidad-colaborador-index', 'render');
-        $this->emit('alert', 'Registrado satisfactoriamente');
+        $this->emit('alert', 'Colaborador registrado satisfactoriamente');
     }
 
     public function render()

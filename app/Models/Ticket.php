@@ -34,12 +34,13 @@ class Ticket extends Model
         'estado_id',
     ];
 
-    public function usuario_registro() { return $this->belongsTo(EntidadColaborador::class, 'usuario_registro'); }
+    public function usuarioRegistro() { return $this->belongsTo(User::class, 'usuario_registro'); }
+    public function contactoTicket() { return $this->belongsTo(EntidadColaborador::class, 'contacto'); }
+    public function companiaTicket() { return $this->belongsTo(Entidad::class, 'compania_id'); }
+    public function tecnico_responsable() { return $this->belongsTo(User::class, 'tecnico_responsable'); }
     public function prioridad() { return $this->belongsTo(Prioridad::class, 'prioridad_id'); }
     public function impacto() { return $this->belongsTo(Impacto::class, 'impacto_id'); }
     public function categoria() { return $this->belongsTo(Categoria::class, 'categoria_id'); }
     public function clasificacion() { return $this->belongsTo(Clasificacion::class, 'clasificacion_id'); }
-    public function tecnico_responsable() { return $this->belongsTo(User::class, 'tecnico_responsable'); }
-    public function estado() { return $this->belongsTo(Estado::class, 'estado_id'); }
-    public function compania() { return $this->belongsTo(Entidad::class, 'compania_id'); }
+    public function estadoTicket() { return $this->belongsTo(Estado::class, 'estado_id'); }
 }

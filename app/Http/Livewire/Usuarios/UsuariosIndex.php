@@ -16,6 +16,7 @@ class UsuariosIndex extends Component
     public $title;
     public $usuario, $nombres, $apellidos, $email, $tipo_id;
     public $modal_edit = false;
+    public $modal_show = false;
     public $q;
 
     protected $queryString = [

@@ -18,7 +18,8 @@
         @stack('css')
 
         <script src="{{ mix('js/app.js') }}" defer></script>
-        {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <style>
             .children {
                 background: #fff;
@@ -74,6 +75,16 @@
         @livewireScripts
 
         @stack('js')
+
+        <script>
+            Livewire.on('alert', function(message) {
+                Swal.fire(
+                    '¡Muy bien!',
+                    message,
+                    'success'
+                )
+            })
+        </script>
 
     </body>
 </html>

@@ -42,7 +42,9 @@
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4" wire:ignore>
                 <x-jet-label for="ticket_descripcion_registro" value="{{ __('Descripción') }}" />
-                <textarea wire:model="ticket_descripcion_registro" name="ticket_descripcion_registro"
+                <textarea
+                    name="ticket_descripcion_registro"
+                    wire:model="ticket_descripcion_registro"
                     id="editor" cols="30" rows="10"
                     class="mt-1 block w-full"></textarea>
                 {{-- <x-jet-input wire:model="ticket_descripcion_registro" type="text" class="mt-1 block w-full" /> --}}
@@ -69,7 +71,7 @@
             ClassicEditor
                 .create( document.querySelector( '#editor' ) )
                 .then(function(editor){
-                    editor.model.document.on('change:data', ()=>{
+                    editor.model.document.on('change:data', () => {
                         @this.set('ticket_descripcion_registro', editor.getData());
                     })
                 })

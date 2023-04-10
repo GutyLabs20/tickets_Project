@@ -52,12 +52,12 @@
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
                                         <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                            <button type="button"
+                                            {{-- <button type="button"
                                                 class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
                                                 <i class="fas fa-eye"></i>
-                                            </button>
+                                            </button> --}}
                                             <button type="button" wire:click="editar( {{ $cargo }} )"
-                                                class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
+                                                class="rounded-l inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <button type="button" wire:click="saveDelete( {{ $cargo }} )"
@@ -106,12 +106,12 @@
                         <div class="text-sm font-medium text-black">
                             <div class="flex items-center justify-center">
                                 <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                    <button type="button"
+                                    {{-- <button type="button"
                                         class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
                                         <i class="fas fa-eye"></i>
-                                    </button>
+                                    </button> --}}
                                     <button type="button" wire:click="editar( {{ $cargo }} )"
-                                        class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
+                                        class="rounded-l inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button type="button" wire:click="saveDelete( {{ $cargo }} )"

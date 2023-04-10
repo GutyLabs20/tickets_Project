@@ -41,20 +41,24 @@
                                     {{ $prioridad->descripcion }}
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
-                                    <span
-                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                        {{ $prioridad->activo == 1 ? 'Activo' : 'Inactivo' }}
-                                    </span>
+                                    @if ($prioridad->activo == 1)
+                                        <span
+                                            class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                                            {{ 'Activo' }}
+                                        </span>
+                                    @endif
+                                    @if ($prioridad->activo == 0)
+                                        <span
+                                            class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">
+                                            {{ 'Inactivo' }}
+                                        </span>
+                                    @endif
                                 </td>
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
                                         <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                            <button type="button"
-                                                class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
                                             <button type="button" wire:click="editar( {{ $prioridad }} )"
-                                                class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
+                                                class="rounded-l inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <button type="button" wire:click="saveDelete( {{ $prioridad }} )"
@@ -91,10 +95,18 @@
                             </div>
                             <div class="text-gray-500">{{ $prioridad->nombre }}</div>
                             <div>
-                                <span
-                                    class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
-                                    {{ $prioridad->activo == 1 ? 'Activo' : 'Inactivo' }}
-                                </span>
+                                @if ($prioridad->activo == 1)
+                                    <span
+                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50">
+                                        {{ 'Activo' }}
+                                    </span>
+                                @endif
+                                @if ($prioridad->activo == 0)
+                                    <span
+                                        class="p-1.5 text-xs font-medium uppercase tracking-wider text-red-800 bg-red-200 rounded-lg bg-opacity-50">
+                                        {{ 'Inactivo' }}
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <div class="text-sm text-gray-700">
@@ -103,12 +115,9 @@
                         <div class="text-sm font-medium text-black">
                             <div class="flex items-center justify-center">
                                 <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                    <button type="button"
-                                        class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
+
                                     <button type="button" wire:click="editar( {{ $prioridad }} )"
-                                        class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
+                                        class="rounded-l inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button type="button" wire:click="saveDelete( {{ $prioridad }} )"

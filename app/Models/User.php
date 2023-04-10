@@ -68,4 +68,5 @@ class User extends Authenticatable
     ];
 
     public function rol_usuario() { return $this->belongsTo(Tipousuario::class, 'tipousuario_id'); }
+    public function usuarioTickets() { return $this->hasMany(User::class, 'id'); }
 }

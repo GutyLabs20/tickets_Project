@@ -10,7 +10,7 @@
                     </ol>
                 </h1>
 
-                <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-1/2 m-0 text-sm" placeholder="{{ __('Search') }} {{ __('Company') }}" />
+                <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-1/2 m-0 text-sm" placeholder="{{ __('Search') }} {{ __('Company') }} {{ __('by company name or ruc') }}" />
 
                 <div>
 
@@ -19,14 +19,14 @@
                 </div>
             </div>
 
-        {{-- <div class="overflow-auto rounded-lg shadow hidden md:block"> --}}
+            {{-- <div class="overflow-auto rounded-lg shadow hidden md:block"> --}}
             @if ($entidades->count())
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b-2 border-gray-200">
                         <tr>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Code') }}</th>
-                            <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Tipo Doc.') }}</th>
-                            <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Nro. Doc') }}</th>
+                            {{-- <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Tipo Doc.') }}</th> --}}
+                            <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('RUC') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Company') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('Phone') }}</th>
                             <th class="p-3 text-sm font-semibold tracking-wide text-left">{{ __('E-Mail') }}</th>
@@ -43,9 +43,9 @@
                                         {{ $entidad->id }}
                                     </a>
                                 </td>
-                                <td class="p-3 text-sm text-gray-700 whitespace-nowrap font-bold">
+                                {{-- <td class="p-3 text-sm text-gray-700 whitespace-nowrap font-bold">
                                     {{ $entidad->tipo_doc }}
-                                </td>
+                                </td> --}}
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap font-bold">
                                     {{ $entidad->nro_doc }}
                                 </td>

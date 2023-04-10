@@ -1,22 +1,18 @@
 <div class="p-5 h-screen bg-gray-100">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="flex space-x-2 justify-between mb-2">
-            <h1 class="text-xl">
-                <ol class="list-reset flex">
-                    <li class="text-gray-500">&nbsp;{{ $title }}</li>
-                </ol>
-            </h1>
-
-            <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-1/2 m-0 text-sm"
-                    placeholder="{{ __('Search') }} {{ __('Employees of the company') }}" />
-            {{-- <div>
-
-                @livewire('usuarios.usuarios-crear')
-
-            </div> --}}
-        </div>
-
         <div class="overflow-auto rounded-lg shadow hidden md:block">
+            <div class="flex space-x-2 justify-between mb-2">
+                <h1 class="text-xl">
+                    <ol class="list-reset flex">
+                        <li class="text-gray-500">&nbsp;{{ $title }}</li>
+                    </ol>
+                </h1>
+
+                <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-1/2 m-0 text-sm"
+                        placeholder="{{ __('Search') }} {{ __('Employees of the company') }}" />
+            </div>
+
+            {{-- <div class="overflow-auto rounded-lg shadow hidden md:block"> --}}
             @if ($usuarios->count())
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b-2 border-gray-200">
@@ -74,18 +70,22 @@
                                 <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
                                     <div class="flex items-center justify-center">
                                         <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                            <button type="button"
-                                                class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            {{-- <button type="button" wire:click="editar( {{ $usuario }} )"
-                                                class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
-                                                <i class="fas fa-edit"></i>
-                                            </button> --}}
-                                            <button type="button" wire:click="saveDelete( {{ $usuario }} )"
-                                                class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
+                                            @if ($usuario->activo == 1)
+                                                <button type="button"
+                                                    class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button
+                                                    class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out"
+                                                    onclick="confirm('¿Está seguro de eliminar a {{ $usuario->usuario }}?') || event.stopImmediatePropagation()"
+                                                    wire:click="saveDelete( {{ $usuario }} )"><i class="fas fa-trash-alt"></i></button>
+                                            @else
+                                                <button type="button"
+                                                    class="rounded-l rounded-r inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            @endif
+
                                         </div>
                                     </div>
                                 </td>
@@ -107,6 +107,18 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+
+            <div class="justify-between">
+                <h1 class="justify-between mb-2 text-xl">
+                    <ol class="list-reset flex">
+                        <li class="text-gray-500">&nbsp;{{ $title }}</li>
+                    </ol>
+                </h1>
+
+                <x-jet-input wire:model.debounce.500ms="q" type="search" class="w-full mb-2 text-sm"
+                        placeholder="{{ __('Search') }} {{ __('Employees of the company') }}" />
+            </div>
+
             @if ($usuarios->count())
                 @foreach ($usuarios as $usuario)
                     <div class="bg-white space-y-3 p-4 rounded-lg shadow">
@@ -138,18 +150,21 @@
                         <div class="text-sm font-medium text-black">
                             <div class="flex items-center justify-center">
                                 <div class="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
-                                    <button type="button"
-                                        class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button type="button" wire:click="editar( {{ $usuario }} )"
-                                        class="inline-block px-4 py-1.5 bg-yellow-500 text-white font-medium text-xs leading-tight uppercase hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none focus:ring-0 active:bg-yellow-700 transition duration-150 ease-in-out">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button type="button" wire:click="saveDelete( {{ $usuario }} )"
-                                        class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                    @if ($usuario->activo == 1)
+                                        <button type="button"
+                                            class="rounded-l inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button
+                                            class="rounded-r inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase hover:bg-red-700 focus:bg-red-700 focus:outline-none focus:ring-0 active:bg-red-800 transition duration-150 ease-in-out"
+                                            onclick="confirm('¿Está seguro de eliminar a {{ $usuario->usuario }}?') || event.stopImmediatePropagation()"
+                                            wire:click="saveDelete( {{ $usuario }} )"><i class="fas fa-trash-alt"></i></button>
+                                    @else
+                                        <button type="button"
+                                            class="rounded-l rounded-r inline-block px-4 py-1.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-0 active:bg-green-700 transition duration-150 ease-in-out">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>

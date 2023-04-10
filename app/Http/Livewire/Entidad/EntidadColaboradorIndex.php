@@ -24,17 +24,19 @@ class EntidadColaboradorIndex extends Component
         'q' => ['except' => '']
     ];
 
-    protected function rules()
+    public function rules()
     {
         return [
             'colaborador.nombres' => 'required|string|min:2',
             'colaborador.apellidos' => 'required|string|min:2',
-            'colaborador.email' => 'required|string|min:2|email|unique:entidad_colaboradores,email,'. $this->id,
+            'colaborador.email' => 'required|string|min:2|email',
             'colaborador.telefono' => 'required|string|min:2',
             'colaborador.rol' => '',
             'colaborador.activo' => 'int',
         ];
     }
+
+    // 'colaborador.email' => 'required|string|min:2|email|unique:entidad_colaboradores,email,'. $this->id,
 
     // protected $rules = [
     //     'colaborador.nombres' => 'required|string|min:2',
@@ -99,7 +101,7 @@ class EntidadColaboradorIndex extends Component
         $this->colaborador->email = strtolower($this->colaborador->email);
         $this->colaborador->save();
         $this->modal_edit = false;
-        $this->emit('alert', 'Registro actualizado.');
+        $this->emit('alert', 'Colaborador actualizado satisfactoriamente.');
     }
 
     public function saveDelete(EntidadColaborador $colaborador)

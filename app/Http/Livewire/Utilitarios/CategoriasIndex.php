@@ -12,6 +12,7 @@ class CategoriasIndex extends Component
 
     public $title;
     public $modal_edit = false;
+    public $modal_ver = false;
     public $categoria, $nombre, $descripcion;
 
     protected $listeners = ['render'];
@@ -28,7 +29,7 @@ class CategoriasIndex extends Component
 
     public function render()
     {
-        $categorias = Categoria::where('activo', 1)->paginate(10);
+        $categorias = Categoria::paginate(10);
         return view('livewire.utilitarios.categorias-index', ['categorias' => $categorias]);
     }
 

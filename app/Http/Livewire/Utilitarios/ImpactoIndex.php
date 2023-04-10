@@ -28,7 +28,7 @@ class ImpactoIndex extends Component
 
     public function render()
     {
-        $impactos = Impacto::where('activo', 1)->paginate(10);
+        $impactos = Impacto::paginate(10);
         return view('livewire.utilitarios.impacto-index', ['impactos' => $impactos]);
     }
 

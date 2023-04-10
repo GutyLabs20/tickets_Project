@@ -28,7 +28,7 @@ class ClasificacionesIndex extends Component
 
     public function render()
     {
-        $clasificaciones = Clasificacion::where('activo', 1)->paginate(10);
+        $clasificaciones = Clasificacion::paginate(10);
         return view('livewire.utilitarios.clasificaciones-index', ['clasificaciones' => $clasificaciones]);
     }
 

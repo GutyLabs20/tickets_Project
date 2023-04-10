@@ -28,7 +28,7 @@ class PrioridadesIndex extends Component
 
     public function render()
     {
-        $prioridades = Prioridad::where('activo', 1)->paginate(10);
+        $prioridades = Prioridad::paginate(10);
         return view('livewire.utilitarios.prioridades-index', ['prioridades' => $prioridades]);
     }
 

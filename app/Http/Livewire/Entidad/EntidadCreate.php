@@ -74,7 +74,7 @@ class EntidadCreate extends Component
             'open', 'tipo_doc', 'nro_doc', 'nombre', 'descripcion', 'telefono', 'email', 'logotipo_path', 'atencion_id'
         ]);
         $this->emitTo('entidad.entidad-index', 'render');
-        $this->emit('alert', 'Registrado satisfactoriamente');
+        $this->emit('alert', '¡La empresa se registró satisfactoriamente!');
     }
 
     public function render()
