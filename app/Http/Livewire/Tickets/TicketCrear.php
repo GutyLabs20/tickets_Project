@@ -19,8 +19,8 @@ class TicketCrear extends Component
     protected $rules = [
         'ticket_titulo_registro' => 'required|min:2',
         'ticket_descripcion_registro' => 'required|min:2',
-        'contacto' => '',
-        'compania' => '',
+        'contacto' => 'required',
+        'compania' => 'required',
         'estado_id' => '',
     ];
 

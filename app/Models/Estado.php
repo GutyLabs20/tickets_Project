@@ -11,7 +11,7 @@ class Estado extends Model
     protected $table = 'estados';
     protected $fillable = ['nombre', 'descripcion', 'valor', 'activo'];
 
-    public function estado_tickets()
+    public function estadoTickets()
     {
         return $this->hasMany(Ticket::class, 'id');
     }

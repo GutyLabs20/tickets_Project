@@ -11,7 +11,7 @@ class Prioridad extends Model
     protected $table = 'prioridades';
     protected $fillable = ['nombre', 'descripcion', 'activo'];
 
-    public function prioridad_tickets()
+    public function prioridadTickets()
     {
         return $this->hasMany(Ticket::class, 'id');
     }

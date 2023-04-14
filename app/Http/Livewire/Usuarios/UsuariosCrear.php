@@ -78,7 +78,7 @@ class UsuariosCrear extends Component
             'open', 'nombres', 'apellidos', 'usuario', 'email', 'password', 'tipousuario_id'
         ]);
         $this->emitTo('usuarios.usuarios-index', 'render');
-        $this->emit('alert', 'Registrado satisfactoriamente');
+        $this->emit('alert', 'Usuario registrado satisfactoriamente');
     }
 
     public function render()

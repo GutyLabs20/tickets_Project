@@ -12,28 +12,33 @@
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4 mt-4 mb-2">
                 <x-jet-label for="compania" value="{{ __('Company') }}" />
-                <select wire:model="compania" name="compania" id="compania"
-                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full mb-2">
-                    <option value="" selected>Seleccione</option>
+
+                <select
+                    wire:model="compania" name="compania" id="compania"
+                    name="compania" id="compania"
+                    class="form-select-sm appearance-none  px-2 py-1 text-sm block w-full font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" style="width: 100%;">
+                    <option selected>Seleccione empresa</option>
                     @foreach ($companias as $key => $nombre)
                         <option value="{{ $key }}">{{ $nombre }}</option>
                     @endforeach
                 </select>
                 <x-jet-input-error for="compania" class="mt-2" />
+
             </div>
 
             <div class="col-span-6 sm:col-span-4 mt-4 mb-2">
                 <x-jet-label for="contacto" value="{{ __('Contacto') }}" />
-                    <select wire:model="contacto" name="contacto" id="contacto"
-                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm mt-1 block w-full mb-2">
-                        <option value="" selected>Seleccione</option>
-                        @foreach ($contactos as $key => $nombre)
-                            <option value="{{ $key }}">{{ $nombre }}</option>
-                        @endforeach
 
-                        </select>
-                    <x-jet-input-error for="contacto" class="mt-2" />
-                </div>
+                <select
+                    wire:model="contacto" name="contacto" id="contacto"
+                    class="form-select-sm appearance-none  px-2 py-1 text-sm block w-full font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" style="width: 100%;">
+                    <option selected>Seleccione contacto</option>
+                    @foreach ($contactos as $key => $nombre)
+                        <option value="{{ $key }}">{{ $nombre }}</option>
+                    @endforeach
+                </select>
+                <x-jet-input-error for="contacto" class="mt-2" />
+            </div>
 
             <div class="col-span-6 sm:col-span-4">
                 <x-jet-label for="ticket_titulo_registro" value="{{ __('Titulo del Ticket') }}" />

@@ -44,7 +44,7 @@ class EstadoIndex extends Component
         $this->validate();
         $this->estado->save();
         $this->modal_edit = false;
-        // $this->emit('alert', 'Registro actualizado.');
+        $this->emit('alert', 'El estado se registro actualizado.');
     }
 
     public function saveDelete(Estado $estado)

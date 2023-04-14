@@ -87,6 +87,7 @@ class UsuariosIndex extends Component
         $this->validate();
         $this->usuario->save();
         $this->modal_edit = false;
+        $this->emit('alert', 'Usuario actualizado satisfactoriamente');
     }
 
     public function saveDelete(Usuario $usuario)

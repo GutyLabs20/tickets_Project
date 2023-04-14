@@ -25,6 +25,7 @@ class Ticket extends Model
         'categoria_id',
         'clasificacion_id',
         'tecnico_responsable',
+        'asignado',
         'fecha_inicio_ticket',
         'diagnostico_ticket',
         'fecha_fin_ticket',
@@ -37,10 +38,10 @@ class Ticket extends Model
     public function usuarioRegistro() { return $this->belongsTo(User::class, 'usuario_registro'); }
     public function contactoTicket() { return $this->belongsTo(EntidadColaborador::class, 'contacto'); }
     public function companiaTicket() { return $this->belongsTo(Entidad::class, 'compania_id'); }
-    public function tecnico_responsable() { return $this->belongsTo(User::class, 'tecnico_responsable'); }
-    public function prioridad() { return $this->belongsTo(Prioridad::class, 'prioridad_id'); }
-    public function impacto() { return $this->belongsTo(Impacto::class, 'impacto_id'); }
-    public function categoria() { return $this->belongsTo(Categoria::class, 'categoria_id'); }
-    public function clasificacion() { return $this->belongsTo(Clasificacion::class, 'clasificacion_id'); }
+    public function tecnicoResponsable() { return $this->belongsTo(User::class, 'tecnico_responsable'); }
+    public function prioridadTicket() { return $this->belongsTo(Prioridad::class, 'prioridad_id'); }
+    public function impactoTicket() { return $this->belongsTo(Impacto::class, 'impacto_id'); }
+    public function categoriaTicket() { return $this->belongsTo(Categoria::class, 'categoria_id'); }
+    public function clasificacionTicket() { return $this->belongsTo(Clasificacion::class, 'clasificacion_id'); }
     public function estadoTicket() { return $this->belongsTo(Estado::class, 'estado_id'); }
 }

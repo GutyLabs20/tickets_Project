@@ -47,6 +47,8 @@ class CreateTicketsTable extends Migration
             $table->unsignedBigInteger('tecnico_responsable')->nullable();
             $table->foreign('tecnico_responsable')->references('id')->on('users')->cascadeOnDelete();
 
+            $table->boolean('asignado')->default(false);
+
             $table->string('fecha_inicio_ticket')->nullable();
             $table->text('diagnostico_ticket')->nullable();
 
