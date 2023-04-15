@@ -30,8 +30,12 @@ class Ticket extends Model
         'diagnostico_ticket',
         'fecha_fin_ticket',
         'respuesta_ticket',
+        'ticket_terminado',
         'fecha_respuesta_cliente',
         'respuesta_cliente',
+        'fecha_ticket_cancelado',
+        'comentario_ticket_cancelado',
+        'calificado',
         'estado_id',
     ];
 

@@ -55,6 +55,9 @@ class CreateTicketsTable extends Migration
             $table->string('fecha_fin_ticket')->nullable();
             $table->text('respuesta_ticket')->nullable();
 
+            $table->boolean('ticket_terminado')->default(false);
+            $table->boolean('calificado')->default(false);
+
             $table->string('fecha_respuesta_cliente')->nullable();
             $table->text('respuesta_cliente')->nullable();
 

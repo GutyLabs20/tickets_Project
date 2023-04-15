@@ -45,7 +45,7 @@
                 <x-jet-input wire:model="ticket_titulo_registro" type="text" class="mt-1 block w-full" />
                 <x-jet-input-error for="ticket_titulo_registro" class="mt-2" />
             </div>
-            <div class="col-span-6 sm:col-span-4 mt-4" wire:ignore>
+            <div class="col-span-6 sm:col-span-4 mt-4 mb-2" wire:ignore>
                 <x-jet-label for="ticket_descripcion_registro" value="{{ __('Descripción') }}" />
                 <textarea
                     name="ticket_descripcion_registro"

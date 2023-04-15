@@ -6,3 +6,16 @@
 @import '~@fortawesome/fontawesome-free/css/regular';
 @import '~@fortawesome/fontawesome-free/css/solid';
 @import '~@fortawesome/fontawesome-free/css/brands';
+
+
+.custom-block-indent-a {
+    margin-left: 10%;
+}
+
+.custom-block-indent-b {
+    margin-left: 20%;
+}
+
+.custom-block-indent-c {
+    margin-left: 30%;
+}
