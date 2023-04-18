@@ -3,45 +3,36 @@
 namespace App\Http\Livewire\Tickets;
 
 use App\Models\Ticket;
+use App\Traits\ProcesosTicket;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-use function PHPUnit\Framework\isNull;
-
 class TicketIndex extends Component
 {
-    use WithPagination;
+    use WithPagination, ProcesosTicket;
 
-    public $categorizaciones;
+    public  $title;
+    public  $colorEstado, $colorPrioridad, $colorImpacto;
 
-    public $title;
-    public $color, $colorCol, $colorPrioridad, $colorImpacto;
-    public $modal_delete = false;
-    public $modal_enable = false;
+    public  $ticket_id, $codigo_ticket, $fecha_registro, $compania, $titulo, $descripcion, $estado,
+            $usuario_registro, $contacto, $rolcontacto, $asignado;
+    public  $prioridad, $impacto, $categoria, $clasificacion, $tecnicoAsignado;
+    public  $fechaInicioTicket, $diagnosticoTicket, $clasificado,
+            $fechaFinTicket, $solucionTicket, $ticketTerminado, $fechaticketCancelado, $comentarioCanceladoticket;
 
-    public $ticket_id, $codigo_ticket, $fecha_registro, $pn, $prioAtencion, $impAtencion, $categoriaAtencion, $clasificacionAtencion;
-    public $usuario_registro, $contacto, $compania, $rolcontacto;
-    public $titulo, $descripcion, $estado, $asignado;
-    public $ticket, $prioridad, $impacto, $categoria, $clasificacion, $tecnicoAsignado;
-    public $fechaInicioTicket, $diagnosticoTicket, $diaspasadosDFH, $diaspasadosDFI, $diaspasadosDFF;
-    public $fechaFinTicket, $solucionTicket;
-    public $fechaCancelado_ticket, $comentarioCancelado_ticket;
-    public $tl_fechainicio, $tl_diagnostico, $tl_clasificado, $tl_descripcion, $tl_fechafin, $tl_solucion, $tl_terminado, $tl_fechacancelado, $tl_ticketcancelado;
-    public $sl_fechainicio, $sl_diagnostico, $sl_clasificado, $sl_descripcion, $sl_fechafin, $sl_solucion, $sl_terminado;
+    public  $prioridadAtencion, $categoriaAtencion, $clasificacionAtencion;
 
-    public $listaTecnicos = [], $listaPrioridades = [], $listaImpactos = [], $listaClasificaciones = [], $listeaCategorias = [];
+    public  $listaTecnicos = [], $listaPrioridades = [], $listaImpactos = [], $listaClasificaciones = [], $listaCategorias = [];
 
-    public $modal_ver = false, $modal_asignar = false, $modal_atencion = false;
-    public $modal_lineatiempo = false, $modal_solucion = false, $modal_finalizar = false, $modal_cancelar = false;
+    public  $modal_asignar = false, $modal_atencion = false, $modal_solucion = false, $modal_finalizar = false;
+    public  $modal_ver = false, $modal_lineatiempo = false, $modal_cancelar = false, $modal_cancelado = false;
 
     public $q, $activo;
 
     protected $listeners = [
         'render',
-        'delete',
-        'enable'
     ];
 
     public function rules()
@@ -55,7 +46,7 @@ class TicketIndex extends Component
         ];
     }
 
-    public function modelData()
+    public function modelDataAsignado()
     {
         // 'impacto_id' => $this->impacto,
         return [
@@ -63,12 +54,11 @@ class TicketIndex extends Component
             'categoria_id' => $this->categoria,
             'clasificacion_id' => $this->clasificacion,
             'tecnico_responsable' => $this->tecnicoAsignado,
+            'asignado' => true,
         ];
     }
 
-    public function modelAsignado() { return [ 'asignado' => true, ]; }
-
-    public function modelDiagnostico() {
+    public function modelDataDiagnostico() {
         $fecha_inicio_ticket = Carbon::now();
         $fechaInicio = date($fecha_inicio_ticket);
         $this->fechaInicioTicket = $fechaInicio;
@@ -79,33 +69,31 @@ class TicketIndex extends Component
         ];
     }
 
-    public function modelSolucion() {
+    public function modelDataSolucion() {
         $fechaticket_fin = Carbon::now();
         $fecha_fin_ticket = date($fechaticket_fin);
         $this->fechaFinTicket = $fecha_fin_ticket;
         return [
             'fecha_fin_ticket' => $this->fechaFinTicket,
             'respuesta_ticket' => $this->solucionTicket,
-            'estado_id' => 3
+            'estado_id' => 6
         ];
     }
 
-    public function modelCancelado() {
+    public function modelDataCancelado() {
         $fecha_fin_ticket = Carbon::now();
         $fechaFin = date($fecha_fin_ticket);
-        $this->fechaCancelado_ticket = $fechaFin;
+        $this->fechaticketCancelado = $fechaFin;
         return [
-            'fecha_ticket_cancelado' => $this->fechaCancelado_ticket,
-            'comentario_ticket_cancelado' => $this->comentarioCancelado_ticket,
+            'fecha_ticket_cancelado' => $this->fechaticketCancelado,
+            'comentario_ticket_cancelado' => $this->comentarioCanceladoticket,
             'estado_id' => 5
         ];
     }
 
-    public function modelFinalizar() { return [ 'estado_id' => 4, ]; }
+    public function modelDataFinalizar() { return [ 'estado_id' => 4, ]; }
 
     public function updatingQ() { $this->resetPage(); }
-    public function updatingModalDelete() { $this->resetPage(); }
-    public function updatingModalEnable() { $this->resetPage(); }
 
     public function mount()
     {
@@ -117,18 +105,19 @@ class TicketIndex extends Component
         $this->listaPrioridades = DB::table('prioridades')->where('activo', 1)->pluck('nombre', 'id');
         $this->listaImpactos = DB::table('impacto')->where('activo', 1)->pluck('nombre', 'id');
         $this->listaClasificaciones = DB::table('clasificaciones')->where('activo', 1)->pluck('nombre', 'id');
-        $this->listeaCategorias = DB::table('categorias')->where('activo', 1)->pluck('nombre', 'id');
+        $this->listaCategorias = DB::table('categorias')->where('activo', 1)->pluck('nombre', 'id');
     }
 
     public function mostrarTicket($id)
     {
-        $verTicket = Ticket::where('id', $id)->first();
-        $dfh = Carbon::parse($verTicket->fecha_registro);
+        // $verTicket = Ticket::where('id', $id)->first();
+        $verTicket = $this->ticketID($id);
         $this->ticket_id = $verTicket->id;
         $this->codigo_ticket = $verTicket->codigo_ticket;
-        $this->fecha_registro = $dfh->diffForHumans();
+        $this->fecha_registro = $this->dias_pasados($verTicket->fecha_registro);
         $this->usuario_registro = $verTicket->usuarioRegistro->usuario;
         $this->contacto = $verTicket->contactoTicket->nombres. ' '. $verTicket->contactoTicket->apellidos;
+        $this->rolcontacto = $verTicket->contactoTicket->rol;
         $this->compania = $verTicket->companiaTicket->nombre;
         $this->titulo = $verTicket->ticket_titulo_registro;
         $this->descripcion = $verTicket->ticket_descripcion_registro;
@@ -138,75 +127,36 @@ class TicketIndex extends Component
 
         if ($this->asignado == true) {
             $this->prioridad = $verTicket->prioridadTicket->nombre;
-            // $this->impacto = $verTicket->impactoTicket->nombre;
             $this->categoria = $verTicket->categoriaTicket->nombre;
             $this->clasificacion = $verTicket->clasificacionTicket->nombre;
             $this->tecnicoAsignado = $verTicket->tecnicoResponsable->nombres. ' '.$verTicket->tecnicoResponsable->apellidos;
         }
 
-        switch ($verTicket->estado_id) {
-            case (1):
-                $this->color = 'orange';
-                break;
-            case (2):
-                $this->color = 'yellow';
-                break;
-            case (3):
-                $this->color = 'indigo';
-            case (4):
-                $this->color = 'green';
-                break;
-            case (5):
-                $this->color = 'red';
-                break;
-            case (6):
-                $this->color = 'teal';
-                break;
-            default:
-                $this->color = 'grey';
-        }
+        $this->colorEstado = $this->seleccionColorEstadoModal($verTicket->estado_id);
 
         $this->modal_ver = true;
     }
 
     public function detalleTicket($id)
     {
-        $verTicket = Ticket::where('id', $id)->first();
-        $dfh = Carbon::parse($verTicket->fecha_registro);
+        $verTicket = $this->ticketID($id);
         $this->ticket_id = $verTicket->id;
         $this->codigo_ticket = $verTicket->codigo_ticket;
-        $this->fecha_registro = $dfh->diffForHumans();
+        $this->fecha_registro = $this->dias_pasados($verTicket->fecha_registro);
         $this->compania = $verTicket->companiaTicket->nombre;
         $this->titulo = $verTicket->ticket_titulo_registro;
         $this->descripcion = $verTicket->ticket_descripcion_registro;
         $this->estado = $verTicket->estadoTicket->nombre;
-        switch ($verTicket->estado_id) {
-            case (1):
-                $this->color = 'orange';
-                break;
-            case (2):
-                $this->color = 'yellow';
-                break;
-            case (3):
-                $this->color = 'indigo';
-            case (4):
-                $this->color = 'green';
-                break;
-            case (5):
-                $this->color = 'red';
-                break;
-            default:
-                $this->color = 'grey';
-        }
-
+        $this->colorEstado = $this->seleccionColorEstadoModal($verTicket->estado_id);
+        $this->contacto = $verTicket->contactoTicket->nombres. ' '. $verTicket->contactoTicket->apellidos;
+        $this->rolcontacto = $verTicket->contactoTicket->rol;
         $this->modal_asignar = true;
     }
 
     public function asignarTicket()
     {
         $this->validate();
-        Ticket::where('id', $this->ticket_id)->update($this->modelData());
-        Ticket::where('id', $this->ticket_id)->update($this->modelAsignado());
+        Ticket::where('id', $this->ticket_id)->update($this->modelDataAsignado());
         $this->modal_asignar = false;
         $this->reset([
             'modal_asignar', 'prioridad','categoria', 'clasificacion', 'tecnicoAsignado'
@@ -216,13 +166,10 @@ class TicketIndex extends Component
 
     public function atenderTicket($id)
     {
-        $this->resetValidation();
-        $this->reset();
-        $verTicket = Ticket::where('id', $id)->first();
-        $dfh = Carbon::parse($verTicket->fecha_registro);
+        $verTicket = $this->ticketID($id);
         $this->ticket_id = $verTicket->id;
         $this->codigo_ticket = $verTicket->codigo_ticket;
-        $this->fecha_registro = $dfh->diffForHumans();
+        $this->fecha_registro = $this->dias_pasados($verTicket->fecha_registro);
         $this->compania = $verTicket->companiaTicket->nombre;
         $this->titulo = $verTicket->ticket_titulo_registro;
         $this->descripcion = $verTicket->ticket_descripcion_registro;
@@ -230,60 +177,22 @@ class TicketIndex extends Component
 
         $this->asignado = $verTicket->asignado;
 
-        if ($this->asignado == true) {
-            $this->contacto = $verTicket->contactoTicket->nombres. ' '. $verTicket->contactoTicket->apellidos;
-            $this->rolcontacto = $verTicket->contactoTicket->rol;
-            $this->prioAtencion = $verTicket->prioridadTicket->nombre;
-            // $this->impAtencion = $verTicket->impactoTicket->nombre;
-            $this->categoriaAtencion = $verTicket->categoriaTicket->nombre;
-            $this->clasificacionAtencion = $verTicket->clasificacionTicket->nombre;
-            $this->tecnicoAsignado = $verTicket->tecnicoResponsable->nombres. ' '.$verTicket->tecnicoResponsable->apellidos;
+        $this->contacto = $verTicket->contactoTicket->nombres. ' '. $verTicket->contactoTicket->apellidos;
+        $this->rolcontacto = $verTicket->contactoTicket->rol;
+        $this->prioridadAtencion = $verTicket->prioridadTicket->nombre;
+        $this->categoriaAtencion = $verTicket->categoriaTicket->nombre;
+        $this->clasificacionAtencion = $verTicket->clasificacionTicket->nombre;
+        $this->tecnicoAsignado = $verTicket->tecnicoResponsable->nombres. ' '.$verTicket->tecnicoResponsable->apellidos;
 
-        }
-
-        switch ($verTicket->estado_id) {
-            case (1):
-                $this->color = 'orange';
-                break;
-            case (2):
-                $this->color = 'yellow';
-                break;
-            case (3):
-                $this->color = 'indigo';
-                break;
-            case (4):
-                $this->color = 'green';
-                break;
-            case (5):
-                $this->color = 'red';
-                break;
-            default:
-                $this->color = 'grey';
-        }
-
-        switch ($verTicket->prioridad_id) {
-            case (1):
-                $this->colorPrioridad = 'red';
-                break;
-            case (2):
-                $this->colorPrioridad = 'red';
-                break;
-            case (3):
-                $this->colorPrioridad = 'yellow';
-                break;
-            case (4):
-                $this->colorPrioridad = 'green';
-                break;
-            default:
-                $this->colorPrioridad = 'grey';
-        }
+        $this->colorEstado = $this->seleccionColorEstadoModal($verTicket->estado_id);
+        $this->colorPrioridad = $this->seleccionColorPrioridadModal($verTicket->prioridad_id);
 
         $this->modal_atencion = true;
     }
 
     public function diagnosticoTicket()
     {
-        Ticket::where('id', $this->ticket_id)->update($this->modelDiagnostico());
+        Ticket::where('id', $this->ticket_id)->update($this->modelDataDiagnostico());
         $this->modal_atencion = false;
         $this->reset([
             'modal_asignar', 'fechaInicioTicket', 'diagnosticoTicket'
@@ -293,104 +202,52 @@ class TicketIndex extends Component
 
     public function lineatiempoTicket($id)
     {
-        $verTicket = Ticket::where('id', $id)->first();
-        $dfa = Carbon::now();
-        $dfh = Carbon::parse($verTicket->fecha_registro);
-        $dfI = Carbon::parse($verTicket->fecha_inicio_ticket);
-        $dfF = Carbon::parse($verTicket->fecha_fin_ticket);
+        $verTicket = $this->ticketID($id);
 
         $this->ticket_id = $verTicket->id;
         $this->codigo_ticket = $verTicket->codigo_ticket;
-
-        $this->fecha_registro = $this->dias_pasados($dfh, $dfa);
+        $this->fecha_registro = $this->dias_pasados($verTicket->fecha_registro);
         $this->compania = $verTicket->companiaTicket->nombre;
         $this->titulo = $verTicket->ticket_titulo_registro;
         $this->descripcion = $verTicket->ticket_descripcion_registro;
         $this->estado = $verTicket->estadoTicket->nombre;
+        $this->fechaInicioTicket = $this->dias_pasados($verTicket->fecha_inicio_ticket);
+        $this->diagnosticoTicket = $verTicket->diagnostico_ticket;
+        $this->clasificacionAtencion = $verTicket->clasificacionTicket->nombre;
+        $this->fechaFinTicket = $this->dias_pasados($verTicket->fecha_fin_ticket);
+        $this->solucionTicket = $verTicket->respuesta_ticket;
+        $this->ticketTerminado = $verTicket->ticket_terminado;
+        $this->fechaticketCancelado = $verTicket->fecha_ticket_cancelado;
+        $this->comentarioCanceladoticket = $verTicket->comentario_ticket_cancelado;
 
-        $this->tl_descripcion = $verTicket->ticket_descripcion_registro;
-        $this->tl_fechainicio = $this->dias_pasados($dfI, $dfa);
-        $this->tl_diagnostico = $verTicket->diagnostico_ticket;
-        $this->tl_clasificado = $verTicket->clasificacionTicket->nombre ? $verTicket->clasificacionTicket->nombre : 'Ticket';
-
-        $this->tl_fechafin = $this->dias_pasados($dfF, $dfa);
-        $this->tl_solucion = $verTicket->respuesta_ticket;
-        $this->tl_terminado = $verTicket->ticket_terminado;
-
-        $this->tl_fechacancelado = $verTicket->fecha_ticket_cancelado;
-        $this->tl_ticketcancelado = $verTicket->comentario_ticket_cancelado;
-
-        switch ($verTicket->estado_id) {
-            case (1):
-                $this->color = 'orange';
-                break;
-            case (2):
-                $this->color = 'yellow';
-                break;
-            case (3):
-                $this->color = 'indigo';
-            case (4):
-                $this->color = 'green';
-                break;
-            case (5):
-                $this->color = 'red';
-                break;
-            case (6):
-                $this->color = 'teal';
-                break;
-            default:
-                $this->color = 'grey';
-        }
+        $this->colorEstado = $this->seleccionColorEstadoModal($verTicket->estado_id);
 
         $this->modal_lineatiempo = true;
     }
 
     public function solucionTicket($id)
     {
-        $verTicket = Ticket::where('id', $id)->first();
-        $dfa = Carbon::now();
-        $dfh = Carbon::parse($verTicket->fecha_registro);
-        $dfI = Carbon::parse($verTicket->fecha_inicio_ticket);
+        $verTicket = $this->ticketID($id);
 
         $this->ticket_id = $verTicket->id;
         $this->codigo_ticket = $verTicket->codigo_ticket;
-
-        $this->fecha_registro = $this->dias_pasados($dfh, $dfa);
+        $this->fecha_registro = $this->dias_pasados($verTicket->fecha_registro);
         $this->compania = $verTicket->companiaTicket->nombre;
         $this->titulo = $verTicket->ticket_titulo_registro;
         $this->descripcion = $verTicket->ticket_descripcion_registro;
         $this->estado = $verTicket->estadoTicket->nombre;
+        $this->fechaInicioTicket = $this->dias_pasados($verTicket->fecha_inicio_ticket);
+        $this->diagnosticoTicket = $verTicket->diagnostico_ticket;
+        $this->clasificacionAtencion = $verTicket->clasificacionTicket->nombre;
 
-        $this->sl_descripcion = $verTicket->ticket_descripcion_registro;
-        $this->sl_fechainicio = $this->dias_pasados($dfI, $dfa);
-        $this->sl_diagnostico = $verTicket->diagnostico_ticket;
-        $this->sl_clasificado = $verTicket->clasificacionTicket->nombre;
-
-        switch ($verTicket->estado_id) {
-            case (1):
-                $this->color = 'orange';
-                break;
-            case (2):
-                $this->color = 'yellow';
-                break;
-            case (3):
-                $this->color = 'indigo';
-            case (4):
-                $this->color = 'green';
-                break;
-            case (5):
-                $this->color = 'red';
-                break;
-            default:
-                $this->color = 'grey';
-        }
+        $this->colorEstado = $this->seleccionColorEstadoModal($verTicket->estado_id);
 
         $this->modal_solucion = true;
     }
 
     public function solucionarTicket()
     {
-        Ticket::where('id', $this->ticket_id)->update($this->modelSolucion());
+        Ticket::where('id', $this->ticket_id)->update($this->modelDataSolucion());
         $this->modal_solucion = false;
         $this->reset([
             'modal_solucion', 'fechaFinTicket', 'solucionTicket'
@@ -401,51 +258,23 @@ class TicketIndex extends Component
 
     public function finalizarTicket($id)
     {
-        $verTicket = Ticket::where('id', $id)->first();
-        $dfa = Carbon::now();
-        $dfh = Carbon::parse($verTicket->fecha_registro);
-        $dfI = Carbon::parse($verTicket->fecha_inicio_ticket);
-        $dfF = Carbon::parse($verTicket->fecha_fin_ticket);
+        $verTicket = $this->ticketID($id);
 
         $this->ticket_id = $verTicket->id;
         $this->codigo_ticket = $verTicket->codigo_ticket;
-
-        $this->fecha_registro = $this->dias_pasados($dfh, $dfa);
+        $this->fecha_registro = $this->dias_pasados($verTicket->fecha_registro);
         $this->compania = $verTicket->companiaTicket->nombre;
         $this->titulo = $verTicket->ticket_titulo_registro;
         $this->descripcion = $verTicket->ticket_descripcion_registro;
         $this->estado = $verTicket->estadoTicket->nombre;
+        $this->fechaInicioTicket = $this->dias_pasados($verTicket->fecha_inicio_ticket);
+        $this->diagnosticoTicket = $verTicket->diagnostico_ticket;
+        $this->clasificacionAtencion = $verTicket->clasificacionTicket->nombre;
+        $this->fechaFinTicket = $this->dias_pasados($verTicket->fecha_fin_ticket);
+        $this->solucionTicket = $verTicket->respuesta_ticket;
+        $this->ticketTerminado = $verTicket->ticket_terminado;
 
-        $this->tl_descripcion = $verTicket->ticket_descripcion_registro;
-        $this->tl_fechainicio = $this->dias_pasados($dfI, $dfa);
-        $this->tl_diagnostico = $verTicket->diagnostico_ticket;
-        $this->tl_clasificado = $verTicket->clasificacionTicket->nombre;
-
-        $this->tl_fechafin = $this->dias_pasados($dfF, $dfa);
-        $this->tl_solucion = $verTicket->respuesta_ticket;
-        $this->tl_terminado = $verTicket->ticket_terminado;
-
-        switch ($verTicket->estado_id) {
-            case (1):
-                $this->color = 'orange';
-                break;
-            case (2):
-                $this->color = 'yellow';
-                break;
-            case (3):
-                $this->color = 'indigo';
-            case (4):
-                $this->color = 'green';
-                break;
-            case (5):
-                $this->color = 'red';
-                break;
-            case (6):
-                $this->color = 'teal';
-                break;
-            default:
-                $this->color = 'grey';
-        }
+        $this->colorEstado = $this->seleccionColorEstadoModal($verTicket->estado_id);
 
         $this->modal_finalizar = true;
     }
@@ -453,7 +282,7 @@ class TicketIndex extends Component
 
     public function cerrarTicket()
     {
-        Ticket::where('id', $this->ticket_id)->update($this->modelFinalizar());
+        Ticket::where('id', $this->ticket_id)->update($this->modelDataFinalizar());
         $this->modal_finalizar = false;
         $this->reset([
             'modal_finalizar'
@@ -463,55 +292,55 @@ class TicketIndex extends Component
 
     public function cancelandoTicket($id)
     {
-        $verTicket = Ticket::where('id', $id)->first();
-        $dfa = Carbon::now();
-        $dfh = Carbon::parse($verTicket->fecha_registro);
-        $dfI = Carbon::parse($verTicket->fecha_inicio_ticket);
-        $this->comentarioCancelado_ticket = '';
+        $verTicket = $this->ticketID($id);
+
+        $this->comentarioCanceladoticket = '';
         $this->ticket_id = $verTicket->id;
         $this->codigo_ticket = $verTicket->codigo_ticket;
-
-        $this->fecha_registro = $this->dias_pasados($dfh, $dfa);
+        $this->fecha_registro = $this->dias_pasados($verTicket->fecha_registro);
         $this->compania = $verTicket->companiaTicket->nombre;
         $this->titulo = $verTicket->ticket_titulo_registro;
         $this->descripcion = $verTicket->ticket_descripcion_registro;
         $this->estado = $verTicket->estadoTicket->nombre;
 
-        $this->sl_descripcion = $verTicket->ticket_descripcion_registro;
-        $this->sl_fechainicio = $this->dias_pasados($dfI, $dfa);
-        $this->sl_diagnostico = $verTicket->diagnostico_ticket;
-        // $this->sl_clasificado = is_null($verTicket->clasificacionTicket->nombre) ? '' : $verTicket->clasificacionTicket->nombre;
-
-        switch ($verTicket->estado_id) {
-            case (1):
-                $this->color = 'orange';
-                break;
-            case (2):
-                $this->color = 'yellow';
-                break;
-            case (3):
-                $this->color = 'indigo';
-            case (4):
-                $this->color = 'green';
-                break;
-            case (5):
-                $this->color = 'red';
-                break;
-            default:
-                $this->color = 'grey';
-        }
+        $this->colorEstado = $this->seleccionColorEstadoModal($verTicket->estado_id);
 
         $this->modal_cancelar = true;
     }
 
     public function cancelarTicket()
     {
-        Ticket::where('id', $this->ticket_id)->update($this->modelCancelado());
+        Ticket::where('id', $this->ticket_id)->update($this->modelDataCancelado());
         $this->modal_cancelar = false;
         $this->reset([
-            'modal_cancelar', 'fechaCancelado_ticket','comentarioCancelado_ticket'
+            'modal_cancelar', 'fechaticketCancelado','comentarioCanceladoticket'
         ]);
         $this->emit('alert', 'El ticket fue cancelado satisfactoriamente');
+    }
+
+    public function ticketCancelado($id)
+    {
+        $verTicket = $this->ticketID($id);
+
+        $this->ticket_id = $verTicket->id;
+        $this->codigo_ticket = $verTicket->codigo_ticket;
+        $this->fecha_registro = $this->dias_pasados($verTicket->fecha_registro);
+        $this->compania = $verTicket->companiaTicket->nombre;
+        $this->titulo = $verTicket->ticket_titulo_registro;
+        $this->descripcion = $verTicket->ticket_descripcion_registro;
+        $this->estado = $verTicket->estadoTicket->nombre;
+        $this->fechaInicioTicket = $this->dias_pasados($verTicket->fecha_inicio_ticket);
+        $this->diagnosticoTicket = $verTicket->diagnostico_ticket;
+        $this->clasificacionAtencion = 'ticket';
+        $this->fechaFinTicket = $this->dias_pasados($verTicket->fecha_fin_ticket);
+        $this->solucionTicket = $verTicket->respuesta_ticket;
+        $this->ticketTerminado = $verTicket->ticket_terminado;
+        $this->fechaticketCancelado = $this->dias_pasados($verTicket->fecha_ticket_cancelado);
+        $this->comentarioCanceladoticket = $verTicket->comentario_ticket_cancelado;
+
+        $this->colorEstado = $this->seleccionColorEstadoModal($verTicket->estado_id);
+
+        $this->modal_cancelado = true;
     }
 
     public function render()
@@ -522,20 +351,4 @@ class TicketIndex extends Component
         ]);
     }
 
-    function dias_pasados($fecha_inicial,$fecha_actual)
-    {
-        $dias = (strtotime($fecha_inicial)-strtotime($fecha_actual))/86400;
-        $dias = abs($dias);
-        $dias = floor($dias);
-
-        $ffDI = Carbon::parse($fecha_inicial);
-
-        if ($dias > 7) {
-            $dias = $ffDI->isoFormat('LLLL');
-        } else {
-            $dias = $ffDI->diffForHumans();
-        }
-
-        return $dias;
-    }
 }

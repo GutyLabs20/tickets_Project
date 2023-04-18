@@ -232,6 +232,7 @@
                                                     </button>
                                                 @else
                                                     <button type="button" title="{{ __('Ticket cancelado') }}"
+                                                        wire:click="ticketCancelado( {{ $ticket->id }} )"
                                                         class="rounded inline-block ml-2 px-4 py-1.5 bg-gray-500 text-white font-medium text-xs leading-tight uppercase hover:bg-gray-600 focus:bg-gray-600 focus:outline-none focus:ring-0 active:bg-gray-700 transition duration-150 ease-in-out">
                                                         <i class="fas fa-file-archive"></i>
                                                     </button>
@@ -276,7 +277,7 @@
                     <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">
                         {{ __('Status') }}{{ ':' }}
                         <span
-                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $color }}-200 text-{{ $color }}-800 rounded-lg bg-opacity-50">
+                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $colorEstado }}-200 text-{{ $colorEstado }}-800 rounded-lg bg-opacity-50">
                             {{ $estado }}
                         </span>
                     </label>
@@ -376,7 +377,7 @@
                     <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">
                         {{ __('Status') }}{{ ':' }}
                         <span
-                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $color }}-200 text-{{ $color }}-800 rounded-lg bg-opacity-50">
+                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $colorEstado }}-200 text-{{ $colorEstado }}-800 rounded-lg bg-opacity-50">
                             {{ $estado }}
                         </span>
                     </label>
@@ -484,7 +485,7 @@
                                     class="form-select-sm appearance-none  px-2 py-1 text-sm block w-full font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                     style="width: 100%;">
                                     <option selected>Seleccione categoría</option>
-                                    @foreach ($listeaCategorias as $key => $categoria)
+                                    @foreach ($listaCategorias as $key => $categoria)
                                         <option value="{{ $key }}">
                                             {{ $categoria }}
                                         </option>
@@ -546,7 +547,7 @@
                     <label for="estado" class="block text-sm font-semibold leading-6 text-gray-900">
                         {{ __('Status') }}{{ ':' }}
                         <span
-                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $color }}-200 text-{{ $color }}-800 rounded-lg bg-opacity-50">
+                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $colorEstado }}-200 text-{{ $colorEstado }}-800 rounded-lg bg-opacity-50">
                             {{ $estado }}
                         </span>
                     </label>
@@ -572,7 +573,7 @@
                             <label class="text-gray-500">{{ __('Priority') }}</label>
                             <a
                                 class="relative z-10 rounded-full bg-{{ $colorPrioridad }}-50 px-3 py-1 font-medium text-{{ $colorPrioridad }}-600 hover:bg-{{ $colorPrioridad }}-100">
-                                {{ $prioAtencion }}
+                                {{ $prioridadAtencion }}
                             </a>
 
                         </div>
@@ -676,7 +677,7 @@
                     <label for="estado" class="block text-sm font-semibold leading-6 text-gray-900">
                         {{ __('Status') }}{{ ':' }}
                         <span
-                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $color }}-200 text-{{ $color }}-800 rounded-lg bg-opacity-50">
+                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $colorEstado }}-200 text-{{ $colorEstado }}-800 rounded-lg bg-opacity-50">
                             {{ $estado }}
                         </span>
                     </label>
@@ -708,22 +709,22 @@
                             <div class="pb-8 w-auto">
                                 <p class="mb-2 text-xl font-bold text-gray-600">
                                     Detalle
-                                    @if ($tl_clasificado == 'Reclamo')
+                                    @if ($clasificacionAtencion == 'Reclamo')
                                         {{ 'del ' }}
                                     @else
                                         {{ 'de la ' }}
                                     @endif
-                                    {{ $tl_clasificado }}
+                                    {{ $clasificacionAtencion }}
                                 </p>
                                 <p class="text-gray-700">
-                                    {!! $tl_descripcion !!}
+                                    {!! $descripcion !!}
                                 </p>
                                 <div class="flex items-center gap-x-4 text-xs mt-2">
                                     <label class="text-gray-500">{{ $fecha_registro }}</label>
                                 </div>
                             </div>
                         </div>
-                        @if (!is_null($tl_diagnostico))
+                        @if (!is_null($diagnosticoTicket))
                             <div class="flex">
                                 <div class="flex flex-col items-center mr-4">
                                     <div>
@@ -736,16 +737,16 @@
                                 <div class="pb-8 ">
                                     <p class="mb-2 text-xl font-bold text-gray-600">Diagnostico</p>
                                     <p class="text-gray-700">
-                                        {!! $tl_diagnostico !!}
+                                        {!! $diagnosticoTicket !!}
                                     </p>
                                     <div class="flex items-center gap-x-4 text-xs mt-2">
-                                        <label class="text-gray-500">{{ $tl_fechainicio }}</label>
+                                        <label class="text-gray-500">{{ $fechaInicioTicket }}</label>
                                     </div>
                                 </div>
                             </div>
                         @endif
 
-                        @if (!is_null($tl_solucion))
+                        @if (!is_null($solucionTicket))
                             <div class="flex">
                                 <div class="flex flex-col items-center mr-4">
                                     <div>
@@ -758,16 +759,16 @@
                                 <div class="pb-8 ">
                                     <p class="mb-2 text-xl font-bold text-gray-600">Solución</p>
                                     <p class="text-gray-700">
-                                        {!! $tl_solucion !!}
+                                        {!! $solucionTicket !!}
                                     </p>
                                     <div class="flex items-center gap-x-4 text-xs mt-2">
-                                        <label class="text-gray-500">{{ $tl_fechafin }}</label>
+                                        <label class="text-gray-500">{{ $fechaFinTicket }}</label>
                                     </div>
                                 </div>
                             </div>
                         @endif
 
-                        @if ($tl_terminado == true)
+                        @if ($ticketTerminado == true)
                             <div class="flex">
                                 <div class="flex flex-col items-center mr-4">
                                     <div>
@@ -782,7 +783,7 @@
                             </div>
                         @endif
 
-                        @if (!is_null($tl_ticketcancelado))
+                        @if (!is_null($comentarioCanceladoticket))
                             <div class="flex">
                                 <div class="flex flex-col items-center mr-4">
                                     <div>
@@ -795,10 +796,10 @@
                                 <div class="pb-8 ">
                                     <p class="mb-2 text-xl font-bold text-gray-600">Cancelado</p>
                                     <p class="text-gray-700">
-                                        {!! $tl_ticketcancelado !!}
+                                        {!! $comentarioCanceladoticket !!}
                                     </p>
                                     <div class="flex items-center gap-x-4 text-xs mt-2">
-                                        <label class="text-gray-500">{{ $tl_fechafin }}</label>
+                                        <label class="text-gray-500">{{ $fechaticketCancelado }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -838,7 +839,7 @@
                     <label for="estado" class="block text-sm font-semibold leading-6 text-gray-900">
                         {{ __('Status') }}{{ ':' }}
                         <span
-                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $color }}-200 text-{{ $color }}-800 rounded-lg bg-opacity-50">
+                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $colorEstado }}-200 text-{{ $colorEstado }}-800 rounded-lg bg-opacity-50">
                             {{ $estado }}
                         </span>
                     </label>
@@ -871,22 +872,22 @@
                             <div class="pb-8 w-auto">
                                 <p class="mb-2 text-xl font-bold text-gray-600">
                                     Detalle
-                                    @if ($sl_clasificado == 'Reclamo')
+                                    @if ($clasificacionAtencion == 'Reclamo')
                                         {{ 'del ' }}
                                     @else
                                         {{ 'de la ' }}
                                     @endif
-                                    {{ $sl_clasificado }}
+                                    {{ $clasificacionAtencion }}
                                 </p>
                                 <p class="text-gray-700">
-                                    {!! $sl_descripcion !!}
+                                    {!! $descripcion !!}
                                 </p>
                                 <div class="flex items-center gap-x-4 text-xs mt-2">
                                     <label class="text-gray-500">{{ $fecha_registro }}</label>
                                 </div>
                             </div>
                         </div>
-                        @if (!is_null($sl_diagnostico))
+                        @if (!is_null($diagnosticoTicket))
                             <div class="flex">
                                 <div class="flex flex-col items-center mr-4">
                                     <div>
@@ -899,10 +900,10 @@
                                 <div class="pb-8 ">
                                     <p class="mb-2 text-xl font-bold text-gray-600">Diagnostico</p>
                                     <p class="text-gray-700">
-                                        {!! $sl_diagnostico !!}
+                                        {!! $diagnosticoTicket !!}
                                     </p>
                                     <div class="flex items-center gap-x-4 text-xs mt-2">
-                                        <label class="text-gray-500">{{ $sl_fechainicio }}</label>
+                                        <label class="text-gray-500">{{ $fechaInicioTicket }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -916,12 +917,12 @@
                     <div class="mx-auto max-w-2xl lg:mx-0 text-center">
                         <p class="mt-1 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
                             {{ __('Solucion ') }}
-                            @if ($sl_clasificado == 'Reclamo')
+                            @if ($clasificacionAtencion == 'Reclamo')
                                 {{ 'del ' }}
                             @else
                                 {{ 'de la ' }}
                             @endif
-                            {{ $sl_clasificado }}
+                            {{ $clasificacionAtencion }}
                         </p>
                     </div>
                 </div>
@@ -978,7 +979,7 @@
                     <label for="estado" class="block text-sm font-semibold leading-6 text-gray-900">
                         {{ __('Status') }}{{ ':' }}
                         <span
-                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $color }}-200 text-{{ $color }}-800 rounded-lg bg-opacity-50">
+                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $colorEstado }}-200 text-{{ $colorEstado }}-800 rounded-lg bg-opacity-50">
                             {{ $estado }}
                         </span>
                     </label>
@@ -1010,22 +1011,22 @@
                             <div class="pb-8 w-auto">
                                 <p class="mb-2 text-xl font-bold text-gray-600">
                                     Detalle
-                                    @if ($tl_clasificado == 'Reclamo')
+                                    @if ($clasificacionAtencion == 'Reclamo')
                                         {{ 'del ' }}
                                     @else
                                         {{ 'de la ' }}
                                     @endif
-                                    {{ $tl_clasificado }}
+                                    {{ $clasificacionAtencion }}
                                 </p>
                                 <p class="text-gray-700">
-                                    {!! $tl_descripcion !!}
+                                    {!! $descripcion !!}
                                 </p>
                                 <div class="flex items-center gap-x-4 text-xs mt-2">
                                     <label class="text-gray-500">{{ $fecha_registro }}</label>
                                 </div>
                             </div>
                         </div>
-                        @if (!is_null($tl_diagnostico))
+                        @if (!is_null($diagnosticoTicket))
                             <div class="flex">
                                 <div class="flex flex-col items-center mr-4">
                                     <div>
@@ -1038,16 +1039,16 @@
                                 <div class="pb-8 ">
                                     <p class="mb-2 text-xl font-bold text-gray-600">Diagnostico</p>
                                     <p class="text-gray-700">
-                                        {!! $tl_diagnostico !!}
+                                        {!! $diagnosticoTicket !!}
                                     </p>
                                     <div class="flex items-center gap-x-4 text-xs mt-2">
-                                        <label class="text-gray-500">{{ $tl_fechainicio }}</label>
+                                        <label class="text-gray-500">{{ $fechaInicioTicket }}</label>
                                     </div>
                                 </div>
                             </div>
                         @endif
 
-                        @if (!is_null($tl_solucion))
+                        @if (!is_null($solucionTicket))
                             <div class="flex">
                                 <div class="flex flex-col items-center mr-4">
                                     <div>
@@ -1060,16 +1061,16 @@
                                 <div class="pb-8 ">
                                     <p class="mb-2 text-xl font-bold text-gray-600">Solución</p>
                                     <p class="text-gray-700">
-                                        {!! $tl_solucion !!}
+                                        {!! $solucionTicket !!}
                                     </p>
                                     <div class="flex items-center gap-x-4 text-xs mt-2">
-                                        <label class="text-gray-500">{{ $tl_fechafin }}</label>
+                                        <label class="text-gray-500">{{ $fechaFinTicket }}</label>
                                     </div>
                                 </div>
                             </div>
                         @endif
 
-                        @if ($tl_terminado == true)
+                        @if ($ticketTerminado == true)
                             <div class="flex">
                                 <div class="flex flex-col items-center mr-4">
                                     <div>
@@ -1120,7 +1121,7 @@
                     <label for="estado" class="block text-sm font-semibold leading-6 text-gray-900">
                         {{ __('Status') }}{{ ':' }}
                         <span
-                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $color }}-200 text-{{ $color }}-800 rounded-lg bg-opacity-50">
+                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $colorEstado }}-200 text-{{ $colorEstado }}-800 rounded-lg bg-opacity-50">
                             {{ $estado }}
                         </span>
                     </label>
@@ -1152,10 +1153,17 @@
                             </div>
                             <div class="pb-8 w-auto">
                                 <p class="mb-2 text-xl font-bold text-gray-600">
-                                    Detalle Ticket
+                                    Descripción del Ticket
+                                    {{-- @if ($clasificacionAtencion == 'Reclamo')
+                                        {{ 'del ' }}
+                                    @else
+                                        {{ 'de la ' }}
+                                    @endif
+                                    {{ $clasificacionAtencion }} --}}
+
                                 </p>
                                 <p class="text-gray-700">
-                                    {!! $sl_descripcion !!}
+                                    {!! $descripcion !!}
                                 </p>
                                 <div class="flex items-center gap-x-4 text-xs mt-2">
                                     <label class="text-gray-500">{{ $fecha_registro }}</label>
@@ -1208,6 +1216,159 @@
             <x-jet-danger-button wire:click="cancelarTicket" wire:loading.attr="disabled" class="ml-2">
                 {{ __('Cancelar') }}{{ __(' Ticket') }}
             </x-jet-danger-button>
+        </x-slot>
+
+    </x-jet-dialog-modal>
+
+    {{-- Modal Ver para Ticket Cancelado--}}
+    <x-jet-dialog-modal wire:model="modal_cancelado">
+        <x-slot name="title">
+            <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                <div>
+                    <label for="codigo_ticket" class="block text-sm font-semibold leading-6 text-gray-900">
+                        {{ __('Ticket N°: ') }}
+                        <span href="#"
+                            class="font-bold text-blue-500 hover:underline">{{ $codigo_ticket }}</span>
+                    </label>
+                </div>
+                <div>
+                    <label for="estado" class="block text-sm font-semibold leading-6 text-gray-900">
+                        {{ __('Status') }}{{ ':' }}
+                        <span
+                            class="toggle-checkbox p-1.5 text-xs font-medium uppercase tracking-wider bg-{{ $colorEstado }}-200 text-{{ $colorEstado }}-800 rounded-lg bg-opacity-50">
+                            {{ $estado }}
+                        </span>
+                    </label>
+                </div>
+
+            </div>
+        </x-slot>
+
+        <x-slot name="content" class="border-t border-gray-200">
+
+            <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div class="mx-auto max-w-2xl lg:mx-0 text-center">
+                        <h3 class="text-1xl my-2 font-bold tracking-tight text-gray-900 sm:text-2xl">
+                            {{ $compania }}</h3>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 p-4">
+                    <div class="w-full">
+                        <div class="flex">
+                            <div class="flex flex-col items-center mr-4">
+                                <div>
+                                    <div class="flex items-center justify-center w-10 h-10 border rounded-full">
+                                        <i class="fas fa-hourglass-start"></i>
+                                    </div>
+                                </div>
+                                <div class="w-px h-full bg-gray-300"></div>
+                            </div>
+                            <div class="pb-8 w-auto">
+                                <p class="mb-2 text-xl font-bold text-gray-600">
+                                    Descripción del Ticket
+                                </p>
+                                <p class="text-gray-700">
+                                    {!! $descripcion !!}
+                                </p>
+                                <div class="flex items-center gap-x-4 text-xs mt-2">
+                                    <label class="text-gray-500">{{ $fecha_registro }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        @if (!is_null($diagnosticoTicket))
+                            <div class="flex">
+                                <div class="flex flex-col items-center mr-4">
+                                    <div>
+                                        <div class="flex items-center justify-center w-10 h-10 border rounded-full">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-px h-full bg-gray-300"></div>
+                                </div>
+                                <div class="pb-8 ">
+                                    <p class="mb-2 text-xl font-bold text-gray-600">Diagnostico</p>
+                                    <p class="text-gray-700">
+                                        {!! $diagnosticoTicket !!}
+                                    </p>
+                                    <div class="flex items-center gap-x-4 text-xs mt-2">
+                                        <label class="text-gray-500">{{ $fechaInicioTicket }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if (!is_null($solucionTicket))
+                            <div class="flex">
+                                <div class="flex flex-col items-center mr-4">
+                                    <div>
+                                        <div class="flex items-center justify-center w-10 h-10 border rounded-full">
+                                            <i class="fas fa-cogs"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-px h-full bg-gray-300"></div>
+                                </div>
+                                <div class="pb-8 ">
+                                    <p class="mb-2 text-xl font-bold text-gray-600">Solución</p>
+                                    <p class="text-gray-700">
+                                        {!! $solucionTicket !!}
+                                    </p>
+                                    <div class="flex items-center gap-x-4 text-xs mt-2">
+                                        <label class="text-gray-500">{{ $fechaFinTicket }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if ($ticketTerminado == true)
+                            <div class="flex">
+                                <div class="flex flex-col items-center mr-4">
+                                    <div>
+                                        <div class="flex items-center justify-center w-10 h-10 border rounded-full">
+                                            <i class="fas fa-hourglass-end"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-1">
+                                    <p class="mb-2 text-lg font-bold text-gray-600">{{ $estado }}</p>
+                                </div>
+                            </div>
+                        @endif
+
+                        @if (!is_null($comentarioCanceladoticket))
+                            <div class="flex">
+                                <div class="flex flex-col items-center mr-4">
+                                    <div>
+                                        <div class="flex items-center justify-center w-10 h-10 border rounded-full">
+                                            <i class="fas fa-ban"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-px h-full bg-gray-300"></div>
+                                </div>
+                                <div class="pb-8 ">
+                                    <p class="mb-2 text-xl font-bold text-gray-600">Cancelado</p>
+                                    <p class="text-gray-700">
+                                        {!! $comentarioCanceladoticket !!}
+                                    </p>
+                                    <div class="flex items-center gap-x-4 text-xs mt-2">
+                                        <label class="text-gray-500">{{ $fechaticketCancelado }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                    </div>
+                </div>
+            </div>
+
+        </x-slot>
+
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:loading.attr="disabled" wire:click="$set('modal_cancelado', false)">
+                {{ __('Close') }}
+            </x-jet-secondary-button>
+
         </x-slot>
 
     </x-jet-dialog-modal>
