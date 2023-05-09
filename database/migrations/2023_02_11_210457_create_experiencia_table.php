@@ -16,7 +16,7 @@ class CreateExperienciaTable extends Migration
         Schema::create('experiencia', function (Blueprint $table) {
             $table->id();
 
-            $table->string('satisfaccion');
+            $table->string('satisfaccion', 10)->nullable();
             $table->char('valor', 1);
             $table->unsignedBigInteger('colaborador_id')->nullable();
             $table->foreign('colaborador_id')->references('id')->on('entidad_colaboradores')->cascadeOnDelete();

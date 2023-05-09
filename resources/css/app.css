@@ -19,3 +19,41 @@
 .custom-block-indent-c {
     margin-left: 30%;
 }
+
+/* calificacin estrellas */
+#form {
+    width: 250px;
+    margin: 0 auto;
+    height: 50px;
+}
+
+#form p {
+    text-align: center;
+}
+
+#form .estrellas {
+    font-size: 24px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.estrellas {
+    color: grey;
+    font-size: 24px;
+}
+
+.clasificacion {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+}
+
+.estrellas:hover,
+.estrellas:hover~.estrellas {
+    color: orange;
+}
+
+input[type="radio"]:checked~.estrellas {
+    color: orange;
+}

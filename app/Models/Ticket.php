@@ -31,11 +31,12 @@ class Ticket extends Model
         'fecha_fin_ticket',
         'respuesta_ticket',
         'ticket_terminado',
+        'calificado',
         'fecha_respuesta_cliente',
         'respuesta_cliente',
         'fecha_ticket_cancelado',
         'comentario_ticket_cancelado',
-        'calificado',
+        'calificado_id',
         'estado_id',
     ];
 
@@ -48,4 +49,5 @@ class Ticket extends Model
     public function categoriaTicket() { return $this->belongsTo(Categoria::class, 'categoria_id'); }
     public function clasificacionTicket() { return $this->belongsTo(Clasificacion::class, 'clasificacion_id'); }
     public function estadoTicket() { return $this->belongsTo(Estado::class, 'estado_id'); }
+    public function experienciaTicket() { return $this->belongsTo(Experiencia::class, 'calificacion_id'); }
 }

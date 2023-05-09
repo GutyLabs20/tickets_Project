@@ -27,12 +27,9 @@ class TicketCrear extends Component
     public function mount()
     {
         $this->companias = DB::table('entidad')
-                ->select(DB::raw("CONCAT(nro_doc,'  🏭 ',nombre) AS compania"),'id')
+                ->select(DB::raw("CONCAT('🏭 ', nro_doc,' ',nombre) AS compania"),'id')
                 ->where('activo', 1)->get()->pluck('compania', 'id');
         $this->contactos = collect();
-        // $this->contactos = DB::table('entidad_colaboradores')
-        //         ->select(DB::raw("CONCAT(nombres, ' ', apellidos) AS contacto"),'id')
-        //         ->where('activo', 1)->where('entidad_id', 3)->get()->pluck('contacto', 'id');
     }
 
     public function updatedCompania($compania) {
@@ -56,11 +53,14 @@ class TicketCrear extends Component
     {
         $this->open = false;
         $this->resetCreateForm();
+        $this->reset();
     }
 
     private function resetCreateForm(){
         $this->ticket_titulo_registro = '';
         $this->ticket_descripcion_registro = '';
+        $this->compania = '';
+        $this->contacto = '';
     }
 
     public function save()

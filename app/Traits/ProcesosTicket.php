@@ -27,7 +27,7 @@ trait ProcesosTicket {
         $dias = floor($dias);
 
         if ($dias > 7) {
-            $dias = $format_fecha_inicial->isoFormat('LLLL');
+            $dias = $format_fecha_inicial->isoFormat('LL');
         } else {
             $dias = $format_fecha_inicial->diffForHumans();
         }
@@ -69,10 +69,10 @@ trait ProcesosTicket {
                 $colorPrioridad = 'red';
                 break;
             case (2):
-                $colorPrioridad = 'red';
+                $colorPrioridad = 'yellow';
                 break;
             case (3):
-                $colorPrioridad = 'yellow';
+                $colorPrioridad = 'blue';
                 break;
             case (4):
                 $colorPrioridad = 'green';
@@ -81,6 +81,30 @@ trait ProcesosTicket {
                 $colorPrioridad = 'grey';
         }
         return $colorPrioridad;
+    }
+
+    public function seleccionCalificacion($valor)
+    {
+        switch (intval($valor)) {
+            case (1):
+                $satisfaccion = 'Mala';
+                break;
+            case (2):
+                $satisfaccion = 'Regular';
+                break;
+            case (3):
+                $satisfaccion = 'Buena';
+                break;
+            case (4):
+                $satisfaccion = 'Muy Buena';
+                break;
+            case (5):
+                $satisfaccion = 'Excelente';
+                break;
+            default:
+                $satisfaccion = 'Sin selección';
+        }
+        return $satisfaccion;
     }
 
 }

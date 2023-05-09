@@ -21,8 +21,8 @@ class CreateTicketsTable extends Migration
             $table->unsignedBigInteger('usuario_registro')->nullable();
             $table->foreign('usuario_registro')->references('id')->on('users')->cascadeOnDelete();
 
-            $table->unsignedBigInteger('cliente_usuario_registro')->nullable();
-            $table->foreign('cliente_usuario_registro')->references('id')->on('entidad_colaboradores')->cascadeOnDelete();
+            $table->unsignedBigInteger('contacto')->nullable();
+            $table->foreign('contacto')->references('id')->on('entidad_colaboradores')->cascadeOnDelete();
 
             $table->unsignedBigInteger('compania_id')->nullable();
             $table->foreign('compania_id')->references('id')->on('entidad')->cascadeOnDelete();
@@ -60,6 +60,12 @@ class CreateTicketsTable extends Migration
 
             $table->string('fecha_respuesta_cliente')->nullable();
             $table->text('respuesta_cliente')->nullable();
+
+            $table->string('fecha_ticket_cancelado')->nullable();
+            $table->text('comentario_ticket_cancelado')->nullable();
+
+            $table->unsignedBigInteger('calificado_id')->nullable();
+            $table->foreign('calificado_id')->references('id')->on('lista_experiencia')->cascadeOnDelete();
 
             $table->unsignedBigInteger('estado_id')->nullable();
             $table->foreign('estado_id')->references('id')->on('estados')->cascadeOnDelete();
